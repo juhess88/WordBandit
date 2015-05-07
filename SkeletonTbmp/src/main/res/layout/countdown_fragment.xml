@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- I made the fragment countdown visibility gone in this xml
+    and also in the main activity xml-->
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="40dp"
+        android:layout_height="43dp"
+        android:gravity="center"
+        android:background="@drawable/timer_background"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>

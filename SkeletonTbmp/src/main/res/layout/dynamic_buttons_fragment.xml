@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dyn_buttons_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/newbutton0"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton1"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/newbutton2"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/newbutton3"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton4"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton5"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/newbutton6"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton7"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton8"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_weight="1"
+            android:clickable="true"
+
+
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/newbutton9"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+
+
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton10"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+
+
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton11"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_weight="1"
+            android:clickable="true"
+
+
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/newbutton12"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+
+
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton13"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+
+
+            android:clickable="true"
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/newbutton14"
+            android:layout_width="0px"
+            android:layout_height="@dimen/size"
+            android:layout_weight="1"
+            android:clickable="true"
+
+
+            android:tag="0"
+
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

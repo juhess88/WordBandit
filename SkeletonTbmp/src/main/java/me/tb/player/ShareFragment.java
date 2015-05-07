@@ -22,6 +22,7 @@ public class ShareFragment extends Fragment {
     TextView txt;
     String message;
     String test;
+    String test2;
 
     @Override
     public View onCreateView(LayoutInflater inflater,

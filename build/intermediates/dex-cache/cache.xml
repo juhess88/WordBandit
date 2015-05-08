@@ -44,6 +44,13 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\gson-2.3-8f9a911e77a90aa4473afbb3a53729737d63afd0.jar" />
     </item>
     <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.0.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-c7960d41a5c75b7f774d72ec961979f93f0a0c13.jar" />
+    </item>
+    <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -68,7 +75,7 @@
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\BasicSamples.libraries\BaseGameUtils\unspecified\classes.jar"
         jumboMode="false"
         revision="22.0.0"
-        sha1="047a7b130a19593ed31e7a5f61f776946ac7edde">
+        sha1="58f8f17df7e7875a51b604c445ddebff400e6cd8">
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-9bbdd00612279a9743d803b631083805c5676d41.jar" />
     </item>
 

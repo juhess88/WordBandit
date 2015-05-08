@@ -16,7 +16,6 @@
 
 package me.tb.player;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -30,18 +29,17 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -182,7 +180,6 @@ public class SkeletonActivity extends ActionBarActivity
     ListView2 lv2;
     CountdownFragment cf;
     StealTextFragment st;
-    ShareFragment sf;
 
     FragmentManager manager;
 
@@ -215,6 +212,10 @@ public class SkeletonActivity extends ActionBarActivity
     static String shareMessageBody = "";
     static String shareMessageCombo = "";
     private Toolbar toolbar;
+
+    private RecyclerView recyclerView;
+    private RecyclerShareAdapter recyclerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,7 +263,6 @@ public class SkeletonActivity extends ActionBarActivity
         lv2 = new ListView2();
         cf = new CountdownFragment();
         st = new StealTextFragment();
-        sf = new ShareFragment();
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -276,9 +276,22 @@ public class SkeletonActivity extends ActionBarActivity
         transaction.add(R.id.fragment_listview2, lv2, "LFrag2");
         transaction.add(R.id.fragment_countdown, cf, "CFrag");
         transaction.add(R.id.fragment_steal_me, st, "SFrag").hide(st);
-        transaction.add(R.id.fragment_share, sf, "ShFrag").hide(sf);
 
         transaction.commit();
+
+    }
+
+    public static List<RecyclerShareModel> getData() {
+        List<RecyclerShareModel> data = new ArrayList<>();
+        int icon = R.drawable.shareicon;
+        String title = shareMessageCombo;
+
+        RecyclerShareModel current = new RecyclerShareModel();
+        current.iconId = icon;
+        current.title = title;
+        data.add(current);
+
+        return data;
     }
 
 
@@ -323,10 +336,10 @@ public class SkeletonActivity extends ActionBarActivity
         super.onRestart();
         Log.d(TAG, "onRestart(): onRestart called");
 
-            if (isViewingBoardAfterTurn) {
-                lv1.adapter1.clear();
-                lv2.adapter2.clear();
-            }
+        if (isViewingBoardAfterTurn) {
+            lv1.adapter1.clear();
+            lv2.adapter2.clear();
+        }
     }
 
     @Override
@@ -401,7 +414,7 @@ public class SkeletonActivity extends ActionBarActivity
                 return;
             }
         }
-            setViewVisibility();
+        setViewVisibility();
 
         // As a demonstration, we are registering this activity as a handler for
         // invitation and match events.
@@ -490,6 +503,16 @@ public class SkeletonActivity extends ActionBarActivity
 
         MenuItem tile_item = menu.findItem(R.id.tile_count);
         tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
+
+        if(findViewById(R.id.gameplay_layout).getVisibility() == View.GONE){
+            tile_item.setVisible(false);
+            MenuItem shuffle = menu.findItem(R.id.shuffle);
+            shuffle.setVisible(false);
+        } else {
+            tile_item.setVisible(true);
+            MenuItem shuffle = menu.findItem(R.id.shuffle);
+            shuffle.setVisible(true);
+        }
 
         return true;
     }
@@ -751,9 +774,9 @@ public class SkeletonActivity extends ActionBarActivity
         } else {
             if (isViewingBoardAfterTurn) {
                 Intent intent = new Intent(SkeletonActivity.this, AfterTurnComplete.class);
-                intent.putStringArrayListExtra("button_letter", (ArrayList)bl.getButton_letter());
-                intent.putStringArrayListExtra("list1", (ArrayList)lv1View);
-                intent.putStringArrayListExtra("list2", (ArrayList)lv2View);
+                intent.putStringArrayListExtra("button_letter", (ArrayList) bl.getButton_letter());
+                intent.putStringArrayListExtra("list1", (ArrayList) lv1View);
+                intent.putStringArrayListExtra("list2", (ArrayList) lv2View);
                 intent.putExtra("score1", pointview1);
                 intent.putExtra("score2", pointview2);
                 intent.putExtra("name1", nameView1);
@@ -761,7 +784,7 @@ public class SkeletonActivity extends ActionBarActivity
                 intent.putExtra("pic1", profView1);
                 intent.putExtra("pic2", profview2);
                 intent.putExtra("tiles", tilesRemainingView);
-                intent.putExtra("share",shareMessageCombo);
+                intent.putExtra("share", shareMessageCombo);
                 startActivity(intent);
                 SkeletonActivity.this.finish();
 
@@ -868,14 +891,14 @@ public class SkeletonActivity extends ActionBarActivity
         isDoingTurn = true;
         setViewVisibility();
 
+        shareMessageCombo = mTurnData.messageCombo;
+
         //Create the next round when player one has turn
         if (mTurnData.myParticipantIdST.equals("p_1")) {
             mTurnData.roundCounter++;
         }
         // Create the next turn
         mTurnData.turnCounter += 1;
-
-        sf.getMessageCombo(mTurnData.messageCombo);
 
         nextTurn = mTurnData.turnCounter + 1;
 
@@ -928,16 +951,30 @@ public class SkeletonActivity extends ActionBarActivity
         profview2 = mTurnData.playerprofile2;
         bl.my_list_counter = mTurnData.my_list_counterST;
 
-//        if (bl.list_of_letters.size() == 0)
-//            Toast.makeText(this, "FINAL TURN", TOAST_DELAY).show();
-
-//        mTurnTextView.setText("Turn " + mTurnData.turnCounter);
-
-//        cf.startCountdown();
-
         if (!myTurn) {
             for (int i = 0; i < bl.button_list.size(); i++) {
                 bl.button_list.get(i).setClickable(false);
+                recyclerView = (RecyclerView) findViewById(R.id.recycleShare);
+                recyclerView.addOnItemTouchListener(
+                        new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                try {
+                                    String type = "image/*";
+                                    String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+                                    AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, mTurnData.messageCombo);
+
+                                } catch (Exception e) {
+                                    // TODO: handle exception
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                );
+                recyclerAdapter = new RecyclerShareAdapter(this, getData());
+                recyclerView.setAdapter(recyclerAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setVisibility(View.VISIBLE);
             }
         }
 
@@ -1082,30 +1119,6 @@ public class SkeletonActivity extends ActionBarActivity
                 db.clearTheNewClickedButtons();
             }
         });
-//                .setNegativeButton("Share",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                // if this button is clicked, close
-//                                // current activity
-//                                try
-//                                {
-//                                    String type = "image/*";
-////                        String filename = "/sdcard/myomer_icon.png";
-//                                    String mediaPath = Environment.getExternalStorageDirectory()+"/game_icon1.png";
-//
-//                                    createInstagramIntent(type, mediaPath, shareMessageCombo);
-////                                    turnComplete();
-//
-//                                }
-//                                catch (Exception e)
-//                                {
-//                                    // TODO: handle exception
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        });
-
 
         // create alert dialog
         mAlertDialog = alertDialogBuilder.create();
@@ -1171,29 +1184,6 @@ public class SkeletonActivity extends ActionBarActivity
 
         }
 
-    }
-
-    //This controls all the sharing platform intents
-    private void createInstagramIntent(String type, String mediaPath, String caption) {
-
-        // Create the new Intent using the 'Send' action.
-        Intent share = new Intent(Intent.ACTION_SEND);
-
-        // Set the MIME type
-        share.setType(type);
-
-        // Create the URI from the media
-        File media = new File(mediaPath);
-        Uri uri = Uri.fromFile(media);
-
-        // Add the URI and the caption to the Intent.
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-        share.putExtra(Intent.EXTRA_TEXT, caption);
-        share.putExtra(Intent.EXTRA_SUBJECT, "Check this out");
-        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        // Broadcast the Intent.
-        startActivity(Intent.createChooser(share, "Share to"));
     }
 
     @Override
@@ -1548,7 +1538,7 @@ public class SkeletonActivity extends ActionBarActivity
                     viewEndOfGame2 = true;
                     lv1.setMyTurn(false);
                     lv2.setMyTurn(false);
-                    manager.beginTransaction().show(sf).commit();
+//                    manager.beginTransaction().show(sf).commit();
                     mTurnData = SkeletonTurn.unpersist(mMatch.getData());
                     setGameplayUI();
                     int x = 0;
@@ -1584,7 +1574,7 @@ public class SkeletonActivity extends ActionBarActivity
 
                 EditText e = (EditText) findViewById(R.id.edittextfrag);
                 e.setHint("Turn Complete");
-                manager.beginTransaction().show(sf).commit();
+//                manager.beginTransaction().show(sf).commit();
                 myTurn = false;
                 lv1.setMyTurn(false);
                 lv2.setMyTurn(false);

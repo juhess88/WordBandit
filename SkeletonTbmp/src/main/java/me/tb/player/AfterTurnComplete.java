@@ -1,5 +1,6 @@
 package me.tb.player;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -50,6 +53,9 @@ public class AfterTurnComplete extends ActionBarActivity {
     String tiles = "";
 
     Bitmap mIcon11 = null;
+
+    private RecyclerView recyclerView;
+    private RecyclerShareAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,27 +142,52 @@ public class AfterTurnComplete extends ActionBarActivity {
             adapter2.insert(list2.get(i), 0);
         }
 
-        final String shareMessage = intent.getStringExtra("share");
-        TextView txt = (TextView) findViewById(R.id.shareText);
-        txt.setText(shareMessage);
-        txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    String type = "image/*";
-                    String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
-                    createInstagramIntent(type, mediaPath, shareMessage);
+//        final String shareMessage = intent.getStringExtra("share");
+//        TextView txt = (TextView) findViewById(R.id.shareText);
+//        txt.setText(shareMessage);
+//        txt.setOnClickListener(new View.OnClickListener() {
 
-                } catch (Exception e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
-                }
-            }
-        });
+//            }
+//        });
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycleShare2);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        try {
+                            String type = "image/*";
+                            String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+                            createInstagramIntent(AfterTurnComplete.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
+
+                        } catch (Exception e) {
+                            // TODO: handle exception
+                            e.printStackTrace();
+                        }
+                    }
+                })
+        );
+
+        recyclerAdapter = new RecyclerShareAdapter(this, getData());
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public static List<RecyclerShareModel> getData() {
+        List<RecyclerShareModel> data = new ArrayList<>();
+        int icon = R.drawable.shareicon;
+        String title = SkeletonActivity.shareMessageCombo;
+
+        RecyclerShareModel current = new RecyclerShareModel();
+        current.iconId = icon;
+        current.title = title;
+        data.add(current);
+
+        return data;
     }
 
     //This controls all the sharing platform intents
-    private void createInstagramIntent(String type, String mediaPath, String caption) {
+    public static void createInstagramIntent(Context context, String type, String mediaPath, String caption) {
 
         // Create the new Intent using the 'Send' action.
         Intent share = new Intent(Intent.ACTION_SEND);
@@ -175,7 +206,7 @@ public class AfterTurnComplete extends ActionBarActivity {
         share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         // Broadcast the Intent.
-        startActivity(Intent.createChooser(share, "Share to"));
+        context.startActivity(Intent.createChooser(share, "Share to"));
     }
 
     @Override
@@ -212,8 +243,6 @@ public class AfterTurnComplete extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        Intent intent = new Intent(AfterTurnComplete.this, SkeletonActivity.class);
-//        startActivity(intent);
         this.finish();
     }
 

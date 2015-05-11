@@ -30,23 +30,12 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
     //list of buttons
     List<Button> newButtonList = new ArrayList<Button>();
 
-    List<CardView> newCardView = new ArrayList<CardView>();
-
     Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10,
             b11, b12, b13, b14;
-
-    CardView cv0, cv1, cv2, cv3, cv4, cv5, cv6, cv7, cv8, cv9, cv10,
-            cv11, cv12, cv13, cv14;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            int androidVersion = android.os.Build.VERSION.SDK_INT;
-            return inflater.inflate(R.layout.dynamic_cardview_buttons_fragment, container, false);
-        }
-        Log.d("BUILD VERSION",""+ Build.VERSION.SDK_INT);
         return inflater.inflate(R.layout.dynamic_buttons_fragment, container, false);
     }
 
@@ -59,9 +48,7 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
         Button[] bttn_arr = new Button[]{b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10,
                 b11, b12, b13, b14};
 
-
         newButtonList.addAll(Arrays.asList(bttn_arr));
-
 
         newButtonList.set(0, (Button) getActivity().findViewById(R.id.newbutton0));
         newButtonList.set(1, (Button) getActivity().findViewById(R.id.newbutton1));
@@ -79,28 +66,6 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
         newButtonList.set(13, (Button) getActivity().findViewById(R.id.newbutton13));
         newButtonList.set(14, (Button) getActivity().findViewById(R.id.newbutton14));
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            CardView[] cv_arr = new CardView[]{cv0, cv1, cv2, cv3, cv4, cv5, cv6, cv7, cv8, cv9, cv10,
-                    cv11, cv12, cv13, cv14};
-
-            newCardView.addAll(Arrays.asList(cv_arr));
-
-            newCardView.set(0, (CardView) getActivity().findViewById(R.id.carview0));
-            newCardView.set(1, (CardView) getActivity().findViewById(R.id.carview1));
-            newCardView.set(2, (CardView) getActivity().findViewById(R.id.carview2));
-            newCardView.set(3, (CardView) getActivity().findViewById(R.id.carview3));
-            newCardView.set(4, (CardView) getActivity().findViewById(R.id.carview4));
-            newCardView.set(5, (CardView) getActivity().findViewById(R.id.carview5));
-            newCardView.set(6, (CardView) getActivity().findViewById(R.id.carview6));
-            newCardView.set(7, (CardView) getActivity().findViewById(R.id.carview7));
-            newCardView.set(8, (CardView) getActivity().findViewById(R.id.carview8));
-            newCardView.set(9, (CardView) getActivity().findViewById(R.id.carview9));
-            newCardView.set(10, (CardView) getActivity().findViewById(R.id.carview10));
-            newCardView.set(11, (CardView) getActivity().findViewById(R.id.carview11));
-            newCardView.set(12, (CardView) getActivity().findViewById(R.id.carview12));
-            newCardView.set(13, (CardView) getActivity().findViewById(R.id.carview13));
-            newCardView.set(14, (CardView) getActivity().findViewById(R.id.carview14));
-        }
         final GestureDetector gesture = new GestureDetector(getActivity(),
                 new GestureDetector.SimpleOnGestureListener() {
 
@@ -112,14 +77,10 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
 
                     @Override
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-//                        float threshold = 2500;
                         float fling = (Math.abs(velocityX) + Math.abs(velocityY)) / 2;
                         if (D) {
                             Log.d(TAG, "DynamicButtonsFragment - onFling: " + fling + ", " + velocityX + " " + velocityY);
-
-//                            if(fling > threshold){
                             comm4.fling();
-//                            }
                         }
                         return true;
                     }
@@ -133,18 +94,6 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
                     return gesture.onTouchEvent(event);
                 }
             });
-        }
-
-        if(android.os.Build.VERSION.SDK_INT>=21) {
-            for (CardView c : newCardView) {
-//            c.setPreventCornerOverlap (false);
-                c.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        return gesture.onTouchEvent(event);
-                    }
-                });
-            }
         }
 
         for (Button b : newButtonList) {
@@ -197,13 +146,6 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
             b.setText("");
         }
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            //make all cardviews visible
-            for (CardView c : newCardView) {
-                c.setVisibility(View.VISIBLE);
-            }
-        }
-
         String[] splitWord = data.split("(?!^)");
 
         //one letter per tile until word is complete
@@ -217,15 +159,8 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
             if (b.getText().toString().equals(""))
                 b.setVisibility(View.GONE);
         }
-
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            //hide cardviews we don't need
-            for (CardView c : newCardView) {
-                if (c.getChildAt(0).getVisibility() == View.GONE)
-                    c.setVisibility(View.GONE);
-            }
-        }
     }
+
     public void clearTheNewClickedButtons() {
         for (int i = 0; i < newButtonList.size(); i++) {
             newButtonList.get(i).setBackgroundResource(R.drawable.button);

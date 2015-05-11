@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,8 +62,11 @@ public class AfterTurnComplete extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_after_turn_complete);
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            setContentView(R.layout.activity_after_turn21);
+        } else {
+            setContentView(R.layout.activity_after_turn_complete);
+        }
         toolbar = (Toolbar) findViewById(R.id.app_bar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -124,12 +129,24 @@ public class AfterTurnComplete extends ActionBarActivity {
         s2.setText(score2);
 
         String pic1 = intent.getStringExtra("pic1");
-        new LoadProfileImage(img).execute(pic1);
-
+        if (pic1 != null) {
+            new LoadProfileImage(img).execute(pic1);
+        } else {
+            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blankprofile);
+            img.setImageBitmap(getCircleBitmap((Bitmap.createScaledBitmap(largeIcon, 150, 150, false))));
+        }
         String pic2 = intent.getStringExtra("pic2");
-        new LoadProfileImage(img2).execute(pic2);
-
+        if (pic2 != null) {
+            new LoadProfileImage(img2).execute(pic2);
+        } else {
+            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blankprofile);
+            img2.setImageBitmap(getCircleBitmap((Bitmap.createScaledBitmap(largeIcon, 150, 150, false))));
+        }
         tiles = intent.getStringExtra("tiles");
+        if(tiles.equals("0")){
+            EditText e = (EditText) findViewById(R.id.after_turn_edittext);
+            e.setHint("Final Turn Complete");
+        }
 
         ArrayList<String> list1 = intent.getStringArrayListExtra("list1");
         ArrayList<String> list2 = intent.getStringArrayListExtra("list2");
@@ -141,14 +158,6 @@ public class AfterTurnComplete extends ActionBarActivity {
         for (i = 0; i < list2.size(); i++) {
             adapter2.insert(list2.get(i), 0);
         }
-
-//        final String shareMessage = intent.getStringExtra("share");
-//        TextView txt = (TextView) findViewById(R.id.shareText);
-//        txt.setText(shareMessage);
-//        txt.setOnClickListener(new View.OnClickListener() {
-
-//            }
-//        });
 
         recyclerView = (RecyclerView) findViewById(R.id.recycleShare2);
         recyclerView.addOnItemTouchListener(

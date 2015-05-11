@@ -5,4 +5,9 @@
         <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
     </style>
 
+    <style name="ButtonAppTheme" parent="android:Widget.Material.Button">
+        <item name="android:background">@drawable/button</item>
+        <item name="android:elevation">12dp</item>
+    </style>
+
 </resources>

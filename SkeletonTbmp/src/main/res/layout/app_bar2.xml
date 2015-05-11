@@ -9,6 +9,7 @@
     android:elevation="4dp">
 
     <EditText
+        android:id="@+id/after_turn_edittext"
         android:layout_width="200dp"
         android:layout_height="@dimen/size"
         android:layout_gravity="center_horizontal"

@@ -41,7 +41,8 @@
 
         <activity
             android:name=".AfterTurnComplete"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
 
         </activity>
     </application>

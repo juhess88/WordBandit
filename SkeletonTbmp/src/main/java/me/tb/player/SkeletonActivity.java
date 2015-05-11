@@ -504,7 +504,7 @@ public class SkeletonActivity extends ActionBarActivity
         MenuItem tile_item = menu.findItem(R.id.tile_count);
         tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
 
-        if(findViewById(R.id.gameplay_layout).getVisibility() == View.GONE){
+        if (findViewById(R.id.gameplay_layout).getVisibility() == View.GONE) {
             tile_item.setVisible(false);
             MenuItem shuffle = menu.findItem(R.id.shuffle);
             shuffle.setVisible(false);
@@ -636,9 +636,6 @@ public class SkeletonActivity extends ActionBarActivity
         if (myTurn) {
             bl.shuffle();
         }
-//      else {
-//            Toast.makeText(this, "Not your turn. Cannot shuffle", Toast.LENGTH_SHORT).show();
-//      }
     }
 
     // Upload your new gamestate, then take a turn, and pass it on to the next
@@ -738,7 +735,6 @@ public class SkeletonActivity extends ActionBarActivity
         findViewById(R.id.login_layout).setVisibility(View.GONE);
         findViewById(R.id.sign_in_button).setVisibility(View.GONE);
 
-
         if (!isSignedIn) {
             findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
@@ -748,8 +744,8 @@ public class SkeletonActivity extends ActionBarActivity
             if (mAlertDialog != null) {
                 mAlertDialog.dismiss();
             }
-            return;
-        }
+            return;        }
+
 
         ((TextView) findViewById(R.id.name_field)).setText(Games.Players.getCurrentPlayer(
                 mGoogleApiClient).getDisplayName());
@@ -992,7 +988,13 @@ public class SkeletonActivity extends ActionBarActivity
                         if (mTurnData.list_of_lettersST.size() == 0) {
                             messageAtStartOfTurn("Round " + mTurnData.roundCounter, "Warning: Final Turn!\n\n" + mTurnData.shareNextTurnMessage);
                         } else {
-                            messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage);
+                            if (mTurnData.list_of_lettersST.size() < 10) {
+                                messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage +
+                                        "\n\nWarning: Tile counter at: " + mTurnData.list_of_lettersST.size()+
+                                        "\nGame end when tile counter at 0");
+                            } else {
+                                messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage);
+                            }
                         }
                     }
                 }

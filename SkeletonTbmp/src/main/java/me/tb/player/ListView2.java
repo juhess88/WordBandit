@@ -28,18 +28,18 @@ public class ListView2 extends Fragment {
 
     CommunicatorGame comm3;
 
-    int point=0;
+    int point = 0;
 
     String item;
 
-    Boolean flag=false;
+    Boolean flag = false;
 
     ListView list;
 
     ArrayAdapter<String> adapter2;
     List<String> array_list;
 
-    Boolean myTurn=true;
+    Boolean myTurn = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -48,11 +48,11 @@ public class ListView2 extends Fragment {
 
     }
 
-    public void setMyTurn(Boolean turn){
-        myTurn=turn;
+    public void setMyTurn(Boolean turn) {
+        myTurn = turn;
     }
 
-    public boolean getMyTurn(){
+    public boolean getMyTurn() {
         return myTurn;
     }
 
@@ -60,7 +60,7 @@ public class ListView2 extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        comm3 = (CommunicatorGame)getActivity();
+        comm3 = (CommunicatorGame) getActivity();
         array_list = new ArrayList<String>();
 
         //Build Adapter
@@ -85,15 +85,15 @@ public class ListView2 extends Fragment {
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                         float velocityThresh = 1000;
                         double distanceThresh = 75;
-                        float fling = (Math.abs(velocityX)+Math.abs(velocityY))/2;
-                        double distance = Math.sqrt(Math.pow(e2.getX()-e1.getX(), 2) + Math.pow(e2.getY()-e1.getY(), 2));
+                        float fling = (Math.abs(velocityX) + Math.abs(velocityY)) / 2;
+                        double distance = Math.sqrt(Math.pow(e2.getX() - e1.getX(), 2) + Math.pow(e2.getY() - e1.getY(), 2));
 
-                        if (D){
-                            Log.d(TAG, "fling: " + fling + ", e1X: "+ e1.getX() +", e1Y: "+ e1.getY()
-                                    + ", e2X: "+ e2.getX() +", e2Y: "+ e2.getY() + ", distance: " + distance
-                                    +", vX: "+velocityX + " vY:" +velocityY);
+                        if (D) {
+                            Log.d(TAG, "fling: " + fling + ", e1X: " + e1.getX() + ", e1Y: " + e1.getY()
+                                    + ", e2X: " + e2.getX() + ", e2Y: " + e2.getY() + ", distance: " + distance
+                                    + ", vX: " + velocityX + " vY:" + velocityY);
 
-                            if(fling > velocityThresh && distance > distanceThresh){
+                            if (fling > velocityThresh && distance > distanceThresh) {
                                 comm3.fling();
                             }
                         }
@@ -112,41 +112,41 @@ public class ListView2 extends Fragment {
     }
 
     //updates the score on every click
-    public String updateScoreListView(){
-        point=0;
-        for (int i=0; i<adapter2.getCount(); i++){
-            point+=(adapter2.getItem(i).length()-1)*100;
+    public String updateScoreListView() {
+        point = 0;
+        for (int i = 0; i < adapter2.getCount(); i++) {
+            point += (adapter2.getItem(i).length() - 1) * 100;
         }
-        String score = ""+point;
+        String score = "" + point;
         return score;
     }
 
-    public int getPoint(){
+    public int getPoint() {
         return point;
     }
 
     //if player 2's turn, words added to player 2's listview
-    public void addWordToListView2(String data){
+    public void addWordToListView2(String data) {
         adapter2.insert(data, 0);
         adapter2.notifyDataSetChanged();
     }
 
-    public void removeStolenWord(){
+    public void removeStolenWord() {
         adapter2.remove(item);
         adapter2.notifyDataSetChanged();
 
     }
 
-    public String wordUserTryingToStealFromListView2(){
+    public String wordUserTryingToStealFromListView2() {
         return item;
     }
 
-    public Boolean getFlag(){
+    public Boolean getFlag() {
         return flag;
     }
 
-    public void setFlag(Boolean data){
-        flag=data;
+    public void setFlag(Boolean data) {
+        flag = data;
     }
 
     private void registerClickCallback() {
@@ -157,7 +157,7 @@ public class ListView2 extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                if(myTurn) {
+                if (myTurn) {
 
                     flag = true;
 
@@ -167,7 +167,7 @@ public class ListView2 extends Fragment {
 
                     comm3.makeGoldTilesForWordUserTryingToSteal(item);
 
-                    comm3.sendToStealText();
+                    comm3.removeCV();
 
                     EditText e = (EditText) getActivity().findViewById(R.id.edittextfrag);
                     e.setHint("Steal " + item);
@@ -188,10 +188,8 @@ public class ListView2 extends Fragment {
                     Fragment dynbtn = getActivity().getSupportFragmentManager().findFragmentByTag("DFrag");
                     getActivity().getSupportFragmentManager().beginTransaction().show(dynbtn).commit();
 
-                    Fragment stealTxt = getActivity().getSupportFragmentManager().findFragmentByTag("SFrag");
-                    getActivity().getSupportFragmentManager().beginTransaction().show(stealTxt).commit();
-
                 }
             }
         });
-    }}
+    }
+}

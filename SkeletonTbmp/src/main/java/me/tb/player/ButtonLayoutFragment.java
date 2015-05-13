@@ -3,6 +3,7 @@ package me.tb.player;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -40,8 +41,8 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
 
     Button b0, b1, b2, b3, b4, b5, b6, b7, b8;
 
-    //random letter up to 144
-    int my_list_counter = 15;
+    //random letter up to 109
+    int my_list_counter = 109;
 
     //randomly selects letters to go in the squares
     Random rand = new Random();
@@ -50,6 +51,8 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
     int shuffleBoardOnce = 0;
 
     ArrayList<String> button_letter = new ArrayList<String>();
+
+    CardView cv;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -66,38 +69,72 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
 
         comm = (CommunicatorGame) getActivity();
 
-        letters = new String[]{"a", "b", "i", "d", "e", "s", "r", "a", "b", "i", "d", "e", "s", "r", "t"};
+//        letters = new String[]{"a", "b", "i", "d", "e", "s", "r", "a", "b", "i", "d", "e", "s", "r", "t"};
 
         /*
         * CHANGE MY_LIST COUNTER  TO 144 --- CURRENTLY CHANGED TO 15 FOR TESTING
-        * */
-//        letters = new String[]{"e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e",
-//                "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
-//                "i", "i", "i", "i", "i", "i", "i", "i", "i", "i", "i", "i",
-//                "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o",
-//                "t", "t", "t", "t", "t", "t", "t", "t", "t",
-//                "r", "r", "r", "r", "r", "r", "r", "r", "r",
-//                "n", "n", "n", "n", "n", "n", "n", "n",
-//                "d", "d", "d", "d", "d", "d",
-//                "s", "s", "s", "s", "s", "s",
-//                "u", "u", "u", "u", "u", "u",
-//                "l", "l", "l", "l", "l",
-//                "g", "g", "g", "g",
-//                "b", "b", "b",
-//                "c", "c", "c",
-//                "f", "f", "f",
-//                "h", "h", "h",
-//                "m", "m", "m",
-//                "p", "p", "p",
-//                "v", "v", "v",
-//                "w", "w", "w",
-//                "y", "y", "y",
-//                "j", "j",
-//                "k", "k",
-//                "q", "q",
-//                "x", "x",
-//                "z", "z"};
+        *
+        *
+        *       ORIGINAL LIST OF 144 TILES
+        *
+        *       "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", //18
+                "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", //13
+                "i", "i", "i", "i", "i", "i", "i", "i", "i", "i", "i", "i", //12
+                "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", //11
+                "t", "t", "t", "t", "t", "t", "t", "t", "t", //9
+                "r", "r", "r", "r", "r", "r", "r", "r", "r", //9
+                "n", "n", "n", "n", "n", "n", "n", "n", //8
+                "d", "d", "d", "d", "d", "d", //6
+                "s", "s", "s", "s", "s", "s", //6
+                "u", "u", "u", "u", "u", "u", //6
+                "l", "l", "l", "l", "l", //5
+                "g", "g", "g", "g", //4
+                "b", "b", "b", //3
+                "c", "c", "c", //3
+                "f", "f", "f", //3
+                "h", "h", "h", //3
+                "m", "m", "m", //3
+                "p", "p", "p", //3
+                "v", "v", "v", //3
+                "w", "w", "w", //3
+                "y", "y", "y", //3
+                "j", "j", //2
+                "k", "k", //2
+                "q", "q", //2
+                "x", "x", //2
+                "z", "z"}; //2
 
+        * */
+        letters = new String[]{
+                //109 total
+                "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", //12
+                "a", "a", "a", "a", "a", "a", "a", "a", "a", // 9
+                "i", "i", "i", "i", "i", "i", "i", "i", //8
+                "o", "o", "o", "o", "o", "o", //6
+                "t", "t", "t", "t", "t", "t", //6
+                "r", "r", "r", "r", "r", "r", //6
+                "n", "n", "n", "n", //4
+                "d", "d", "d", "d", "d", //5
+                "s", "s", "s", "s", "s", //5
+                "u", "u", "u", "u", "u", //5
+                "l", "l", "l", "l", //4
+                "g", "g", "g", "g", //4
+                "b", "b", "b", //3
+                "c", "c", "c", //3
+                "f", "f", "f", //3
+                "h", "h", //2
+                "m", "m", "m", //3
+                "p", "p", "p", //3
+                "v", "v", //2
+                "w", "w", "w", //3
+                "y", "y", "y", //3
+                "j", "j", //2
+                "k", "k", //2
+                "q", "q", //2
+                "x", "x", //2
+                "z", "z"}; //2
+
+        Log.d("Total Tiles: ", ""+letters.length);
         list_of_letters.addAll(Arrays.asList(letters));
 
         Button[] bttn_arr = new Button[]{b0, b1, b2, b3, b4, b5, b6, b7, b8};
@@ -189,6 +226,22 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
                 }
 
             }
+        }
+    }
+
+    public void removeCardView(){
+        if(android.os.Build.VERSION.SDK_INT <21){
+            cv = (CardView) getActivity().findViewById(R.id.cardviewUnder21);
+            cv.setContentPadding(-10,-10,-10,-10);
+            cv.setCardElevation(0);
+        }
+    }
+
+    public void restoreCardView(){
+        if(android.os.Build.VERSION.SDK_INT <21){
+            cv = (CardView) getActivity().findViewById(R.id.cardviewUnder21);
+            cv.setContentPadding(0,0,0,0);
+            cv.setCardElevation(10);
         }
     }
 

@@ -154,7 +154,7 @@ public class ListView1 extends Fragment {
 
                     comm2.makeGoldTilesForWordUserTryingToSteal(item);
 
-                    comm2.sendToStealText();
+                    comm2.removeCV();
 
                     EditText e = (EditText) getActivity().findViewById(R.id.edittextfrag);
                     e.setHint("Steal "+ item);
@@ -175,8 +175,6 @@ public class ListView1 extends Fragment {
                     Fragment dynbtn = getActivity().getSupportFragmentManager().findFragmentByTag("DFrag");
                     getActivity().getSupportFragmentManager().beginTransaction().show(dynbtn).commit();
 
-                    Fragment stealTxt = getActivity().getSupportFragmentManager().findFragmentByTag("SFrag");
-                    getActivity().getSupportFragmentManager().beginTransaction().show(stealTxt).commit();
 
                 }
             }

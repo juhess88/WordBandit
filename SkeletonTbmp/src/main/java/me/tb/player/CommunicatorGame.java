@@ -99,7 +99,11 @@ public interface CommunicatorGame {
     //to exit the game and go back to main menu
     public void exitGameQuestion(String title);
 
-    public void sendToStealText();
-
     public String getMessageCombo();
+
+    //remove cardview for under sdk 21
+    public void removeCV();
+
+    //add cardview for under sdk21
+    public void addCV();
 }

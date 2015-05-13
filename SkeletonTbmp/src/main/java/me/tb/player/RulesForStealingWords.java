@@ -65,10 +65,10 @@ public class RulesForStealingWords {
     public Boolean wordUserIsTryingToSteal_A(String wordUserIsTryingToSteal, String wordUserCreatedFromEditTextFragment){
         String wordUserIsTryingToSteal_A = "a"+wordUserIsTryingToSteal;
 
-        if(wordUserIsTryingToSteal_A.equals(wordUserCreatedFromEditTextFragment))
-        {
-            return true;
-        }
+//        if(wordUserIsTryingToSteal_A.equals(wordUserCreatedFromEditTextFragment))
+//        {
+//            return true;
+//        }
         return false;
     }
 

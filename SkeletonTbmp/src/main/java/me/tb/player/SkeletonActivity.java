@@ -172,7 +172,6 @@ public class SkeletonActivity extends ActionBarActivity
     ListView1 lv1;
     ListView2 lv2;
     CountdownFragment cf;
-    StealTextFragment st;
 
     FragmentManager manager;
 
@@ -253,7 +252,6 @@ public class SkeletonActivity extends ActionBarActivity
         lv1 = new ListView1();
         lv2 = new ListView2();
         cf = new CountdownFragment();
-        st = new StealTextFragment();
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -266,7 +264,6 @@ public class SkeletonActivity extends ActionBarActivity
         transaction.add(R.id.fragment_listview1, lv1, "LFrag1");
         transaction.add(R.id.fragment_listview2, lv2, "LFrag2");
         transaction.add(R.id.fragment_countdown, cf, "CFrag");
-        transaction.add(R.id.fragment_steal_me, st, "SFrag").hide(st);
 
         transaction.commit();
     }
@@ -1484,6 +1481,7 @@ public class SkeletonActivity extends ActionBarActivity
             SkeletonActivity.this.finish();
         } else if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE
                 && db.isVisible()) {
+            bl.restoreCardView();
             showOriginalGameScreen();
             returnButtonsToUnclickedState();
             clearTextFromEditTextFragment();
@@ -1808,8 +1806,6 @@ public class SkeletonActivity extends ActionBarActivity
         manager.beginTransaction().show(gp1).commit();
         manager.beginTransaction().show(gp2).commit();
         manager.beginTransaction().hide(db).commit();
-        manager.beginTransaction().hide(st).commit();
-
     }
 
     @Override
@@ -2025,16 +2021,20 @@ public class SkeletonActivity extends ActionBarActivity
     }
 
     @Override
-    public void sendToStealText() {
-        st.setText("" + wordUserIsTryingToSteal());
-    }
-
-    @Override
     public int getTilesRemainingInt() {
         Log.d("letters", "There are" + bl.list_of_letters.size());
         return bl.list_of_letters.size();
     }
 
+    @Override
+    public void removeCV() {
+        bl.removeCardView();
+    }
+
+    @Override
+    public void addCV() {
+        bl.restoreCardView();
+    }
 
     @Override
     public void finishGame() {

@@ -121,7 +121,7 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
 
                     @Override
                     public boolean onDown(MotionEvent e) {
-                        Log.d(TAG, "ButtonLayoutFragment - onDown");
+//                        Log.d(TAG, "ButtonLayoutFragment - onDown");
                         return false;
                     }
 
@@ -133,10 +133,6 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
                         double distance = Math.sqrt(Math.pow(e2.getX() - e1.getX(), 2) + Math.pow(e2.getY() - e1.getY(), 2));
 
                         if (D) {
-                            Log.d(TAG, "fling: " + fling + ", e1X: " + e1.getX() + ", e1Y: " + e1.getY()
-                                    + ", e2X: " + e2.getX() + ", e2Y: " + e2.getY() + ", distance: " + distance
-                                    + ", vX: " + velocityX + " vY:" + velocityY);
-
                             if (fling > velocityThresh && distance > distanceThresh) {
                                 comm.fling();
                             }

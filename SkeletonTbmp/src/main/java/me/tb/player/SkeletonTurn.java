@@ -143,7 +143,7 @@ public class SkeletonTurn {
         JsonElement je = jp.parse(st);
         String prettyJsonString = gson.toJson(je);
 
-        Log.d(TAG, "==== PERSISTING\n" + prettyJsonString);
+//        Log.d(TAG, "==== PERSISTING\n" + prettyJsonString);
 
         return st.getBytes(Charset.forName("UTF-8"));
     }
@@ -170,7 +170,7 @@ public class SkeletonTurn {
         String prettyJsonString = gson.toJson(je);
 
 
-        Log.d(TAG, "====UNPERSIST \n" + prettyJsonString);
+//        Log.d(TAG, "====UNPERSIST \n" + prettyJsonString);
 
         SkeletonTurn retVal = new SkeletonTurn();
 

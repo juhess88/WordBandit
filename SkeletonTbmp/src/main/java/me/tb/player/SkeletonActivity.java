@@ -78,13 +78,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TBMPSkeleton: A minimalistic "game" that shows turn-based
- * multiplayer features for Play Games Services.  In this game, you
- * can invite a variable number of players and take turns editing a
- * shared state, which consists of single string.  You can also select
- * automatch players; all known players play before automatch slots
- * are filled.
- * <p/>
  * INSTRUCTIONS: To run this sample, please set up
  * a project in the Developer Console. Then, place your app ID on
  * res/values/ids.xml. Also, change the package name to the package name you
@@ -220,9 +213,8 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate(): onCreate called");
+//        Log.d(TAG, "onCreate(): onCreate called");
         setContentView(R.layout.activity_main);
-
 
         // Create the Google API Client with access to Plus and Games
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -253,7 +245,6 @@ public class SkeletonActivity extends ActionBarActivity
 
         gestureScanner = new GestureDetector(this, new MyGestureListener());
 
-
         et = new EditTextFragment();
         bl = new ButtonLayoutFragment();
         db = new DynamicButtonsFragment();
@@ -278,7 +269,6 @@ public class SkeletonActivity extends ActionBarActivity
         transaction.add(R.id.fragment_steal_me, st, "SFrag").hide(st);
 
         transaction.commit();
-
     }
 
     public static List<RecyclerShareModel> getData() {
@@ -306,7 +296,7 @@ public class SkeletonActivity extends ActionBarActivity
 
         @Override
         public boolean onDown(MotionEvent e) {
-            Log.d(TAG, "SkeletonActivity - onDown");
+//            Log.d(TAG, "SkeletonActivity - onDown");
             return false;
         }
 
@@ -323,7 +313,7 @@ public class SkeletonActivity extends ActionBarActivity
 //                        + ", vX: " + velocityX + " vY:" + velocityY);
 
                 if (fling > velocityThresh && distance > distanceThresh && enableFling) {
-                    Log.d("onFling", "fling");
+//                    Log.d("onFling", "fling");
                     fling();
                 }
             }
@@ -334,7 +324,7 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d(TAG, "onRestart(): onRestart called");
+//        Log.d(TAG, "onRestart(): onRestart called");
 
         if (isViewingBoardAfterTurn) {
             lv1.adapter1.clear();
@@ -345,7 +335,7 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart(): Connecting to Google APIs");
+//        Log.d(TAG, "onStart(): Connecting to Google APIs");
         mGoogleApiClient.connect();
     }
 
@@ -360,7 +350,7 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume(): onResume called");
+//        Log.d(TAG, "onResume(): onResume called");
 
     }
 
@@ -368,7 +358,7 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause(): onPause called");
+//        Log.d(TAG, "onPause(): onPause called");
 
     }
 
@@ -377,13 +367,13 @@ public class SkeletonActivity extends ActionBarActivity
         super.onSaveInstanceState(outState);
 //        if(newMatch)
 //            outState=null;
-        Log.d(TAG, "onSaveInstanceState(): onSaveInstanceState called");
+//        Log.d(TAG, "onSaveInstanceState(): onSaveInstanceState called");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop(): Disconnecting from Google APIs");
+//        Log.d(TAG, "onStop(): Disconnecting from Google APIs");
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -393,13 +383,13 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy(): onDestroy called");
+//        Log.d(TAG, "onDestroy(): onDestroy called");
     }
 
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        Log.d(TAG, "onConnected(): Connection successful");
+//        Log.d(TAG, "onConnected(): Connection successful");
 
         // Retrieve the TurnBasedMatch from the connectionHint
         if (connectionHint != null) {
@@ -598,24 +588,26 @@ public class SkeletonActivity extends ActionBarActivity
         ParticipantResult opponentResult = null;
         ParticipantResult creatorResult = null;
 
-        if (lv1.getPoint() > lv2.getPoint()) {
+        if (Integer.parseInt(mTurnData.playerpoints1) > Integer.parseInt(mTurnData.playerpoints2)) {
+//            Log.d("GAME OVER", "player 1 wins");
             opponentResult = new ParticipantResult(participants.get(0).getParticipantId(),
                     ParticipantResult.MATCH_RESULT_WIN, 1);
             creatorResult = new ParticipantResult(participants.get(1).getParticipantId(),
                     ParticipantResult.MATCH_RESULT_LOSS, 2);
-        } else if (lv1.getPoint() < lv2.getPoint()) {
+        } else if (Integer.parseInt(mTurnData.playerpoints1) < Integer.parseInt(mTurnData.playerpoints2)) {
+//            Log.d("GAME OVER", "player 2 wins");
             opponentResult = new ParticipantResult(participants.get(0).getParticipantId(),
-                    ParticipantResult.MATCH_RESULT_LOSS, 1);
+                    ParticipantResult.MATCH_RESULT_LOSS, 2);
             creatorResult = new ParticipantResult(participants.get(1).getParticipantId(),
-                    ParticipantResult.MATCH_RESULT_WIN, 2);
+                    ParticipantResult.MATCH_RESULT_WIN, 1);
         } else {
+//            Log.d("GAME OVER", "tie");
             opponentResult = new ParticipantResult(participants.get(0).getParticipantId(),
                     ParticipantResult.MATCH_RESULT_TIE, 1);
             creatorResult = new ParticipantResult(participants.get(1).getParticipantId(),
-                    ParticipantResult.MATCH_RESULT_TIE, 2);
+                    ParticipantResult.MATCH_RESULT_TIE, 1);
         }
 
-// mTurnData.persist() istead of mMatch.getData()
         Games.TurnBasedMultiplayer.finishMatch(mGoogleApiClient, mMatch.getMatchId()
                 , mMatch.getData(), creatorResult, opponentResult)
                 .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
@@ -744,7 +736,8 @@ public class SkeletonActivity extends ActionBarActivity
             if (mAlertDialog != null) {
                 mAlertDialog.dismiss();
             }
-            return;        }
+            return;
+        }
 
 
         ((TextView) findViewById(R.id.name_field)).setText(Games.Players.getCurrentPlayer(
@@ -818,19 +811,6 @@ public class SkeletonActivity extends ActionBarActivity
         return output;
     }
 
-//    public void getStringProf(String data){
-//        stringURL=data;
-//
-//        // by default the profile url gives 50x50 px image only
-//        // we can replace the value with whatever dimension we want by
-//        // replacing sz=X
-//        stringURL = stringURL.substring(0,
-//                stringURL.length() - 2)
-//                + 1000;
-//
-//        new LoadProfileImage(img).execute(stringURL);
-//    }
-
     /**
      * Background Async task to load user profile picture from url
      */
@@ -887,8 +867,14 @@ public class SkeletonActivity extends ActionBarActivity
         isDoingTurn = true;
         setViewVisibility();
 
-        shareMessageCombo = mTurnData.messageCombo;
+        EditText y = (EditText) findViewById(R.id.edittextfrag);
+        if (y.getHint().equals("Game Over")) {
+            shareMessageCombo = "Thanks for playing!";
+            mTurnData.messageCombo = "Thanks for playing!";
+        } else {
 
+            shareMessageCombo = mTurnData.messageCombo;
+        }
         //Create the next round when player one has turn
         if (mTurnData.myParticipantIdST.equals("p_1")) {
             mTurnData.roundCounter++;
@@ -975,12 +961,22 @@ public class SkeletonActivity extends ActionBarActivity
         }
 
         if (!secondPlayerEndedGame) {
-            if (lastTurnSecondPlayer() && !viewEndOfGame) {
+            if (lastTurnSecondPlayer() && !viewEndOfGame && myTurn) {
+//                Log.d("GAME OVER", "the game is over");
                 //now when player views end of game he will be redirected to end of game view
-                messageAtEndOfGame("Game over sir", "Better luck next time");
+                EditText e = (EditText) findViewById(R.id.edittextfrag);
+                e.setHint("Game Over");
+                mTurnData.messageCombo = "Thank you for playing!";
+                messageAtEndOfGame("Game over", "Final Score\n\n" + mTurnData.playername1 + " - " + mTurnData.playerpoints1 +
+                        "\n" + mTurnData.playername2 + " - " + mTurnData.playerpoints2);
             } else {
                 if (lastTurnSecondPlayer() && viewEndOfGame2) {
-                    messageAtStartOfTurn("Game over master", "Better luck next game!");
+//                    Log.d("GAME OVER", "please play again");
+                    EditText e = (EditText) findViewById(R.id.edittextfrag);
+                    e.setHint("Game Over");
+                    mTurnData.messageCombo = "Thank you for playing!";
+                    messageAtStartOfTurn("Game over", "Final Score\n\n" + mTurnData.playername1 + " - " + mTurnData.playerpoints1 +
+                            "\n" + mTurnData.playername2 + " - " + mTurnData.playerpoints2);
                 } else {
                     if (mTurnData.turnCounter == 1) {
                         messageAtStartOfTurn("Round " + mTurnData.roundCounter, "Good Luck!");
@@ -990,8 +986,8 @@ public class SkeletonActivity extends ActionBarActivity
                         } else {
                             if (mTurnData.list_of_lettersST.size() < 10) {
                                 messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage +
-                                        "\n\nWarning: Tile counter at: " + mTurnData.list_of_lettersST.size()+
-                                        "\nGame end when tile counter at 0");
+                                        "\n\nWarning: Tile counter at " + mTurnData.list_of_lettersST.size() +
+                                        "\nGame ends when it reaches 0");
                             } else {
                                 messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage);
                             }
@@ -1039,11 +1035,6 @@ public class SkeletonActivity extends ActionBarActivity
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
-//                        if (lastTurnSecondPlayer()) {
-//                            finishGame();
-//                        } else {
                         isViewingBoardAfterTurn = true;
                         wordAddedToListViewOfCurrentPlayer(wordUserCreatedFromEditTextFragment());
                         removeButtonTextIfClickedAndIsWord();
@@ -1052,7 +1043,6 @@ public class SkeletonActivity extends ActionBarActivity
                         returnButtonsToUnclickedState();
                         clearTextFromEditTextFragment();
                         turnComplete();
-//                        }
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
 
@@ -1085,11 +1075,6 @@ public class SkeletonActivity extends ActionBarActivity
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
-//                        if (lastTurnSecondPlayer()) {
-//                            finishGame();
-//                        } else {
                         isViewingBoardAfterTurn = true;
 
                         //updates the listview and adds the word to the corresponding player
@@ -1131,10 +1116,11 @@ public class SkeletonActivity extends ActionBarActivity
 
     @Override
     public boolean lastTurnFirstPlayer() {
-        Log.d("Tiles", "" + mTurnData.list_of_lettersST.size());
         if (mTurnData.list_of_lettersST.size() == 0 && mTurnData.turnCounter != 1) {
+//            Log.d("LastTurnFirstPlayer", "True");
             return true;
         }
+//        Log.d("LastTurnFirstPlayer", "False");
         return false;
     }
 
@@ -1142,10 +1128,12 @@ public class SkeletonActivity extends ActionBarActivity
     public boolean lastTurnSecondPlayer() {
         //check if second player had final turn
         if (mTurnData.secondPlayerFinalTurn == true) {
+//            Log.d("LastTurnSecondPlayer", "True");
             return true;
             //if first player had last turn then next player will have one more turn
         } else {
             if (lastTurnFirstPlayer()) {
+//                Log.d("LastTurnSecondPlayer", "LastTurnFirstPlayer is True");
                 mTurnData.secondPlayerFinalTurn = true;
             }
         }
@@ -1303,7 +1291,7 @@ public class SkeletonActivity extends ActionBarActivity
                 updateMatch(match);
             }
 
-            Log.d(TAG, "Match = " + match);
+//            Log.d(TAG, "Match = " + match);
         } else if (request == RC_SELECT_PLAYERS) {
             // Returned from 'Select players to Invite' dialog
 
@@ -1550,12 +1538,13 @@ public class SkeletonActivity extends ActionBarActivity
                 // Note that in this state, you must still call "Finish" yourself,
                 // so we allow this to continue.
                 secondPlayerEndedGame = true;
-                showWarning("Game Over!", "Check the final results");
+                mTurnData = SkeletonTurn.unpersist(mMatch.getData());
+                EditText e = (EditText) findViewById(R.id.edittextfrag);
+                e.setHint("Game Over");
+                mTurnData.messageCombo = "Thank you for playing!";
+                showWarning("Game over", "Final Score\n\n" + mTurnData.playername1 + " - " + mTurnData.playerpoints1 +
+                        "\n" + mTurnData.playername2 + " - " + mTurnData.playerpoints2);
                 Games.TurnBasedMultiplayer.finishMatch(mGoogleApiClient, mMatch.getMatchId());
-
-                //here
-
-
         }
 
         // OK, it's active. Check on turn status.
@@ -1564,19 +1553,12 @@ public class SkeletonActivity extends ActionBarActivity
                 mTurnData = SkeletonTurn.unpersist(mMatch.getData());
                 setGameplayUI();
                 int x = 0;
-//                if (lastTurnSecondPlayer() && mTurnData.viewEndOfGame) {
-//                    mTurnData.viewEndOfGame=false;
-//                    //now when player views end of game he will be redirected to end of game view
-//                    finishGame();
-//                }
+
                 return;
             case TurnBasedMatch.MATCH_TURN_STATUS_THEIR_TURN:
-                // Should return results.
-//                showWarning("Alas...", "It's not your turn.");
 
                 EditText e = (EditText) findViewById(R.id.edittextfrag);
                 e.setHint("Turn Complete");
-//                manager.beginTransaction().show(sf).commit();
                 myTurn = false;
                 lv1.setMyTurn(false);
                 lv2.setMyTurn(false);
@@ -1585,7 +1567,6 @@ public class SkeletonActivity extends ActionBarActivity
                 setGameplayUI();
                 int y = 0;
                 return;
-//                break;
             case TurnBasedMatch.MATCH_TURN_STATUS_INVITED:
                 showWarning("Good initiative!",
                         "Still waiting for invitations.\n\nBe patient!");

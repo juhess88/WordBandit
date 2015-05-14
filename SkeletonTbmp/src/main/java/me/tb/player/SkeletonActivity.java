@@ -129,7 +129,6 @@ public class SkeletonActivity extends ActionBarActivity
     public boolean isDoingTurn = false;
 
     public static boolean isViewingBoardAfterTurn = false;
-    static boolean resetOnce = false;
 
     // This is the current match we're in; null if not loaded
     public TurnBasedMatch mMatch;
@@ -146,11 +145,6 @@ public class SkeletonActivity extends ActionBarActivity
     //true-new game do not save state
     //false-saved game save state
     Boolean newMatch = false;
-
-    // Profile pic image size in pixels
-    private static final int PROFILE_PIC_SIZE = 400;
-
-    String stringURL = "";
 
     Bitmap mIcon11 = null;
 
@@ -1268,11 +1262,11 @@ public class SkeletonActivity extends ActionBarActivity
         if (request == RC_SIGN_IN) {
             mSignInClicked = false;
             mResolvingConnectionFailure = false;
-//            if (response == Activity.RESULT_OK) {
-//                mGoogleApiClient.connect();
-//            } else {
-//                BaseGameUtils.showActivityResultError(this, request, response, R.string.signin_other_error);
-//            }
+            if (response == Activity.RESULT_OK) {
+                mGoogleApiClient.connect();
+            } else {
+                BaseGameUtils.showActivityResultError(this, request, response, R.string.signin_other_error);
+            }
         } else if (request == RC_LOOK_AT_MATCHES) {
             // Returning from the 'Select Match' dialog
 
@@ -1657,16 +1651,6 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     public void onTurnBasedMatchReceived(TurnBasedMatch match) {
         Toast.makeText(this, "A match was updated.", TOAST_DELAY).show();
-
-//        if (match.getStatus()==2) {
-//            Games.TurnBasedMultiplayer.finishMatch(mGoogleApiClient, mMatch.getMatchId())
-//                    .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
-//                        @Override
-//                        public void onResult(TurnBasedMultiplayer.UpdateMatchResult result) {
-//                            processResult(result);
-//                        }
-//                    });
-//        }
     }
 
     @Override
@@ -1885,6 +1869,7 @@ public class SkeletonActivity extends ActionBarActivity
         String wordUserTryingToSteal = wordUserIsTryingToSteal();
         if (rules.wordUserTryingToStealEndWith_E(wordUserTryingToSteal)) {
             if (rules.wordUserIsTryingToSteal_R(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
+                    || rules.wordUserIsTryingToSteal_RE(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
                     || rules.wordUserIsTryingToSteal_D(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
                     || rules.wordUserIsTryingToSteal_S(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
                     || rules.wordUserIsTryingToSteal_A(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
@@ -1892,6 +1877,7 @@ public class SkeletonActivity extends ActionBarActivity
                 return true;
             }
         } else if (rules.wordUserIsTryingToSteal_S(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
+                || rules.wordUserIsTryingToSteal_RE(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
                 || rules.wordUserIsTryingToSteal_ING(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
                 || rules.wordUserIsTryingToSteal_ER(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())
                 || rules.wordUserIsTryingToSteal_ED(wordUserTryingToSteal, wordUserCreatedFromEditTextFragment())

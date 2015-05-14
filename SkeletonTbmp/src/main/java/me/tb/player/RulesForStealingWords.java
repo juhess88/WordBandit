@@ -62,6 +62,16 @@ public class RulesForStealingWords {
         return false;
     }
 
+    public Boolean wordUserIsTryingToSteal_RE(String wordUserIsTryingToSteal, String wordUserCreatedFromEditTextFragment){
+        String wordUserIsTryingToSteal_RE = "re"+wordUserIsTryingToSteal;
+
+        if(wordUserIsTryingToSteal_RE.equals(wordUserCreatedFromEditTextFragment))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public Boolean wordUserIsTryingToSteal_A(String wordUserIsTryingToSteal, String wordUserCreatedFromEditTextFragment){
         String wordUserIsTryingToSteal_A = "a"+wordUserIsTryingToSteal;
 

@@ -463,12 +463,21 @@ public class SkeletonActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.enter:
+                fling();
+                return true;
+            case R.id.clear:
+                returnButtonsToUnclickedState();
+                clearTextFromEditTextFragment();
                 return true;
             case R.id.shuffle:
-                if (findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE)
-                    if (!isViewingBoardAfterTurn)
-                        bl.shuffle();
+                messageAtShuffle("Are you sure you want to shuffle the tiles?\n\nThis action will end your turn.");
+                return true;
+            case R.id.pass:
+                messageAtPass("Are you sure you want to pass?\n\nThis action will end your turn.");
+                return true;
+            case R.id.exit:
+                exitGameQuestion("Are you sure you want to exit?");
                 return true;
             case android.R.id.home:
                 onBackPressed();
@@ -483,16 +492,29 @@ public class SkeletonActivity extends ActionBarActivity
         super.onPrepareOptionsMenu(menu);
 
         MenuItem tile_item = menu.findItem(R.id.tile_count);
+        MenuItem shuffle = menu.findItem(R.id.shuffle);
+        MenuItem pass = menu.findItem(R.id.pass);
+        MenuItem exit = menu.findItem(R.id.exit);
+        MenuItem enter = menu.findItem(R.id.enter);
+        MenuItem clear = menu.findItem(R.id.clear);
+        MenuItem settings = menu.findItem(R.id.action_settings);
+
         tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
 
         if (findViewById(R.id.gameplay_layout).getVisibility() == View.GONE) {
             tile_item.setVisible(false);
-            MenuItem shuffle = menu.findItem(R.id.shuffle);
             shuffle.setVisible(false);
+            pass.setVisible(false);
+            exit.setVisible(false);
+            enter.setVisible(false);
+            clear.setVisible(false);
         } else {
             tile_item.setVisible(true);
-            MenuItem shuffle = menu.findItem(R.id.shuffle);
             shuffle.setVisible(true);
+            pass.setVisible(true);
+            exit.setVisible(true);
+            enter.setVisible(true);
+            clear.setVisible(true);
         }
 
         return true;
@@ -612,13 +634,6 @@ public class SkeletonActivity extends ActionBarActivity
         setViewVisibility();
 
         reset();
-    }
-
-
-    public void doShuffle(View view) {
-        if (myTurn) {
-            bl.shuffle();
-        }
     }
 
     // Upload your new gamestate, then take a turn, and pass it on to the next
@@ -862,10 +877,18 @@ public class SkeletonActivity extends ActionBarActivity
         if (y.getHint().equals("Game Over")) {
             shareMessageCombo = "Thanks for playing!";
             mTurnData.messageCombo = "Thanks for playing!";
-        } else {
-
-            shareMessageCombo = mTurnData.messageCombo;
         }
+
+        if (mTurnData.messageCombo != null && mTurnData.messageCombo.contains("shuffle")) {
+            mTurnData.shareNextTurnMessage = mTurnData.messageCombo;
+        }
+
+        if (mTurnData.messageCombo != null && mTurnData.messageCombo.contains("pass")) {
+            mTurnData.shareNextTurnMessage = mTurnData.messageCombo;
+        }
+
+        shareMessageCombo = mTurnData.messageCombo;
+
         //Create the next round when player one has turn
         if (mTurnData.myParticipantIdST.equals("p_1")) {
             mTurnData.roundCounter++;
@@ -980,7 +1003,10 @@ public class SkeletonActivity extends ActionBarActivity
                                         "\n\nWarning: Tile counter at " + mTurnData.list_of_lettersST.size() +
                                         "\nGame ends when it reaches 0");
                             } else {
+
+                                Log.d("", "the message is " + mTurnData.shareNextTurnMessage);
                                 messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage);
+
                             }
                         }
                     }
@@ -1015,6 +1041,81 @@ public class SkeletonActivity extends ActionBarActivity
 
     }
 
+    public void messageAtShuffle(String message) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setMessage(message);
+
+        // set dialog message
+        alertDialogBuilder.setCancelable(false).setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        bl.shuffle();
+                        isViewingBoardAfterTurn = true;
+                        removeButtonTextIfClickedAndIsWord();
+                        returnButtonsToUnclickedState();
+                        clearTextFromEditTextFragment();
+                        if (mTurnData.myParticipantIdST.equals("p_1")) {
+                            shareMessageCombo = mTurnData.playername1 + " decided to shuffle";
+                        } else {
+                            shareMessageCombo = mTurnData.playername2 + " decided to shuffle";
+                        }
+                        turnComplete();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                returnButtonsToUnclickedState();
+                clearTextFromEditTextFragment();
+            }
+        });
+        // create alert dialog
+        mAlertDialog = alertDialogBuilder.create();
+
+        // show it
+        mAlertDialog.show();
+    }
+
+    public void messageAtPass(String message) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setMessage(message);
+
+        // set dialog message
+        alertDialogBuilder.setCancelable(false).setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        isViewingBoardAfterTurn = true;
+                        removeButtonTextIfClickedAndIsWord();
+                        returnButtonsToUnclickedState();
+                        clearTextFromEditTextFragment();
+                        if (mTurnData.myParticipantIdST.equals("p_1")) {
+                            shareMessageCombo = mTurnData.playername1 + " decided to pass";
+                        } else {
+                            shareMessageCombo = mTurnData.playername2 + " decided to pass";
+                        }
+                        turnComplete();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                returnButtonsToUnclickedState();
+                clearTextFromEditTextFragment();
+            }
+        });
+        // create alert dialog
+        mAlertDialog = alertDialogBuilder.create();
+
+        // show it
+        mAlertDialog.show();
+    }
+
     public void messageAtEndOfTurn(String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -1043,10 +1144,6 @@ public class SkeletonActivity extends ActionBarActivity
                 clearTextFromEditTextFragment();
             }
         });
-
-//
-
-
         // create alert dialog
         mAlertDialog = alertDialogBuilder.create();
 
@@ -1907,7 +2004,7 @@ public class SkeletonActivity extends ActionBarActivity
                                         shareMessageCombo = shareMessageTitle + " You stole '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " stole '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
-                                        ;
+
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
@@ -1960,7 +2057,7 @@ public class SkeletonActivity extends ActionBarActivity
                     }
                 } else {
                     if (!et.getTextFromEditText().equals(""))
-                        Toast.makeText(this, "Click on all gold tiles to steal " + wordUserIsTryingToSteal(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "All blue letters must be selected", Toast.LENGTH_SHORT).show();
                     returnButtonsToUnclickedState();
 //                    showOriginalGameScreen();
                     clearTextFromEditTextFragment();

@@ -143,7 +143,7 @@ public class AfterTurnComplete extends ActionBarActivity {
             img2.setImageBitmap(getCircleBitmap((Bitmap.createScaledBitmap(largeIcon, 150, 150, false))));
         }
         tiles = intent.getStringExtra("tiles");
-        if(tiles.equals("0")){
+        if (tiles.equals("0")) {
             EditText e = (EditText) findViewById(R.id.after_turn_edittext);
             e.setHint("Final Turn Complete");
         }
@@ -231,6 +231,9 @@ public class AfterTurnComplete extends ActionBarActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.exit:
+                onBackPressed();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -241,10 +244,19 @@ public class AfterTurnComplete extends ActionBarActivity {
         super.onPrepareOptionsMenu(menu);
 
         MenuItem tile_item = menu.findItem(R.id.tile_count);
-        tile_item.setTitle("Tiles Remaining: " + tiles);
-
         MenuItem shuffle = menu.findItem(R.id.shuffle);
+        MenuItem pass = menu.findItem(R.id.pass);
+        MenuItem exit = menu.findItem(R.id.exit);
+        MenuItem enter = menu.findItem(R.id.enter);
+        MenuItem clear = menu.findItem(R.id.clear);
+        MenuItem settings = menu.findItem(R.id.action_settings);
+
+        tile_item.setTitle("Tiles Remaining: " + tiles);
         shuffle.setVisible(false);
+        pass.setVisible(false);
+        enter.setVisible(false);
+        clear.setVisible(false);
+        settings.setVisible(false);
 
         return true;
     }

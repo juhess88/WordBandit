@@ -9,7 +9,6 @@
         android:id="@+id/edittextfrag"
         android:layout_width="200dp"
         android:layout_height="@dimen/size"
-        android:layout_gravity="center_horizontal"
         android:background="#42A5F5"
         android:editable="false"
         android:hint="Tap and swipe"

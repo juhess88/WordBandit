@@ -256,7 +256,7 @@ public class AfterTurnComplete extends ActionBarActivity {
         pass.setVisible(false);
         enter.setVisible(false);
         clear.setVisible(false);
-        settings.setVisible(false);
+        exit.setVisible(false);
 
         return true;
     }

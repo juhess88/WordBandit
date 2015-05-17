@@ -18,6 +18,7 @@ package me.tb.player;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,6 +40,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -503,6 +505,13 @@ public class SkeletonActivity extends ActionBarActivity
 
         if (findViewById(R.id.gameplay_layout).getVisibility() == View.GONE) {
             tile_item.setVisible(false);
+            shuffle.setVisible(false);
+            pass.setVisible(false);
+            exit.setVisible(false);
+            enter.setVisible(false);
+            clear.setVisible(false);
+        } else if (!myTurn) {
+            tile_item.setVisible(true);
             shuffle.setVisible(false);
             pass.setVisible(false);
             exit.setVisible(false);
@@ -1054,7 +1063,6 @@ public class SkeletonActivity extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id) {
                         bl.shuffle();
                         isViewingBoardAfterTurn = true;
-                        removeButtonTextIfClickedAndIsWord();
                         returnButtonsToUnclickedState();
                         clearTextFromEditTextFragment();
                         if (mTurnData.myParticipantIdST.equals("p_1")) {
@@ -1091,7 +1099,6 @@ public class SkeletonActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         isViewingBoardAfterTurn = true;
-                        removeButtonTextIfClickedAndIsWord();
                         returnButtonsToUnclickedState();
                         clearTextFromEditTextFragment();
                         if (mTurnData.myParticipantIdST.equals("p_1")) {
@@ -1114,6 +1121,46 @@ public class SkeletonActivity extends ActionBarActivity
 
         // show it
         mAlertDialog.show();
+    }
+
+
+    private class GetProgress extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog dialog1;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                dialog1 = new ProgressDialog(new ContextThemeWrapper(
+                        SkeletonActivity.this, android.R.style.Theme_Holo_Light_Dialog));
+            } else {
+                dialog1 = new ProgressDialog(SkeletonActivity.this);
+            }
+            dialog1.setCanceledOnTouchOutside(false);
+            dialog1.show();
+        }
+
+        protected Void doInBackground(Void... params) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    isViewingBoardAfterTurn = true;
+                    wordAddedToListViewOfCurrentPlayer(wordUserCreatedFromEditTextFragment());
+                    removeButtonTextIfClickedAndIsWord();
+                    fillEmptyTilesWithNewLetters();
+                    updateScoreOfBothPlayers();
+                    returnButtonsToUnclickedState();
+                    clearTextFromEditTextFragment();
+                    turnComplete();
+
+                }
+            });
+            return null;
+        }
+
+        protected void onPostExecute() {
+            dialog1.dismiss();
+        }
     }
 
     public void messageAtEndOfTurn(String message) {
@@ -1168,22 +1215,19 @@ public class SkeletonActivity extends ActionBarActivity
                         //updates the listview and adds the word to the corresponding player
                         wordAddedToListViewOfCurrentPlayer(wordUserCreatedFromEditTextFragment());
                         //checks which list view clicked
-                        if (isListView1Clicked())
+                        if (isListView1Clicked()) {
                             wordIsStolenFromListView1();
-                        else
+                        } else {
                             wordIsStolenFromListView2();
-                        //changes score but checks if facebook game or google game
-                        //                  if(getGoogleCounter()==1)
+                        }
                         updateScoreOfBothPlayers();
-                        //                  else
-                        //                      fChangeScore();
                         removeButtonTextIfClickedAndIsWord();
                         fillEmptyTilesWithNewLetters();
                         showOriginalGameScreen();
                         returnButtonsToUnclickedState();
                         clearTextFromEditTextFragment();
                         turnComplete();
-//                        }
+
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
 
@@ -1249,7 +1293,6 @@ public class SkeletonActivity extends ActionBarActivity
                 icon.compress(Bitmap.CompressFormat.PNG, 100, out);
             } catch (IOException e) {
                 e.printStackTrace();
-                //fuck it
             } finally {
                 if (out != null) {
                     try {

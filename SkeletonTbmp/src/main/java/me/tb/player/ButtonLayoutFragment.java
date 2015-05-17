@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,8 +47,6 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
     Random rand = new Random();
     int random_counter;
 
-    int shuffleBoardOnce = 0;
-
     ArrayList<String> button_letter = new ArrayList<String>();
 
     CardView cv;
@@ -57,7 +54,7 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(android.os.Build.VERSION.SDK_INT >= 21){
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
             return inflater.inflate(R.layout.buttons_layout21, container, false);
         }
         return inflater.inflate(R.layout.buttons_layout, container, false);
@@ -134,7 +131,7 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
                 "x", "x", //2
                 "z", "z"}; //2
 
-        Log.d("Total Tiles: ", ""+letters.length);
+        Log.d("Total Tiles: ", "" + letters.length);
         list_of_letters.addAll(Arrays.asList(letters));
 
         Button[] bttn_arr = new Button[]{b0, b1, b2, b3, b4, b5, b6, b7, b8};
@@ -229,37 +226,33 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public void removeCardView(){
-        if(android.os.Build.VERSION.SDK_INT <21){
+    public void removeCardView() {
+        if (android.os.Build.VERSION.SDK_INT < 21) {
             cv = (CardView) getActivity().findViewById(R.id.cardviewUnder21);
-            cv.setContentPadding(-10,-10,-10,-10);
+            cv.setContentPadding(-10, -10, -10, -10);
             cv.setCardElevation(0);
         }
     }
 
-    public void restoreCardView(){
-        if(android.os.Build.VERSION.SDK_INT <21){
+    public void restoreCardView() {
+        if (android.os.Build.VERSION.SDK_INT < 21) {
             cv = (CardView) getActivity().findViewById(R.id.cardviewUnder21);
-            cv.setContentPadding(0,0,0,0);
+            cv.setContentPadding(0, 0, 0, 0);
             cv.setCardElevation(10);
         }
     }
 
     public void shuffle() {
-        if (shuffleBoardOnce == 0) {
-            for (int i = 0; i < button_list.size(); i++) {
-                list_of_letters.add(0, button_list.get(i).getText().toString());
-                button_list.get(i).setText("");
-                my_list_counter++;
-                fillEmptyTilesWithNewLettersIfNoText();
-                clearTheClickedButtons();
-                comm.clearTextFromEditTextFragment();
-                comm.returnButtonsToUnclickedState();
-                shuffleBoardOnce++;
-            }
-        } else {
-            Toast.makeText(getActivity(), "Can only shuffle once per turn", Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < button_list.size(); i++) {
+            list_of_letters.add(0, button_list.get(i).getText().toString());
+            button_list.get(i).setText("");
+            my_list_counter++;
+            fillEmptyTilesWithNewLettersIfNoText();
+            clearTheClickedButtons();
+            comm.clearTextFromEditTextFragment();
+            comm.returnButtonsToUnclickedState();
         }
+
     }
 
     public void removeTextFromButtonsIfClickedAndIsWord() {

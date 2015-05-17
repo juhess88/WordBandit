@@ -1,7 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/app_bar"
@@ -39,7 +38,7 @@
         android:id="@+id/gameplay_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/app_bar"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -48,9 +47,9 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="12dp"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
             android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
         <!-- I made the fragment countdown visibility gone in this xml
@@ -67,8 +66,8 @@
             android:id="@+id/fragment_button_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="12dp"
+            android:orientation="vertical"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"></LinearLayout>
 
@@ -192,9 +191,8 @@
         android:id="@+id/matchup_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_centerInParent="true"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/secret_layout"
@@ -303,4 +301,4 @@
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

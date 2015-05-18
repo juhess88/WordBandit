@@ -899,7 +899,7 @@ public class SkeletonActivity extends ActionBarActivity
         shareMessageCombo = mTurnData.messageCombo;
 
         //Create the next round when player one has turn
-        if (mTurnData.myParticipantIdST.equals("p_1")) {
+        if (mTurnData.myParticipantIdST!= null && mTurnData.myParticipantIdST.equals("p_1")) {
             mTurnData.roundCounter++;
         }
         // Create the next turn
@@ -1065,7 +1065,7 @@ public class SkeletonActivity extends ActionBarActivity
                         isViewingBoardAfterTurn = true;
                         returnButtonsToUnclickedState();
                         clearTextFromEditTextFragment();
-                        if (mTurnData.myParticipantIdST.equals("p_1")) {
+                        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                             shareMessageCombo = mTurnData.playername1 + " decided to shuffle";
                         } else {
                             shareMessageCombo = mTurnData.playername2 + " decided to shuffle";
@@ -1101,7 +1101,7 @@ public class SkeletonActivity extends ActionBarActivity
                         isViewingBoardAfterTurn = true;
                         returnButtonsToUnclickedState();
                         clearTextFromEditTextFragment();
-                        if (mTurnData.myParticipantIdST.equals("p_1")) {
+                        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                             shareMessageCombo = mTurnData.playername1 + " decided to pass";
                         } else {
                             shareMessageCombo = mTurnData.playername2 + " decided to pass";
@@ -1518,21 +1518,27 @@ public class SkeletonActivity extends ActionBarActivity
         fullName1 = playername1.split("\\s+");
         gp1.getFirstName(fullName1[0]);
 
-        playerPhotoUrl2 = participants.get(1).getIconImageUrl();
+        if(participants.size()>1) {
+            playerPhotoUrl2 = participants.get(1).getIconImageUrl();
 
-        if (playerPhotoUrl2 != null) {
-            gp2.getStringProf(playerPhotoUrl2);
-        } else {
-            gp2.setNullProfilePic();
+            if (playerPhotoUrl2 != null) {
+                gp2.getStringProf(playerPhotoUrl2);
+            } else {
+                gp2.setNullProfilePic();
+            }
+            playername2 = participants.get(1).getDisplayName();
+            fullName2 = playername2.split("\\s+");
+            gp2.getFirstName(fullName2[0]);
+            mTurnData.playername2 = fullName2[0];
+            mTurnData.playerprofile2 = playerPhotoUrl2;
         }
-        playername2 = participants.get(1).getDisplayName();
-        fullName2 = playername2.split("\\s+");
-        gp2.getFirstName(fullName2[0]);
 
+        if(participants.size()<2){
+            mTurnData.playername2 = "Matching...";
+        }
         mTurnData.playername1 = fullName1[0];
         mTurnData.playerprofile1 = playerPhotoUrl1;
-        mTurnData.playername2 = fullName2[0];
-        mTurnData.playerprofile2 = playerPhotoUrl2;
+
 
         mTurnData.playerpoints1 = ("Score: 0");
         mTurnData.playerpoints2 = ("Score: 0");
@@ -1889,7 +1895,7 @@ public class SkeletonActivity extends ActionBarActivity
     //if player 2 then all new words go to player 2's listview
     @Override
     public void wordAddedToListViewOfCurrentPlayer(String data) {
-        if (mTurnData.myParticipantIdST.equals("p_1"))
+        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1"))
             lv1.addWordToListView1(data);
         else
             lv2.addWordToListView2(data);
@@ -2039,7 +2045,7 @@ public class SkeletonActivity extends ActionBarActivity
                         if (!wordUserCreatedFromEditTextFragment().equals("")) {
                             if (!stolenWordIsRootOfOriginalWord()) {
 
-                                if (mTurnData.myParticipantIdST.equals("p_1")) {
+                                if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                                     if (!isListView1Clicked()) {
                                         shareMessageTitle = "You stole " + mTurnData.playername2 + "'s word!";
                                         shareMessageBody = "Steal with '" + etWord + "'?";
@@ -2113,7 +2119,7 @@ public class SkeletonActivity extends ActionBarActivity
                     shareMessageTitle = "You made a word!";
                     shareMessageBody = "Make the word '" + etWord + "'?";
                     shareMessageCombo = shareMessageTitle + " Your word is '" + etWord + "'";
-                    if (mTurnData.myParticipantIdST.equals("p_1")) {
+                    if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " made the word '" + etWord + "'";
                     } else {
                         mTurnData.shareNextTurnMessage = mTurnData.playername2 + " made the word '" + etWord + "'";

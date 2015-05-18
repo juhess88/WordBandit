@@ -231,9 +231,6 @@ public class AfterTurnComplete extends ActionBarActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.exit:
-                onBackPressed();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -264,6 +261,8 @@ public class AfterTurnComplete extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(AfterTurnComplete.this, SkeletonActivity.class);
+        startActivity(intent);
         this.finish();
     }
 

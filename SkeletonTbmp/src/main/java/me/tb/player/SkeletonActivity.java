@@ -58,7 +58,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
-import com.google.android.gms.games.Player;
 import com.google.android.gms.games.multiplayer.Invitation;
 import com.google.android.gms.games.multiplayer.Multiplayer;
 import com.google.android.gms.games.multiplayer.OnInvitationReceivedListener;
@@ -75,7 +74,6 @@ import com.google.example.games.basegameutils.BaseGameUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -221,8 +219,8 @@ public class SkeletonActivity extends ActionBarActivity
 
 
         // Setup signin and signout buttons
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+//        findViewById(R.id.sign_out_button).setOnClickListener(this);
+//        findViewById(R.id.sign_in_button).setOnClickListener(this);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -234,34 +232,12 @@ public class SkeletonActivity extends ActionBarActivity
 
         rules = new RulesForStealingWords();
 
-        img = (ImageView) findViewById(R.id.gImage);
+//        img = (ImageView) findViewById(R.id.gImage);
 
 //        doneButton = (Button) findViewById(R.id.doneButton);
 
         gestureScanner = new GestureDetector(this, new MyGestureListener());
 
-        et = new EditTextFragment();
-        bl = new ButtonLayoutFragment();
-        db = new DynamicButtonsFragment();
-        gp1 = new GProfilePic1();
-        gp2 = new GProfilePic2();
-        lv1 = new ListView1();
-        lv2 = new ListView2();
-        cf = new CountdownFragment();
-
-        manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.add(R.id.etToolbar, et, "EFrag");
-        transaction.add(R.id.fragment_button_layout, bl, "BFrag");
-        transaction.add(R.id.fragment_dynamic_button_layout, db, "DFrag").hide(db);
-        transaction.add(R.id.fragment_google1, gp1, "GFrag1");
-        transaction.add(R.id.fragment_google2, gp2, "GFrag2");
-        transaction.add(R.id.fragment_listview1, lv1, "LFrag1");
-        transaction.add(R.id.fragment_listview2, lv2, "LFrag2");
-        transaction.add(R.id.fragment_countdown, cf, "CFrag");
-
-        transaction.commit();
     }
 
     public static List<RecyclerShareModel> getData() {
@@ -301,12 +277,7 @@ public class SkeletonActivity extends ActionBarActivity
             double distance = Math.sqrt(Math.pow(e2.getX() - e1.getX(), 2) + Math.pow(e2.getY() - e1.getY(), 2));
 
             if (D) {
-//                Log.d(TAG, "fling: " + fling + ", e1X: " + e1.getX() + ", e1Y: " + e1.getY()
-//                        + ", e2X: " + e2.getX() + ", e2Y: " + e2.getY() + ", distance: " + distance
-//                        + ", vX: " + velocityX + " vY:" + velocityY);
-
                 if (fling > velocityThresh && distance > distanceThresh && enableFling) {
-//                    Log.d("onFling", "fling");
                     fling();
                 }
             }
@@ -317,8 +288,6 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-//        Log.d(TAG, "onRestart(): onRestart called");
-
         if (isViewingBoardAfterTurn) {
             lv1.adapter1.clear();
             lv2.adapter2.clear();
@@ -328,7 +297,6 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onStart() {
         super.onStart();
-//        Log.d(TAG, "onStart(): Connecting to Google APIs");
         mGoogleApiClient.connect();
     }
 
@@ -343,30 +311,21 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onResume() {
         super.onResume();
-//        Log.d(TAG, "onResume(): onResume called");
-
     }
-
 
     @Override
     protected void onPause() {
         super.onPause();
-//        Log.d(TAG, "onPause(): onPause called");
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        if(newMatch)
-//            outState=null;
-//        Log.d(TAG, "onSaveInstanceState(): onSaveInstanceState called");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        Log.d(TAG, "onStop(): Disconnecting from Google APIs");
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -376,14 +335,11 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        Log.d(TAG, "onDestroy(): onDestroy called");
     }
 
 
     @Override
     public void onConnected(Bundle connectionHint) {
-//        Log.d(TAG, "onConnected(): Connection successful");
-
         // Retrieve the TurnBasedMatch from the connectionHint
         if (connectionHint != null) {
             mTurnBasedMatch = connectionHint.getParcelable(Multiplayer.EXTRA_TURN_BASED_MATCH);
@@ -396,50 +352,50 @@ public class SkeletonActivity extends ActionBarActivity
                 updateMatch(mTurnBasedMatch);
                 return;
             }
+        } else {
+
+            et = new EditTextFragment();
+            bl = new ButtonLayoutFragment();
+            db = new DynamicButtonsFragment();
+            gp1 = new GProfilePic1();
+            gp2 = new GProfilePic2();
+            lv1 = new ListView1();
+            lv2 = new ListView2();
+            cf = new CountdownFragment();
+
+            manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+
+            transaction.add(R.id.etToolbar, et, "EFrag");
+            transaction.add(R.id.fragment_button_layout, bl, "BFrag");
+            transaction.add(R.id.fragment_dynamic_button_layout, db, "DFrag").hide(db);
+            transaction.add(R.id.fragment_google1, gp1, "GFrag1");
+            transaction.add(R.id.fragment_google2, gp2, "GFrag2");
+            transaction.add(R.id.fragment_listview1, lv1, "LFrag1");
+            transaction.add(R.id.fragment_listview2, lv2, "LFrag2");
+            transaction.add(R.id.fragment_countdown, cf, "CFrag");
+
+            transaction.commit();
+
+            Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
+                    1, 1, true);
+            startActivityForResult(intent, RC_SELECT_PLAYERS);
+
         }
         setViewVisibility();
 
-        // As a demonstration, we are registering this activity as a handler for
-        // invitation and match events.
-
-        // This is *NOT* required; if you do not register a handler for
-        // invitation events, you will get standard notifications instead.
-        // Standard notifications may be preferable behavior in many cases.
 //        Games.Invitations.registerInvitationListener(mGoogleApiClient, this);
-
-        // Likewise, we are registering the optional MatchUpdateListener, which
-        // will replace notifications you would get otherwise. You do *NOT* have
-        // to register a MatchUpdateListener.
 //        Games.TurnBasedMultiplayer.registerMatchUpdateListener(mGoogleApiClient, this);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d(TAG, "onConnectionSuspended():  Trying to reconnect.");
-        mGoogleApiClient.connect();
-        setViewVisibility();
+
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed(): attempting to resolve");
-        if (mResolvingConnectionFailure) {
-            // Already resolving
-            Log.d(TAG, "onConnectionFailed(): ignoring connection failure, already resolving.");
-            return;
-        }
 
-        // Launch the sign-in flow if the button was clicked or if auto sign-in is enabled
-        if (mSignInClicked || mAutoStartSignInFlow) {
-            mAutoStartSignInFlow = false;
-            mSignInClicked = false;
-
-            mResolvingConnectionFailure = BaseGameUtils.resolveConnectionFailure(this,
-                    mGoogleApiClient, connectionResult, RC_SIGN_IN,
-                    getString(R.string.signin_other_error));
-        }
-
-        setViewVisibility();
     }
 
     //resets the game state so no duplicate info appears
@@ -501,7 +457,10 @@ public class SkeletonActivity extends ActionBarActivity
         MenuItem clear = menu.findItem(R.id.clear);
         MenuItem settings = menu.findItem(R.id.action_settings);
 
-        tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
+
+        if (bl != null) {
+            tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
+        }
 
         if (findViewById(R.id.gameplay_layout).getVisibility() == View.GONE) {
             tile_item.setVisible(false);
@@ -567,40 +526,6 @@ public class SkeletonActivity extends ActionBarActivity
         Games.TurnBasedMultiplayer.createMatch(mGoogleApiClient, tbmc).setResultCallback(cb);
     }
 
-    // In-game controls
-
-    // Cancel the game. Should possibly wait until the game is canceled before
-    // giving up on the view.
-    public void onCancelClicked(View view) {
-        showSpinner();
-        Games.TurnBasedMultiplayer.cancelMatch(mGoogleApiClient, mMatch.getMatchId())
-                .setResultCallback(new ResultCallback<TurnBasedMultiplayer.CancelMatchResult>() {
-                    @Override
-                    public void onResult(TurnBasedMultiplayer.CancelMatchResult result) {
-                        processResult(result);
-                    }
-                });
-        isDoingTurn = false;
-        setViewVisibility();
-    }
-
-    // Leave the game during your turn. Note that there is a separate
-    // Games.TurnBasedMultiplayer.leaveMatch() if you want to leave NOT on your turn.
-//    public void onLeaveClicked(View view) {
-//        showSpinner();
-//        String nextParticipantId = getNextParticipantId();
-//
-//        Games.TurnBasedMultiplayer.leaveMatchDuringTurn(mGoogleApiClient, mMatch.getMatchId(),
-//                nextParticipantId).setResultCallback(
-//                    new ResultCallback<TurnBasedMultiplayer.LeaveMatchResult>() {
-//            @Override
-//            public void onResult(TurnBasedMultiplayer.LeaveMatchResult result) {
-//                processResult(result);
-//            }
-//        });
-//        setViewVisibility();
-//    }
-
     // Finish the game. Sometimes, this is your only choice.
     public void onFinishClicked() {
         showSpinner();
@@ -642,7 +567,7 @@ public class SkeletonActivity extends ActionBarActivity
         isDoingTurn = false;
         setViewVisibility();
 
-        reset();
+//        reset();
     }
 
     // Upload your new gamestate, then take a turn, and pass it on to the next
@@ -729,75 +654,35 @@ public class SkeletonActivity extends ActionBarActivity
 //        cf.cd.cancel();
 //        Log.d("CountdownTimer", "Countdown timer cancelled");
 
-        reset();
+//        reset();
     }
 
     // Sign-in, Sign out behavior
 
     // Update the visibility based on what state we're in.
     public void setViewVisibility() {
-        boolean isSignedIn = (mGoogleApiClient != null) && (mGoogleApiClient.isConnected());
 
-
-        findViewById(R.id.login_layout).setVisibility(View.GONE);
-        findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-
-        if (!isSignedIn) {
-            findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.matchup_layout).setVisibility(View.GONE);
-            findViewById(R.id.gameplay_layout).setVisibility(View.GONE);
-
-            if (mAlertDialog != null) {
-                mAlertDialog.dismiss();
-            }
-            return;
+        if (mAlertDialog != null) {
+            mAlertDialog.dismiss();
         }
 
-
-        ((TextView) findViewById(R.id.name_field)).setText(Games.Players.getCurrentPlayer(
-                mGoogleApiClient).getDisplayName());
-
-        Player player = Games.Players.getCurrentPlayer(mGoogleApiClient);
-
-        String playerPhotoUrl = player.getIconImageUrl();
-
-//        getStringProf(playerPhotoUrl);
-        if (playerPhotoUrl != null)
-            new LoadProfileImage(img).execute(playerPhotoUrl);
-        else {
-            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blankprofile);
-            img.setImageBitmap(getCircleBitmap((Bitmap.createScaledBitmap(largeIcon, 200, 200, false))));
-        }
-
-        if (isDoingTurn) {
-            findViewById(R.id.matchup_layout).setVisibility(View.GONE);
-            findViewById(R.id.gameplay_layout).setVisibility(View.VISIBLE);
-            getSupportActionBar().show();
-            isViewingBoardAfterTurn = false;
+        if (isViewingBoardAfterTurn) {
+            Intent intent = new Intent(SkeletonActivity.this, AfterTurnComplete.class);
+            intent.putStringArrayListExtra("button_letter", (ArrayList) bl.getButton_letter());
+            intent.putStringArrayListExtra("list1", (ArrayList) lv1View);
+            intent.putStringArrayListExtra("list2", (ArrayList) lv2View);
+            intent.putExtra("score1", pointview1);
+            intent.putExtra("score2", pointview2);
+            intent.putExtra("name1", nameView1);
+            intent.putExtra("name2", nameView2);
+            intent.putExtra("pic1", profView1);
+            intent.putExtra("pic2", profview2);
+            intent.putExtra("tiles", tilesRemainingView);
+            intent.putExtra("share", shareMessageCombo);
+            startActivity(intent);
+            SkeletonActivity.this.finish();
         } else {
-            if (isViewingBoardAfterTurn) {
-                Intent intent = new Intent(SkeletonActivity.this, AfterTurnComplete.class);
-                intent.putStringArrayListExtra("button_letter", (ArrayList) bl.getButton_letter());
-                intent.putStringArrayListExtra("list1", (ArrayList) lv1View);
-                intent.putStringArrayListExtra("list2", (ArrayList) lv2View);
-                intent.putExtra("score1", pointview1);
-                intent.putExtra("score2", pointview2);
-                intent.putExtra("name1", nameView1);
-                intent.putExtra("name2", nameView2);
-                intent.putExtra("pic1", profView1);
-                intent.putExtra("pic2", profview2);
-                intent.putExtra("tiles", tilesRemainingView);
-                intent.putExtra("share", shareMessageCombo);
-                startActivity(intent);
-                SkeletonActivity.this.finish();
 
-            } else {
-                findViewById(R.id.matchup_layout).setVisibility(View.VISIBLE);
-                findViewById(R.id.gameplay_layout).setVisibility(View.GONE);
-                getSupportActionBar().hide();
-                isViewingBoardAfterTurn = false;
-            }
 
         }
     }
@@ -824,34 +709,6 @@ public class SkeletonActivity extends ActionBarActivity
         bitmap.recycle();
 
         return output;
-    }
-
-    /**
-     * Background Async task to load user profile picture from url
-     */
-    private class LoadProfileImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public LoadProfileImage(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(getCircleBitmap(Bitmap.createScaledBitmap(result, 200, 200, false)));
-        }
     }
 
     public void messageAtStartOfTurn(String title, String message) {
@@ -899,7 +756,7 @@ public class SkeletonActivity extends ActionBarActivity
         shareMessageCombo = mTurnData.messageCombo;
 
         //Create the next round when player one has turn
-        if (mTurnData.myParticipantIdST!= null && mTurnData.myParticipantIdST.equals("p_1")) {
+        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
             mTurnData.roundCounter++;
         }
         // Create the next turn
@@ -1322,7 +1179,7 @@ public class SkeletonActivity extends ActionBarActivity
                         isViewingBoardAfterTurn = false;
                         enableFling = true;
                         nextTurn = 0;
-                        Intent intent = new Intent(SkeletonActivity.this, SkeletonActivity.class);
+                        Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
                         startActivity(intent);
                         SkeletonActivity.this.finish();
                     }
@@ -1356,7 +1213,7 @@ public class SkeletonActivity extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
-                        reset();
+//                        reset();
                     }
                 });
 
@@ -1387,7 +1244,7 @@ public class SkeletonActivity extends ActionBarActivity
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                reset();
+//                                reset();
                             }
                         });
 
@@ -1412,6 +1269,7 @@ public class SkeletonActivity extends ActionBarActivity
 
             if (response != Activity.RESULT_OK) {
                 // user canceled
+                this.finish();
                 return;
             }
 
@@ -1428,6 +1286,7 @@ public class SkeletonActivity extends ActionBarActivity
 
             if (response != Activity.RESULT_OK) {
                 // user canceled
+                this.finish();
                 return;
             }
 
@@ -1475,6 +1334,10 @@ public class SkeletonActivity extends ActionBarActivity
     public void startMatch(TurnBasedMatch match) {
         mTurnData = new SkeletonTurn();
 
+        findViewById(R.id.gameplay_layout).setVisibility(View.VISIBLE);
+        getSupportActionBar().show();
+        isViewingBoardAfterTurn = false;
+
         // Some basic turn data
         //game has not started yet
         mTurnData.hadFirstTurn = false;
@@ -1518,7 +1381,7 @@ public class SkeletonActivity extends ActionBarActivity
         fullName1 = playername1.split("\\s+");
         gp1.getFirstName(fullName1[0]);
 
-        if(participants.size()>1) {
+        if (participants.size() > 1) {
             playerPhotoUrl2 = participants.get(1).getIconImageUrl();
 
             if (playerPhotoUrl2 != null) {
@@ -1533,7 +1396,7 @@ public class SkeletonActivity extends ActionBarActivity
             mTurnData.playerprofile2 = playerPhotoUrl2;
         }
 
-        if(participants.size()<2){
+        if (participants.size() < 2) {
             mTurnData.playername2 = "Matching...";
         }
         mTurnData.playername1 = fullName1[0];
@@ -1569,7 +1432,7 @@ public class SkeletonActivity extends ActionBarActivity
                 });
         mMatch = null;
         isDoingTurn = false;
-        reset();
+//        reset();
     }
 
     /**
@@ -1616,7 +1479,7 @@ public class SkeletonActivity extends ActionBarActivity
     public void onBackPressed() {
 //        super.onBackPressed();
         if (!myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE) {
-            Intent intent = new Intent(SkeletonActivity.this, SkeletonActivity.class);
+            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
             startActivity(intent);
             SkeletonActivity.this.finish();
         } else if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE

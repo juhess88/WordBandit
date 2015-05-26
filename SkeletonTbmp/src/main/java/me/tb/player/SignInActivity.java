@@ -2,7 +2,6 @@ package me.tb.player;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +14,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +32,9 @@ import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -54,6 +57,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
 
     // For our intents
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_LOOK_AT_MATCHES = 10001;
 
     ImageView img;
 
@@ -79,9 +83,35 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         // Setup signin and signout buttons
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.secondActivityButton).setOnClickListener(this);
+        findViewById(R.id.startMatchButton).setOnClickListener(this);
+        findViewById(R.id.checkGamesButton).setOnClickListener(this);
+
         img = (ImageView) findViewById(R.id.gImage);
 
+        copyIcon();
+    }
+
+    private void copyIcon() {
+        File f = new File(Environment.getExternalStorageDirectory() + "/game_icon1.png");
+        Log.e(null, f.getPath());
+        if (!f.exists()) {
+            FileOutputStream out = null;
+            try {
+                Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.game_icon);
+                out = new FileOutputStream(f);
+                icon.compress(Bitmap.CompressFormat.PNG, 100, out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        //do nothing
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -117,11 +147,29 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
                     mGoogleApiClient.disconnect();
                 }
                 break;
-            case R.id.secondActivityButton:
+            case R.id.startMatchButton:
+                //we either send a message to skeleton activity
+                //that we are starting new game or continuing saved game
                 Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+                intent.putExtra("message", "new");
                 startActivity(intent);
+                break;
+            case R.id.checkGamesButton:
+                //we either send a message to skeleton activity
+                //that we are starting new game or continuing saved game
+                Intent intent2 = new Intent(SignInActivity.this, SkeletonActivity.class);
+                intent2.putExtra("message", "saved");
+                startActivity(intent2);
+                break;
         }
     }
+
+    // Displays your inbox. You will get back onActivityResult where
+    // you will need to figure out what you clicked on.
+//    public void onCheckGamesClicked() {
+//        Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
+//        startActivityForResult(intent, RC_LOOK_AT_MATCHES);
+//    }
 
     public Bitmap getCircleBitmap(Bitmap bitmap) {
         final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
@@ -156,6 +204,8 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
                 mGoogleApiClient.connect();
             } else {
                 BaseGameUtils.showActivityResultError(this, request, response, R.string.signin_other_error);
+                findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.secret_layout).setVisibility(View.GONE);
             }
         }
     }
@@ -173,7 +223,6 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
 
             String playerPhotoUrl = player.getIconImageUrl();
 
-//        getStringProf(playerPhotoUrl);
             if (playerPhotoUrl != null)
                 new LoadProfileImage(img).execute(playerPhotoUrl);
             else {
@@ -261,27 +310,5 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(getCircleBitmap(Bitmap.createScaledBitmap(result, 200, 200, false)));
         }
-    }
-
-    public void messageAtStartOfTurn(String title, String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        // set title
-        alertDialogBuilder.setTitle(title).setMessage(message);
-
-        // set dialog message
-        alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-
-        // create alert dialog
-        mAlertDialog = alertDialogBuilder.create();
-
-        // show it
-        mAlertDialog.show();
     }
 }

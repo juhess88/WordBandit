@@ -2,7 +2,9 @@ package me.tb.player;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -78,6 +81,19 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
                 .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
+
+        Intent intent = getIntent();
+        if(intent==null){
+            Toast.makeText(this, "no intent", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "there is intent", Toast.LENGTH_SHORT).show();
+        }
+
+        //use shared preferences to save dates of custom omer
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean("notification", true);
+//        editor.commit();
 
 
         // Setup signin and signout buttons
@@ -266,7 +282,11 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
 
     @Override
     public void onInvitationReceived(Invitation invitation) {
-
+        Toast.makeText(
+                this,
+                "An invitation has arrived from "
+                        + invitation.getInviter().getDisplayName(), Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override
@@ -276,6 +296,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
 
     @Override
     public void onTurnBasedMatchReceived(TurnBasedMatch turnBasedMatch) {
+        Toast.makeText(this, "A match was updated.", Toast.LENGTH_SHORT).show();
 
     }
 

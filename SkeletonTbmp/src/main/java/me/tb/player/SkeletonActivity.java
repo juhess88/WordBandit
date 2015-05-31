@@ -82,7 +82,7 @@ import java.util.List;
 public class SkeletonActivity extends ActionBarActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         OnInvitationReceivedListener, OnTurnBasedMatchUpdateReceivedListener,
-        View.OnClickListener, CommunicatorGame {
+        CommunicatorGame {
 
     public static final String TAG = "SkeletonActivity";
 
@@ -90,9 +90,6 @@ public class SkeletonActivity extends ActionBarActivity
 
     // Client used to interact with Google APIs
     private GoogleApiClient mGoogleApiClient;
-
-    // Has the user clicked the sign-in button?
-    private boolean mSignInClicked = false;
 
     // Current turn-based match
     private TurnBasedMatch mTurnBasedMatch;
@@ -121,6 +118,8 @@ public class SkeletonActivity extends ActionBarActivity
 
     //keeps track if player 1's turn or player 2's turn
     String myParticipantId;
+
+    boolean isRestart = false;
 
     String[] fullName1, fullName2;
     String playerPhotoUrl1;
@@ -228,6 +227,7 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onRestart() {
         super.onRestart();
+        isRestart=true;
         if (isViewingBoardAfterTurn) {
             lv1.adapter1.clear();
             lv2.adapter2.clear();
@@ -291,18 +291,20 @@ public class SkeletonActivity extends ActionBarActivity
                 return;
             }
         } else {
-            initFragments();
+            if (!isRestart) {
+                initFragments();
 
-            Intent signInIntent = getIntent();
-            String message = signInIntent.getStringExtra("message");
+                Intent signInIntent = getIntent();
+                String message = signInIntent.getStringExtra("message");
 
-            if (message.equals("new")) {
-                Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
-                        1, 1, true);
-                startActivityForResult(intent, RC_SELECT_PLAYERS);
-            } else {
-                Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
-                startActivityForResult(intent, RC_LOOK_AT_MATCHES);
+                if (message.equals("new")) {
+                    Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
+                            1, 1, false);
+                    startActivityForResult(intent, RC_SELECT_PLAYERS);
+                } else {
+                    Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
+                    startActivityForResult(intent, RC_LOOK_AT_MATCHES);
+                }
             }
         }
         setViewVisibility();
@@ -421,14 +423,6 @@ public class SkeletonActivity extends ActionBarActivity
     public void onCheckGamesClicked(View view) {
         Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
         startActivityForResult(intent, RC_LOOK_AT_MATCHES);
-    }
-
-    // Open the create-game UI. You will get back an onActivityResult
-    // and figure out what to do.
-    public void onStartMatchClicked(View view) {
-        Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
-                1, 1, true);
-        startActivityForResult(intent, RC_SELECT_PLAYERS);
     }
 
     // Create a one-on-one automatch game.
@@ -1600,26 +1594,6 @@ public class SkeletonActivity extends ActionBarActivity
         }
 
         return false;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                mSignInClicked = true;
-                mTurnBasedMatch = null;
-                findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-                mGoogleApiClient.connect();
-                break;
-            case R.id.sign_out_button:
-                mSignInClicked = false;
-                Games.signOut(mGoogleApiClient);
-                if (mGoogleApiClient.isConnected()) {
-                    mGoogleApiClient.disconnect();
-                }
-                setViewVisibility();
-                break;
-        }
     }
 
     //wordAddedToListViewOfCurrentPlayer will check who's turn it is

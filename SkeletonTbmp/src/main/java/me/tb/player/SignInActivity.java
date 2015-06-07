@@ -2,9 +2,7 @@ package me.tb.player;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -61,6 +59,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
     // For our intents
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_LOOK_AT_MATCHES = 10001;
+    final static int RC_SELECT_PLAYERS = 10000;
 
     ImageView img;
 
@@ -82,20 +81,6 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
 
-        Intent intent = getIntent();
-        if(intent==null){
-            Toast.makeText(this, "no intent", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "there is intent", Toast.LENGTH_SHORT).show();
-        }
-
-        //use shared preferences to save dates of custom omer
-//        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putBoolean("notification", true);
-//        editor.commit();
-
-
         // Setup signin and signout buttons
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -107,33 +92,25 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         copyIcon();
     }
 
-    private void copyIcon() {
-        File f = new File(Environment.getExternalStorageDirectory() + "/game_icon1.png");
-        Log.e(null, f.getPath());
-        if (!f.exists()) {
-            FileOutputStream out = null;
-            try {
-                Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.game_icon);
-                out = new FileOutputStream(f);
-                icon.compress(Bitmap.CompressFormat.PNG, 100, out);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException e) {
-                        //do nothing
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -143,6 +120,11 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             mGoogleApiClient.disconnect();
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public void onClick(View v) {
@@ -166,16 +148,16 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.startMatchButton:
                 //we either send a message to skeleton activity
                 //that we are starting new game or continuing saved game
-                Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
-                intent.putExtra("message", "new");
-                startActivity(intent);
+                Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
+                        1, 1, false);
+                startActivityForResult(intent, RC_SELECT_PLAYERS);
+
                 break;
             case R.id.checkGamesButton:
                 //we either send a message to skeleton activity
                 //that we are starting new game or continuing saved game
-                Intent intent2 = new Intent(SignInActivity.this, SkeletonActivity.class);
-                intent2.putExtra("message", "saved");
-                startActivity(intent2);
+                Intent intent2 = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
+                startActivityForResult(intent2, RC_LOOK_AT_MATCHES);
                 break;
         }
     }
@@ -210,6 +192,8 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         return output;
     }
 
+    // This function is what gets called when you return from either the Play
+    // Games built-in inbox, or else the create game built-in interface.
     @Override
     public void onActivityResult(int request, int response, Intent data) {
         super.onActivityResult(request, response, data);
@@ -218,11 +202,37 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             mResolvingConnectionFailure = false;
             if (response == Activity.RESULT_OK) {
                 mGoogleApiClient.connect();
+
             } else {
                 BaseGameUtils.showActivityResultError(this, request, response, R.string.signin_other_error);
                 findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.secret_layout).setVisibility(View.GONE);
             }
+        } else if (request == RC_LOOK_AT_MATCHES) {
+            // Returning from the 'Select Match' dialog
+
+            if (response != Activity.RESULT_OK) {
+                // user canceled
+                return;
+            }
+
+            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+            intent.putExtra("message", "saved");
+            intent.putExtras(data);
+            startActivity(intent);
+
+        } else if (request == RC_SELECT_PLAYERS) {
+            // Returned from 'Select players to Invite' dialog
+
+            if (response != Activity.RESULT_OK) {
+                // user canceled
+                return;
+            }
+
+            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+            intent.putExtra("message", "new");
+            intent.putExtras(data);
+            startActivity(intent);
         }
     }
 
@@ -251,6 +261,13 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        // Retrieve the TurnBasedMatch from the connectionHint
+        if (connectionHint != null) {
+            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+            intent.putExtra("data", connectionHint);
+            startActivity(intent);
+            finish();
+        }
         setViewVisibility();
     }
 
@@ -332,4 +349,28 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             bmImage.setImageBitmap(getCircleBitmap(Bitmap.createScaledBitmap(result, 200, 200, false)));
         }
     }
+
+    private void copyIcon() {
+        File f = new File(Environment.getExternalStorageDirectory() + "/game_icon1.png");
+        Log.e(null, f.getPath());
+        if (!f.exists()) {
+            FileOutputStream out = null;
+            try {
+                Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.game_icon);
+                out = new FileOutputStream(f);
+                icon.compress(Bitmap.CompressFormat.PNG, 100, out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        //do nothing
+                    }
+                }
+            }
+        }
+    }
+
 }

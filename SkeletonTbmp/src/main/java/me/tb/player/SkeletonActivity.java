@@ -136,7 +136,6 @@ public class SkeletonActivity extends ActionBarActivity
     GProfilePic2 gp2;
     ListView1 lv1;
     ListView2 lv2;
-    CountdownFragment cf;
 
     FragmentManager manager;
 
@@ -174,6 +173,8 @@ public class SkeletonActivity extends ActionBarActivity
                 .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
+
+        initFragments();
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -227,8 +228,8 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        isRestart=true;
-        if (isViewingBoardAfterTurn) {
+        isRestart = true;
+        if (isViewingBoardAfterTurn || !myTurn) {
             lv1.adapter1.clear();
             lv2.adapter2.clear();
         }
@@ -275,10 +276,13 @@ public class SkeletonActivity extends ActionBarActivity
         super.onDestroy();
     }
 
-
     @Override
     public void onConnected(Bundle connectionHint) {
         // Retrieve the TurnBasedMatch from the connectionHint
+        Bundle bundle = getIntent().getBundleExtra("data");
+        if(bundle!=null){
+            connectionHint=bundle;
+        }
         if (connectionHint != null) {
             mTurnBasedMatch = connectionHint.getParcelable(Multiplayer.EXTRA_TURN_BASED_MATCH);
 
@@ -288,24 +292,12 @@ public class SkeletonActivity extends ActionBarActivity
                 }
 
                 updateMatch(mTurnBasedMatch);
-                return;
             }
+
         } else {
-            if (!isRestart) {
-                initFragments();
 
-                Intent signInIntent = getIntent();
-                String message = signInIntent.getStringExtra("message");
-
-                if (message.equals("new")) {
-                    Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
-                            1, 1, false);
-                    startActivityForResult(intent, RC_SELECT_PLAYERS);
-                } else {
-                    Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
-                    startActivityForResult(intent, RC_LOOK_AT_MATCHES);
-                }
-            }
+            Intent intent = getIntent();
+            startTheGame(intent);
         }
         setViewVisibility();
 
@@ -321,7 +313,6 @@ public class SkeletonActivity extends ActionBarActivity
         gp2 = new GProfilePic2();
         lv1 = new ListView1();
         lv2 = new ListView2();
-        cf = new CountdownFragment();
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -333,7 +324,6 @@ public class SkeletonActivity extends ActionBarActivity
         transaction.add(R.id.fragment_google2, gp2, "GFrag2");
         transaction.add(R.id.fragment_listview1, lv1, "LFrag1");
         transaction.add(R.id.fragment_listview2, lv2, "LFrag2");
-        transaction.add(R.id.fragment_countdown, cf, "CFrag");
 
         transaction.commit();
     }
@@ -418,33 +408,6 @@ public class SkeletonActivity extends ActionBarActivity
         return true;
     }
 
-    // Displays your inbox. You will get back onActivityResult where
-    // you will need to figure out what you clicked on.
-    public void onCheckGamesClicked(View view) {
-        Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
-        startActivityForResult(intent, RC_LOOK_AT_MATCHES);
-    }
-
-    // Create a one-on-one automatch game.
-    public void onQuickMatchClicked(View view) {
-
-        Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
-                1, 1, 0);
-
-        TurnBasedMatchConfig tbmc = TurnBasedMatchConfig.builder()
-                .setAutoMatchCriteria(autoMatchCriteria).build();
-
-        showSpinner();
-
-        // Start the match
-        ResultCallback<TurnBasedMultiplayer.InitiateMatchResult> cb = new ResultCallback<TurnBasedMultiplayer.InitiateMatchResult>() {
-            @Override
-            public void onResult(TurnBasedMultiplayer.InitiateMatchResult result) {
-                processResult(result);
-            }
-        };
-        Games.TurnBasedMultiplayer.createMatch(mGoogleApiClient, tbmc).setResultCallback(cb);
-    }
 
     // Finish the game. Sometimes, this is your only choice.
     public void onFinishClicked() {
@@ -590,11 +553,6 @@ public class SkeletonActivity extends ActionBarActivity
             startActivity(intent);
             SkeletonActivity.this.finish();
         }
-//        else {
-//
-//            findViewById(R.id.gameplay_layout).setVisibility(View.VISIBLE);
-//
-//        }
     }
 
     @Override
@@ -646,6 +604,7 @@ public class SkeletonActivity extends ActionBarActivity
 
     // Switch to gameplay view.
     public void setGameplayUI() {
+
         isDoingTurn = true;
         setViewVisibility();
 
@@ -1128,35 +1087,16 @@ public class SkeletonActivity extends ActionBarActivity
         alertDialogBuilder.show();
     }
 
-    // This function is what gets called when you return from either the Play
-    // Games built-in inbox, or else the create game built-in interface.
-    @Override
-    public void onActivityResult(int request, int response, Intent data) {
-        super.onActivityResult(request, response, data);
-        if (request == RC_LOOK_AT_MATCHES) {
-            // Returning from the 'Select Match' dialog
+    public void startTheGame(Intent data) {
 
-            if (response != Activity.RESULT_OK) {
-                // user canceled
-                this.finish();
-                return;
-            }
-
+        if (data.getStringExtra("message").equals("saved")) {
             TurnBasedMatch match = data
                     .getParcelableExtra(Multiplayer.EXTRA_TURN_BASED_MATCH);
 
             if (match != null) {
                 updateMatch(match);
             }
-
-        } else if (request == RC_SELECT_PLAYERS) {
-            // Returned from 'Select players to Invite' dialog
-
-            if (response != Activity.RESULT_OK) {
-                // user canceled
-                this.finish();
-                return;
-            }
+        } else {
 
             // get the invitee list
             final ArrayList<String> invitees = data
@@ -1346,6 +1286,9 @@ public class SkeletonActivity extends ActionBarActivity
     public void onBackPressed() {
 //        super.onBackPressed();
         if (!myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE) {
+//            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
             SkeletonActivity.this.finish();
         } else if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE
                 && db.isVisible()) {
@@ -1359,6 +1302,9 @@ public class SkeletonActivity extends ActionBarActivity
             if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE) {
                 exitGameQuestion("Are you sure you want to exit?");
             } else {
+//            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
                 this.finish();
             }
         }

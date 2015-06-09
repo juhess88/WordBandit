@@ -66,8 +66,6 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
 
         comm = (CommunicatorGame) getActivity();
 
-//        letters = new String[]{"a", "b", "i", "d", "e", "s", "r", "a", "b", "i", "d", "e", "s", "r", "t"};
-
         /*
         * CHANGE MY_LIST COUNTER  TO 144 --- CURRENTLY CHANGED TO 15 FOR TESTING
         *
@@ -104,12 +102,12 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
         * */
         letters = new String[]{
                 //109 total
-                "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", //12
-                "a", "a", "a", "a", "a", "a", "a", "a", "a", // 9
+                "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", //13
+                "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", // 11
                 "i", "i", "i", "i", "i", "i", "i", "i", //8
                 "o", "o", "o", "o", "o", "o", //6
-                "t", "t", "t", "t", "t", "t", //6
-                "r", "r", "r", "r", "r", "r", //6
+                "t", "t", "t", "t", "t", //5
+                "r", "r", "r", "r", "r", //5
                 "n", "n", "n", "n", //4
                 "d", "d", "d", "d", "d", //5
                 "s", "s", "s", "s", "s", //5
@@ -123,7 +121,7 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
                 "m", "m", "m", //3
                 "p", "p", "p", //3
                 "v", "v", //2
-                "w", "w", "w", //3
+                "w", "w", //2
                 "y", "y", "y", //3
                 "j", "j", //2
                 "k", "k", //2

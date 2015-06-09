@@ -2,6 +2,7 @@ package me.tb.player;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -66,6 +67,8 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
     Bitmap mIcon11 = null;
 
     private AlertDialog mAlertDialog;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +151,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.startMatchButton:
                 //we either send a message to skeleton activity
                 //that we are starting new game or continuing saved game
+                findViewById(R.id.matchup_layout).setVisibility(View.GONE);
                 Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
                         1, 1, false);
                 startActivityForResult(intent, RC_SELECT_PLAYERS);
@@ -156,6 +160,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.checkGamesButton:
                 //we either send a message to skeleton activity
                 //that we are starting new game or continuing saved game
+                findViewById(R.id.matchup_layout).setVisibility(View.GONE);
                 Intent intent2 = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
                 startActivityForResult(intent2, RC_LOOK_AT_MATCHES);
                 break;
@@ -195,7 +200,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
     // This function is what gets called when you return from either the Play
     // Games built-in inbox, or else the create game built-in interface.
     @Override
-    public void onActivityResult(int request, int response, Intent data) {
+    public void onActivityResult(int request, int response, final Intent data) {
         super.onActivityResult(request, response, data);
         if (request == RC_SIGN_IN) {
             mSignInClicked = false;
@@ -212,27 +217,55 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             // Returning from the 'Select Match' dialog
 
             if (response != Activity.RESULT_OK) {
+                findViewById(R.id.matchup_layout).setVisibility(View.VISIBLE);
                 // user canceled
                 return;
             }
 
-            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
-            intent.putExtra("message", "saved");
-            intent.putExtras(data);
-            startActivity(intent);
+            progressDialog = ProgressDialog.show(SignInActivity.this, "Loading", "Please wait");
+
+            Thread th = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+                        intent.putExtra("message", "saved");
+                        intent.putExtras(data);
+                        startActivity(intent);
+                        progressDialog.dismiss();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+            th.start();
 
         } else if (request == RC_SELECT_PLAYERS) {
             // Returned from 'Select players to Invite' dialog
 
             if (response != Activity.RESULT_OK) {
                 // user canceled
+                findViewById(R.id.matchup_layout).setVisibility(View.VISIBLE);
                 return;
             }
 
-            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
-            intent.putExtra("message", "new");
-            intent.putExtras(data);
-            startActivity(intent);
+            progressDialog = ProgressDialog.show(SignInActivity.this, "Loading", "Please wait");
+
+            Thread th = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+                        intent.putExtra("message", "new");
+                        intent.putExtras(data);
+                        startActivity(intent);
+                        progressDialog.dismiss();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+            th.start();
         }
     }
 
@@ -258,6 +291,15 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
 
         }
     }
+
+    public void showSpinner() {
+        findViewById(R.id.progressLayout).setVisibility(View.VISIBLE);
+    }
+
+    public void dismissSpinner() {
+        findViewById(R.id.progressLayout).setVisibility(View.GONE);
+    }
+
 
     @Override
     public void onConnected(Bundle connectionHint) {

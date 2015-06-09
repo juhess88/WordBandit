@@ -261,6 +261,9 @@ public class AfterTurnComplete extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(AfterTurnComplete.this, SignInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         this.finish();
     }
 

@@ -229,7 +229,7 @@ public class SkeletonActivity extends ActionBarActivity
     protected void onRestart() {
         super.onRestart();
         isRestart = true;
-        if (isViewingBoardAfterTurn || !myTurn) {
+        if (isViewingBoardAfterTurn || !myTurn ||myTurn) {
             lv1.adapter1.clear();
             lv2.adapter2.clear();
         }
@@ -299,7 +299,7 @@ public class SkeletonActivity extends ActionBarActivity
             Intent intent = getIntent();
             startTheGame(intent);
         }
-        setViewVisibility();
+//        setViewVisibility();
 
 //        Games.Invitations.registerInvitationListener(mGoogleApiClient, this);
 //        Games.TurnBasedMultiplayer.registerMatchUpdateListener(mGoogleApiClient, this);
@@ -850,46 +850,6 @@ public class SkeletonActivity extends ActionBarActivity
         mAlertDialog.show();
     }
 
-
-    private class GetProgress extends AsyncTask<Void, Void, Void> {
-
-        ProgressDialog dialog1;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                dialog1 = new ProgressDialog(new ContextThemeWrapper(
-                        SkeletonActivity.this, android.R.style.Theme_Holo_Light_Dialog));
-            } else {
-                dialog1 = new ProgressDialog(SkeletonActivity.this);
-            }
-            dialog1.setCanceledOnTouchOutside(false);
-            dialog1.show();
-        }
-
-        protected Void doInBackground(Void... params) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    isViewingBoardAfterTurn = true;
-                    wordAddedToListViewOfCurrentPlayer(wordUserCreatedFromEditTextFragment());
-                    removeButtonTextIfClickedAndIsWord();
-                    fillEmptyTilesWithNewLetters();
-                    updateScoreOfBothPlayers();
-                    returnButtonsToUnclickedState();
-                    clearTextFromEditTextFragment();
-                    turnComplete();
-
-                }
-            });
-            return null;
-        }
-
-        protected void onPostExecute() {
-            dialog1.dismiss();
-        }
-    }
-
     public void messageAtEndOfTurn(String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -1020,6 +980,9 @@ public class SkeletonActivity extends ActionBarActivity
                         isViewingBoardAfterTurn = false;
                         enableFling = true;
                         nextTurn = 0;
+                        Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         SkeletonActivity.this.finish();
                     }
                 })
@@ -1286,9 +1249,9 @@ public class SkeletonActivity extends ActionBarActivity
     public void onBackPressed() {
 //        super.onBackPressed();
         if (!myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE) {
-//            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
+            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             SkeletonActivity.this.finish();
         } else if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE
                 && db.isVisible()) {
@@ -1302,9 +1265,9 @@ public class SkeletonActivity extends ActionBarActivity
             if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE) {
                 exitGameQuestion("Are you sure you want to exit?");
             } else {
-//            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
+            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
                 this.finish();
             }
         }

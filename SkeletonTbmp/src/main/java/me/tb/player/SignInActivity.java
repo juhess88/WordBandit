@@ -1,8 +1,6 @@
 package me.tb.player;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -63,12 +61,8 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
     final static int RC_SELECT_PLAYERS = 10000;
 
     ImageView img;
-
+    Boolean isFromNotification = false;
     Bitmap mIcon11 = null;
-
-    private AlertDialog mAlertDialog;
-
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +145,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.startMatchButton:
                 //we either send a message to skeleton activity
                 //that we are starting new game or continuing saved game
-                findViewById(R.id.matchup_layout).setVisibility(View.GONE);
+                findViewById(R.id.secret_layout).setVisibility(View.GONE);
                 Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogleApiClient,
                         1, 1, false);
                 startActivityForResult(intent, RC_SELECT_PLAYERS);
@@ -160,41 +154,11 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.checkGamesButton:
                 //we either send a message to skeleton activity
                 //that we are starting new game or continuing saved game
-                findViewById(R.id.matchup_layout).setVisibility(View.GONE);
+                findViewById(R.id.secret_layout).setVisibility(View.GONE);
                 Intent intent2 = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
                 startActivityForResult(intent2, RC_LOOK_AT_MATCHES);
                 break;
         }
-    }
-
-    // Displays your inbox. You will get back onActivityResult where
-    // you will need to figure out what you clicked on.
-//    public void onCheckGamesClicked() {
-//        Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
-//        startActivityForResult(intent, RC_LOOK_AT_MATCHES);
-//    }
-
-    public Bitmap getCircleBitmap(Bitmap bitmap) {
-        final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        final Canvas canvas = new Canvas(output);
-
-        final int color = Color.RED;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawOval(rectF, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        bitmap.recycle();
-
-        return output;
     }
 
     // This function is what gets called when you return from either the Play
@@ -217,94 +181,64 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             // Returning from the 'Select Match' dialog
 
             if (response != Activity.RESULT_OK) {
-                findViewById(R.id.matchup_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.secret_layout).setVisibility(View.VISIBLE);
                 // user canceled
                 return;
             }
 
-            progressDialog = ProgressDialog.show(SignInActivity.this, "Loading", "Please wait");
-
-            Thread th = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
-                        intent.putExtra("message", "saved");
-                        intent.putExtras(data);
-                        startActivity(intent);
-                        progressDialog.dismiss();
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            });
-            th.start();
+            findViewById(R.id.progressLayout2).setVisibility(View.VISIBLE);
+            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+            intent.putExtra("message", "saved");
+            intent.putExtras(data);
+            startActivity(intent);
 
         } else if (request == RC_SELECT_PLAYERS) {
             // Returned from 'Select players to Invite' dialog
 
             if (response != Activity.RESULT_OK) {
                 // user canceled
-                findViewById(R.id.matchup_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.secret_layout).setVisibility(View.VISIBLE);
                 return;
             }
 
-            progressDialog = ProgressDialog.show(SignInActivity.this, "Loading", "Please wait");
-
-            Thread th = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
-                        intent.putExtra("message", "new");
-                        intent.putExtras(data);
-                        startActivity(intent);
-                        progressDialog.dismiss();
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            });
-            th.start();
+            findViewById(R.id.progressLayout2).setVisibility(View.VISIBLE);
+            Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
+            intent.putExtra("message", "new");
+            intent.putExtras(data);
+            startActivity(intent);
         }
     }
 
     public void setViewVisibility() {
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            if (!isFromNotification) {
+                findViewById(R.id.login_layout).setVisibility(View.GONE);
+                findViewById(R.id.secret_layout).setVisibility(View.VISIBLE);
 
-            findViewById(R.id.login_layout).setVisibility(View.GONE);
-            findViewById(R.id.secret_layout).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.name_field)).setText(Games.Players.getCurrentPlayer(
+                        mGoogleApiClient).getDisplayName());
 
-            ((TextView) findViewById(R.id.name_field)).setText(Games.Players.getCurrentPlayer(
-                    mGoogleApiClient).getDisplayName());
+                Player player = Games.Players.getCurrentPlayer(mGoogleApiClient);
 
-            Player player = Games.Players.getCurrentPlayer(mGoogleApiClient);
+                String playerPhotoUrl = player.getIconImageUrl();
 
-            String playerPhotoUrl = player.getIconImageUrl();
+                if (playerPhotoUrl != null)
+                    new LoadProfileImage(img).execute(playerPhotoUrl);
+                else {
+                    Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blankprofile);
+                    img.setImageBitmap(getCircleBitmap((Bitmap.createScaledBitmap(largeIcon, 200, 200, false))));
+                }
 
-            if (playerPhotoUrl != null)
-                new LoadProfileImage(img).execute(playerPhotoUrl);
-            else {
-                Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.blankprofile);
-                img.setImageBitmap(getCircleBitmap((Bitmap.createScaledBitmap(largeIcon, 200, 200, false))));
             }
-
         }
     }
-
-    public void showSpinner() {
-        findViewById(R.id.progressLayout).setVisibility(View.VISIBLE);
-    }
-
-    public void dismissSpinner() {
-        findViewById(R.id.progressLayout).setVisibility(View.GONE);
-    }
-
 
     @Override
     public void onConnected(Bundle connectionHint) {
         // Retrieve the TurnBasedMatch from the connectionHint
         if (connectionHint != null) {
+            isFromNotification = true;
+            findViewById(R.id.secret_layout).setVisibility(View.GONE);
             Intent intent = new Intent(SignInActivity.this, SkeletonActivity.class);
             intent.putExtra("data", connectionHint);
             startActivity(intent);
@@ -362,6 +296,30 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
     @Override
     public void onTurnBasedMatchRemoved(String s) {
 
+    }
+
+
+    public Bitmap getCircleBitmap(Bitmap bitmap) {
+        final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(output);
+
+        final int color = Color.RED;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawOval(rectF, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        bitmap.recycle();
+
+        return output;
     }
 
     /**

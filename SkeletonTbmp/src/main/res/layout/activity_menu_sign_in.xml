@@ -124,18 +124,20 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/progressLayout"
+        android:id="@+id/progressLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
-        <ProgressBar
-            android:id="@+id/progress_dialog"
+        <TextView
+            android:id="@+id/progress_dialog2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:text="Loading Match"
+            android:textSize="30dp"/>
     </RelativeLayout>
 </RelativeLayout>
 

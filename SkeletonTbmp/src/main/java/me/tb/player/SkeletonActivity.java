@@ -299,10 +299,6 @@ public class SkeletonActivity extends ActionBarActivity
             Intent intent = getIntent();
             startTheGame(intent);
         }
-//        setViewVisibility();
-
-//        Games.Invitations.registerInvitationListener(mGoogleApiClient, this);
-//        Games.TurnBasedMultiplayer.registerMatchUpdateListener(mGoogleApiClient, this);
     }
 
     public void initFragments() {
@@ -1662,34 +1658,34 @@ public class SkeletonActivity extends ActionBarActivity
 
                                 if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                                     if (!isListView1Clicked()) {
-                                        shareMessageTitle = "You stole " + mTurnData.playername2 + "'s word!";
-                                        shareMessageBody = "Steal with '" + etWord + "'?";
+                                        shareMessageTitle = "You took " + mTurnData.playername2 + "'s word!";
+                                        shareMessageBody = "Take with '" + etWord + "'?";
 
-                                        shareMessageCombo = shareMessageTitle + " You stole '" + wordUserIsTryingToSteal() +
+                                        shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
-                                        mTurnData.shareNextTurnMessage = mTurnData.playername1 + " stole '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
+                                        mTurnData.shareNextTurnMessage = mTurnData.playername1 + " took '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
 
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
                                         shareMessageBody = "Improve  with '" + etWord + "'?";
-                                        shareMessageCombo = shareMessageTitle + " You improved '" + wordUserIsTryingToSteal() +
+                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " improved '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     }
                                 } else {
                                     if (isListView1Clicked()) {
-                                        shareMessageTitle = "You stole " + mTurnData.playername1 + "'s word!";
-                                        shareMessageBody = "Steal with '" + etWord + "'?";
-                                        shareMessageCombo = shareMessageTitle + " You stole '" + wordUserIsTryingToSteal() +
+                                        shareMessageTitle = "You took " + mTurnData.playername1 + "'s word!";
+                                        shareMessageBody = "Take with '" + etWord + "'?";
+                                        shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
-                                        mTurnData.shareNextTurnMessage = mTurnData.playername2 + " stole '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
+                                        mTurnData.shareNextTurnMessage = mTurnData.playername2 + " took '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
                                         shareMessageBody = "Improve with '" + etWord + "'?";
-                                        shareMessageCombo = shareMessageTitle + " You improved '" + wordUserIsTryingToSteal() +
+                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername2 + " improved '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
@@ -1698,7 +1694,7 @@ public class SkeletonActivity extends ActionBarActivity
 
 
                             } else {
-                                Toast.makeText(this, "You cannot steal " + wordUserIsTryingToSteal() + " with " + et.getTextFromEditText() +
+                                Toast.makeText(this, "You cannot take " + wordUserIsTryingToSteal() + " with " + et.getTextFromEditText() +
                                         "\nSame root", Toast.LENGTH_SHORT).show();
                                 returnButtonsToUnclickedState();
 //                                showOriginalGameScreen();
@@ -1713,7 +1709,7 @@ public class SkeletonActivity extends ActionBarActivity
                             db.clearTheNewClickedButtons();
                         }
                     } else {
-                        Toast.makeText(this, "You can only steal " + wordUserIsTryingToSteal() + " with a longer word", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "You can only take " + wordUserIsTryingToSteal() + " with a longer word", Toast.LENGTH_SHORT).show();
                         returnButtonsToUnclickedState();
 //                        showOriginalGameScreen();
                         clearTextFromEditTextFragment();
@@ -1733,7 +1729,7 @@ public class SkeletonActivity extends ActionBarActivity
 
                     shareMessageTitle = "You made a word!";
                     shareMessageBody = "Make the word '" + etWord + "'?";
-                    shareMessageCombo = shareMessageTitle + " Your word is '" + etWord + "'";
+                    shareMessageCombo = " My word is '" + etWord + "'";
                     if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " made the word '" + etWord + "'";
                     } else {

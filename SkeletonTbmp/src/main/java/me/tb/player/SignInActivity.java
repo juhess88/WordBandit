@@ -215,8 +215,11 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
                 findViewById(R.id.login_layout).setVisibility(View.GONE);
                 findViewById(R.id.secret_layout).setVisibility(View.VISIBLE);
 
-                ((TextView) findViewById(R.id.name_field)).setText(Games.Players.getCurrentPlayer(
-                        mGoogleApiClient).getDisplayName());
+                String fullname = Games.Players.getCurrentPlayer(
+                        mGoogleApiClient).getDisplayName();
+                String firstname[] = fullname.split("\\s+");
+
+                ((TextView) findViewById(R.id.name_field)).setText(firstname[0]);
 
                 Player player = Games.Players.getCurrentPlayer(mGoogleApiClient);
 

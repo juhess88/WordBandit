@@ -83,6 +83,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.startMatchButton).setOnClickListener(this);
         findViewById(R.id.checkGamesButton).setOnClickListener(this);
+        findViewById(R.id.rulesButton).setOnClickListener(this);
 
         img = (ImageView) findViewById(R.id.gImage);
 
@@ -158,6 +159,10 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
                 Intent intent2 = Games.TurnBasedMultiplayer.getInboxIntent(mGoogleApiClient);
                 startActivityForResult(intent2, RC_LOOK_AT_MATCHES);
                 break;
+
+            case R.id.rulesButton:
+                Intent intent3 = new Intent(SignInActivity.this, HowToPlayActivity.class);
+                startActivity(intent3);
         }
     }
 

@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="By: JHESS GAMES"
-        android:layout_marginTop="25dp"
-        android:textSize="25dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

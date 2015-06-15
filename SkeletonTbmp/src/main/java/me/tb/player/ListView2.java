@@ -115,7 +115,7 @@ public class ListView2 extends Fragment {
     public String updateScoreListView() {
         point = 0;
         for (int i = 0; i < adapter2.getCount(); i++) {
-            point += (adapter2.getItem(i).length() - 1) * 100;
+            point += (adapter2.getItem(i).length()) * 100;
         }
         String score = "" + point;
         return score;

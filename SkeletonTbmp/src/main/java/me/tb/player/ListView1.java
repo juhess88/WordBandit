@@ -120,7 +120,7 @@ public class ListView1 extends Fragment {
     public String updateScoreListView(){
         point=0;
         for (int i=0; i<adapter1.getCount(); i++){
-            point+=(adapter1.getItem(i).length()-1)*100;
+            point+=(adapter1.getItem(i).length())*100;
         }
         String score = ""+point;
         return score;

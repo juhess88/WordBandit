@@ -6,11 +6,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="
-    Word Thieves is a unique multiplayer word game.
-    It is the ultimate anagrams experience.
-    You make words from available tiles on the screen
-    And you can take words from your opponent too"/>
+        android:text="Word Thieves is a unique multiplayer word game.
+It is the ultimate anagrams experience.
+You make words from available tiles on the screen
+And you can take words from your opponent too"/>
 
 
 </LinearLayout>

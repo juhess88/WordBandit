@@ -16,9 +16,7 @@
 
 package me.tb.player;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,7 +27,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +36,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -160,7 +156,6 @@ public class SkeletonActivity extends ActionBarActivity
     private RecyclerView recyclerView;
     private RecyclerShareAdapter recyclerAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -229,7 +224,7 @@ public class SkeletonActivity extends ActionBarActivity
     protected void onRestart() {
         super.onRestart();
         isRestart = true;
-        if (isViewingBoardAfterTurn || !myTurn ||myTurn) {
+        if (isViewingBoardAfterTurn || !myTurn || myTurn) {
             lv1.adapter1.clear();
             lv2.adapter2.clear();
         }
@@ -280,8 +275,8 @@ public class SkeletonActivity extends ActionBarActivity
     public void onConnected(Bundle connectionHint) {
         // Retrieve the TurnBasedMatch from the connectionHint
         Bundle bundle = getIntent().getBundleExtra("data");
-        if(bundle!=null){
-            connectionHint=bundle;
+        if (bundle != null) {
+            connectionHint = bundle;
         }
         if (connectionHint != null) {
             mTurnBasedMatch = connectionHint.getParcelable(Multiplayer.EXTRA_TURN_BASED_MATCH);
@@ -302,8 +297,8 @@ public class SkeletonActivity extends ActionBarActivity
     }
 
     public void initFragments() {
-        et = new EditTextFragment();
         bl = new ButtonLayoutFragment();
+        et = new EditTextFragment();
         db = new DynamicButtonsFragment();
         gp1 = new GProfilePic1();
         gp2 = new GProfilePic2();
@@ -313,8 +308,8 @@ public class SkeletonActivity extends ActionBarActivity
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        transaction.add(R.id.etToolbar, et, "EFrag");
         transaction.add(R.id.fragment_button_layout, bl, "BFrag");
+        transaction.add(R.id.etToolbar, et, "EFrag");
         transaction.add(R.id.fragment_dynamic_button_layout, db, "DFrag").hide(db);
         transaction.add(R.id.fragment_google1, gp1, "GFrag1");
         transaction.add(R.id.fragment_google2, gp2, "GFrag2");
@@ -339,6 +334,11 @@ public class SkeletonActivity extends ActionBarActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    public int getTilesRemaining() {
+        return bl.getList_of_letters().size();
     }
 
     @Override
@@ -645,6 +645,10 @@ public class SkeletonActivity extends ActionBarActivity
             bl.list_of_letters.clear();
         for (int i = 0; i < mTurnData.list_of_lettersST.size(); i++) {
             bl.list_of_letters.add(i, mTurnData.list_of_lettersST.get(i));
+        }
+
+        if (mTurnData.list_of_lettersST != null && mTurnData.turnCounter>1) {
+            et.setTextTiles("Tiles: " + mTurnData.list_of_lettersST.size());
         }
 
         //if the first player went delete the list of words and letter and load them with our saved data...
@@ -1261,9 +1265,9 @@ public class SkeletonActivity extends ActionBarActivity
             if (myTurn && findViewById(R.id.gameplay_layout).getVisibility() == View.VISIBLE) {
                 exitGameQuestion("Are you sure you want to exit?");
             } else {
-            Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+                Intent intent = new Intent(SkeletonActivity.this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 this.finish();
             }
         }

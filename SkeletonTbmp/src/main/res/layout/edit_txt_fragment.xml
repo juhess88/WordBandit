@@ -3,20 +3,46 @@
     android:id="@+id/edit_text_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <EditText
         android:id="@+id/edittextfrag"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="@dimen/size"
         android:background="#42A5F5"
         android:editable="false"
+        android:ellipsize="start"
+        android:gravity="center"
         android:hint="Tap and swipe"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff"
-        android:textSize="20sp"
-        android:ellipsize="start"
-        android:gravity="center"/>
+        android:textSize="20sp" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/toolbar_tiles"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/etToolbar"
+            android:background="@color/primaryColor"
+            android:text="Tiles: 100"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/toolbar_enter"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/etToolbar"
+            android:background="@color/primaryColor"
+            android:text="Enter"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
 </LinearLayout>

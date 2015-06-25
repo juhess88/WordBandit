@@ -106,4 +106,6 @@ public interface CommunicatorGame {
 
     //add cardview for under sdk21
     public void addCV();
+
+    public int getTilesRemaining();
 }

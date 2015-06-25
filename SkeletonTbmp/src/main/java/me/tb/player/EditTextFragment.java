@@ -1,16 +1,8 @@
 package me.tb.player;
 
-import android.support.v4.app.Fragment;
-
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -20,7 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EditTextFragment extends Fragment{
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class EditTextFragment extends Fragment {
 
     CommunicatorGame comm5;
 
@@ -29,6 +27,8 @@ public class EditTextFragment extends Fragment{
 
     private EditText editText;
     private String[] words;
+
+    Button tb_tiles;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -39,9 +39,18 @@ public class EditTextFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        editText = (EditText) getActivity().findViewById(R.id.edittextfrag);
 
-        comm5 = (CommunicatorGame)getActivity();
+        comm5 = (CommunicatorGame) getActivity();
+        editText = (EditText) getActivity().findViewById(R.id.edittextfrag);
+        Button tb_enter = (Button) getActivity().findViewById(R.id.toolbar_enter);
+        tb_enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comm5.fling();
+            }
+        });
+
+        tb_tiles = (Button) getActivity().findViewById(R.id.toolbar_tiles);
 
         //this section reads the dictionary file called words and saves it in displayText
         String displayText = "";
@@ -74,15 +83,15 @@ public class EditTextFragment extends Fragment{
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                         float velocityThresh = 500;
                         double distanceThresh = 75;
-                        float fling = (Math.abs(velocityX)+Math.abs(velocityY))/2;
-                        double distance = Math.sqrt(Math.pow(e2.getX()-e1.getX(), 2) + Math.pow(e2.getY()-e1.getY(), 2));
+                        float fling = (Math.abs(velocityX) + Math.abs(velocityY)) / 2;
+                        double distance = Math.sqrt(Math.pow(e2.getX() - e1.getX(), 2) + Math.pow(e2.getY() - e1.getY(), 2));
 
-                        if (D){
-                            Log.d(TAG, "fling: " + fling + ", e1X: "+ e1.getX() +", e1Y: "+ e1.getY()
-                                    + ", e2X: "+ e2.getX() +", e2Y: "+ e2.getY() + ", distance: " + distance
-                                    +", vX: "+velocityX + " vY:" +velocityY);
+                        if (D) {
+                            Log.d(TAG, "fling: " + fling + ", e1X: " + e1.getX() + ", e1Y: " + e1.getY()
+                                    + ", e2X: " + e2.getX() + ", e2Y: " + e2.getY() + ", distance: " + distance
+                                    + ", vX: " + velocityX + " vY:" + velocityY);
 
-                            if(fling > velocityThresh && distance > distanceThresh){
+                            if (fling > velocityThresh && distance > distanceThresh) {
                                 comm5.fling();
                             }
                         }
@@ -91,47 +100,50 @@ public class EditTextFragment extends Fragment{
 
                 });
 
-            editText.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return gesture.onTouchEvent(event);
-                }
-            });
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gesture.onTouchEvent(event);
+            }
+        });
 
     }
 
-    public void changeEditText(String data){
-        editText.setText(editText.getText().toString()+data);
+    public void setTextTiles(String data){
+        tb_tiles.setText(data);
     }
 
-    public void clearEditText(){
+    public void changeEditText(String data) {
+        editText.setText(editText.getText().toString() + data);
+    }
+
+    public void clearEditText() {
         editText.setText("");
     }
 
-    public String sendEditText(){
+    public String sendEditText() {
         if (Arrays.asList(words).contains(editText.getText().toString()))
             return editText.getText().toString();
         else
             return "";
     }
 
-    public String getTextFromEditText(){
+    public String getTextFromEditText() {
         return editText.getText().toString();
     }
 
-    public int editTextSize(){
+    public int editTextSize() {
         return editText.getText().toString().length();
     }
 
-    public void removeCharFromText(String data){
+    public void removeCharFromText(String data) {
         String s = editText.getText().toString();
         String[] ss = s.split("");
         List<String> ssList = new ArrayList<String>();
         ssList.addAll(Arrays.asList(ss));
         ssList.remove(data);
         String newString = "";
-        for (String b : ssList)
-        {
+        for (String b : ssList) {
             newString += b;
         }
 

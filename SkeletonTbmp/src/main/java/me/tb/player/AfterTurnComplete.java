@@ -51,6 +51,7 @@ public class AfterTurnComplete extends ActionBarActivity {
     TextView s1, s2, n1, n2;
 
     Button b0, b1, b2, b3, b4, b5, b6, b7, b8;
+    Button tb_tiles2;
     ImageView img, img2;
     String tiles = "";
 
@@ -147,6 +148,9 @@ public class AfterTurnComplete extends ActionBarActivity {
             EditText e = (EditText) findViewById(R.id.after_turn_edittext);
             e.setHint("Final Turn Complete");
         }
+
+        tb_tiles2 = (Button)findViewById(R.id.toolbar_tiles2);
+        tb_tiles2.setText("Tiles: " + tiles);
 
         ArrayList<String> list1 = intent.getStringArrayListExtra("list1");
         ArrayList<String> list2 = intent.getStringArrayListExtra("list2");

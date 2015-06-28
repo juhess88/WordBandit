@@ -9,25 +9,11 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-face8183c63427930cb5c7ab66dc86f95a2a3ea2.jar" />
     </item>
     <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="5ea948d825957be6c4358c48422bee60eef2d487">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-8531bc9e4d33e8ed453fb769c3a1d1ad87a624c1.jar" />
-    </item>
-    <item
         jar="C:\Users\Juhess88\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-cb54ee736c0b2f5598282010c3f406cccc48e126.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="f2f7ec211ce4d244ee97a57523eeb4526dc3cf8a">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-184d90577a64f1dd93f3f5f9db52efd12fa00f00.jar" />
     </item>
     <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.3.0\classes.jar"
@@ -37,39 +23,11 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-9e0da07f125a443ab7b8d3d97c68c16172b4e8bc.jar" />
     </item>
     <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="e35fae1b377c23aa5fd2d309a190c2d0f73d54ec">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-2387996768a1e8ed4066e7a6087859c50fef679e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="59652857a825fff0de62166fca1bc9553cc01abb">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-bf39c1e511149e822d2dce62a54bc2fc14c8854e.jar" />
-    </item>
-    <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.3.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="bb36004beb02b69562cbec9aa7d6a3cf16bf5d1b">
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-5ed1c4ebd8bd62989f9fbdd3fdd5869c26076175.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="3b4ff5c39dace8f3b4ab4cab8191785547a0815f">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-b4995d469e0995a24d043c396437c4076eee8e54.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="b2c07cdb814fe988ad05f7b4d767a841514a5991">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-b0c7425942390c8844d3ced1e2722eda2fcd7720.jar" />
     </item>
     <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.0.0\classes.jar"
@@ -79,46 +37,11 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-c7960d41a5c75b7f774d72ec961979f93f0a0c13.jar" />
     </item>
     <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="3988694bf9d8186ff97ad5cdfa4ed88b5010fe08">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-d1bcf753ea8042ae2401c764baf4fdc8f1b0031d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="565a01f90f1529f73362707c4c185d0623a68782">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-aa9a87543aa302045052bddbb8fbb69ded7386e8.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-3ffc54ded786c82289441b5c0b512c85e680c97d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="6046e5cdaf799120b7c56a5a061d80e8854c4d34">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-1dc56128ea2d4e7747c00f895a6045461ca087e0.jar" />
-    </item>
-    <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.3.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="0708ef60917bf94913fe9ef972a655b99462dca7">
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-57925d9cdcd7e4c9e75372afe44c072867515101.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="fe3e0c6de7cceed888b277487238b6af9a1cc299">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-8d216da8723898865034313e12401f4ae74ed883.jar" />
     </item>
     <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.3.0\classes.jar"
@@ -135,20 +58,6 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-e4a66908ca7410ad1b3d0ead028a41fd541a50ca.jar" />
     </item>
     <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\BasicSamples.libraries\BaseGameUtils\unspecified\classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="f564ec13f89d18d0d989581f01a17cecc5edc29c">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-9bbdd00612279a9743d803b631083805c5676d41.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-fb0aab781f2654a261baeeffa99b1ddc0d5f430b.jar" />
-    </item>
-    <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.3.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -163,6 +72,111 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\gson-2.3-8f9a911e77a90aa4473afbb3a53729737d63afd0.jar" />
     </item>
     <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="e5b9f5b0aa8dee788beb63d23832cb29ce771343">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-11c7c01f7f39aecb236c1652e0c6240277e560d1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="5ea948d825957be6c4358c48422bee60eef2d487">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-8531bc9e4d33e8ed453fb769c3a1d1ad87a624c1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\6.1.0\63735f48b82bcd24cdd33821342428252eb1ca5a\butterknife-6.1.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\butterknife-6.1.0-e4424db4529020c7f1835d425ca2a805d1499ac9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="f2f7ec211ce4d244ee97a57523eeb4526dc3cf8a">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-184d90577a64f1dd93f3f5f9db52efd12fa00f00.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="e35fae1b377c23aa5fd2d309a190c2d0f73d54ec">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-2387996768a1e8ed4066e7a6087859c50fef679e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="59652857a825fff0de62166fca1bc9553cc01abb">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-bf39c1e511149e822d2dce62a54bc2fc14c8854e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="3b4ff5c39dace8f3b4ab4cab8191785547a0815f">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-b4995d469e0995a24d043c396437c4076eee8e54.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="b2c07cdb814fe988ad05f7b4d767a841514a5991">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-b0c7425942390c8844d3ced1e2722eda2fcd7720.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="565a01f90f1529f73362707c4c185d0623a68782">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-aa9a87543aa302045052bddbb8fbb69ded7386e8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="3988694bf9d8186ff97ad5cdfa4ed88b5010fe08">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-d1bcf753ea8042ae2401c764baf4fdc8f1b0031d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-3ffc54ded786c82289441b5c0b512c85e680c97d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="6046e5cdaf799120b7c56a5a061d80e8854c4d34">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-1dc56128ea2d4e7747c00f895a6045461ca087e0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="fe3e0c6de7cceed888b277487238b6af9a1cc299">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-8d216da8723898865034313e12401f4ae74ed883.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\BasicSamples.libraries\BaseGameUtils\unspecified\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="f564ec13f89d18d0d989581f01a17cecc5edc29c">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-9bbdd00612279a9743d803b631083805c5676d41.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-fb0aab781f2654a261baeeffa99b1ddc0d5f430b.jar" />
+    </item>
+    <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -173,15 +187,8 @@
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\BasicSamples.libraries\BaseGameUtils\unspecified\classes.jar"
         jumboMode="false"
         revision="22.0.0"
-        sha1="58f8f17df7e7875a51b604c445ddebff400e6cd8">
+        sha1="7b4e5abf4319e1edc95fa2c640e132183761e621">
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-9bbdd00612279a9743d803b631083805c5676d41.jar" />
-    </item>
-    <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="e5b9f5b0aa8dee788beb63d23832cb29ce771343">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-11c7c01f7f39aecb236c1652e0c6240277e560d1.jar" />
     </item>
     <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.3.0\classes.jar"
@@ -191,18 +198,18 @@
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-b6a15564b020dfdcf752adc1dd67d52801dee564.jar" />
     </item>
     <item
-        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="7215ac1f2fca947b9415a6ee2a1bf991364aab24">
-        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-2a4ff60b957c764f6656e02866c393c8cfc2db07.jar" />
-    </item>
-    <item
         jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.3.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="4f4fe3c23776540625f3c2844152a7510fddf9f1">
         <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-8f7237d9192bfcd400a7a6ea7e369468abc419a6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="7215ac1f2fca947b9415a6ee2a1bf991364aab24">
+        <dex dex="C:\Users\Juhess88\Desktop\Apps\android-basic-samples-master\BasicSamples\SkeletonTbmp\build\intermediates\pre-dexed\debug\classes-2a4ff60b957c764f6656e02866c393c8cfc2db07.jar" />
     </item>
 
 </items>

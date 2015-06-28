@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -166,7 +167,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
         textView.setAllCaps(true);
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
-        textView.setPadding(padding, padding, padding, padding);
+        Toast.makeText(getContext(), "Padding is " + padding, Toast.LENGTH_SHORT).show();
+        textView.setPadding(padding/2, padding/2, padding/2, padding/2);
 
         return textView;
     }
@@ -211,6 +213,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (i == mViewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
+
+            tabTitleView.setTextColor(getResources().getColorStateList(R.color.selector));
+            tabTitleView.setTextSize(14);
         }
     }
 

@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/enter"
-        android:orderInCategory="100"
-        android:title="Enter"
-        />
+    <!--<item-->
+        <!--android:id="@+id/enter"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Enter"-->
+        <!--/>-->
 
     <item
         android:id="@+id/clear"
@@ -28,11 +28,11 @@
         android:title="Pass"
         />
 
-    <item
-        android:id="@+id/tile_count"
-        android:orderInCategory="500"
-        android:title="Tiles: 144"
-        />
+    <!--<item-->
+        <!--android:id="@+id/tile_count"-->
+        <!--android:orderInCategory="500"-->
+        <!--android:title="Tiles: 144"-->
+        <!--/>-->
 
     <item
         android:id="@+id/action_settings"

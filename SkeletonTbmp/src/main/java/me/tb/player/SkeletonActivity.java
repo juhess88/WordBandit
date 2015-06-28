@@ -345,9 +345,9 @@ public class SkeletonActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.enter:
-                fling();
-                return true;
+//            case R.id.enter:
+//                fling();
+//                return true;
             case R.id.clear:
                 returnButtonsToUnclickedState();
                 clearTextFromEditTextFragment();
@@ -373,31 +373,31 @@ public class SkeletonActivity extends ActionBarActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        MenuItem tile_item = menu.findItem(R.id.tile_count);
+//        MenuItem tile_item = menu.findItem(R.id.tile_count);
         MenuItem shuffle = menu.findItem(R.id.shuffle);
         MenuItem pass = menu.findItem(R.id.pass);
         MenuItem exit = menu.findItem(R.id.exit);
-        MenuItem enter = menu.findItem(R.id.enter);
+//        MenuItem enter = menu.findItem(R.id.enter);
         MenuItem clear = menu.findItem(R.id.clear);
         MenuItem settings = menu.findItem(R.id.action_settings);
+        settings.setVisible(false);
 
-
-        if (bl != null) {
-            tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
-        }
+//        if (bl != null) {
+//            tile_item.setTitle("Tiles Remaining: " + bl.getList_of_letters().size());
+//        }
         if (!myTurn) {
-            tile_item.setVisible(true);
+//            tile_item.setVisible(true);
             shuffle.setVisible(false);
             pass.setVisible(false);
             exit.setVisible(false);
-            enter.setVisible(false);
+//            enter.setVisible(false);
             clear.setVisible(false);
         } else {
-            tile_item.setVisible(true);
+//            tile_item.setVisible(true);
             shuffle.setVisible(true);
             pass.setVisible(true);
             exit.setVisible(true);
-            enter.setVisible(true);
+//            enter.setVisible(true);
             clear.setVisible(true);
         }
 

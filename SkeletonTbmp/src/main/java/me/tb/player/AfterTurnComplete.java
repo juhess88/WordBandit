@@ -244,20 +244,21 @@ public class AfterTurnComplete extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        MenuItem tile_item = menu.findItem(R.id.tile_count);
+//        MenuItem tile_item = menu.findItem(R.id.tile_count);
         MenuItem shuffle = menu.findItem(R.id.shuffle);
         MenuItem pass = menu.findItem(R.id.pass);
         MenuItem exit = menu.findItem(R.id.exit);
-        MenuItem enter = menu.findItem(R.id.enter);
+//        MenuItem enter = menu.findItem(R.id.enter);
         MenuItem clear = menu.findItem(R.id.clear);
         MenuItem settings = menu.findItem(R.id.action_settings);
 
-        tile_item.setTitle("Tiles Remaining: " + tiles);
+//        tile_item.setTitle("Tiles Remaining: " + tiles);
         shuffle.setVisible(false);
         pass.setVisible(false);
-        enter.setVisible(false);
+//        enter.setVisible(false);
         clear.setVisible(false);
         exit.setVisible(false);
+        settings.setVisible(false);
 
         return true;
     }

@@ -140,7 +140,9 @@
         android:id="@+id/progressLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_marginBottom="150dp"
+        android:visibility="gone"
+      >
 
         <TextView
             android:id="@+id/progress_dialog2"
@@ -148,8 +150,17 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Loading Match..."
-            android:textSize="30dp" />
+            android:text="Loading..."
+            android:textSize="30dp"
+            android:layout_marginBottom="40dp"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/progress_dialog2"
+            android:src="@drawable/game_icon" />
     </RelativeLayout>
 </RelativeLayout>
 

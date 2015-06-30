@@ -4,13 +4,14 @@
     android:layout_height="match_parent">
 
 
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You Are In Tab 1"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Word Thieves is a unique multiplayer word game.
+It is the ultimate anagrams experience.
+You make words from available tiles on the screen
+And you can take words from your opponent too"
+        android:layout_marginTop="30dp"/>
 
 </RelativeLayout>

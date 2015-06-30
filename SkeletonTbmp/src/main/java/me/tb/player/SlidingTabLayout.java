@@ -167,7 +167,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         textView.setAllCaps(true);
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
-        Toast.makeText(getContext(), "Padding is " + padding, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "Padding is " + padding, Toast.LENGTH_SHORT).show();
         textView.setPadding(padding/2, padding/2, padding/2, padding/2);
 
         return textView;

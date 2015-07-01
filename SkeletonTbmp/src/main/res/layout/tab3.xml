@@ -3,14 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
+        android:id="@+id/t1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You Are In Tab 3"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="
+Tap on the letters to make a word.
+Each letter is worth 100 points.
+Press enter or swipe across the screen to submit your word.
+You can only make one word per turn.
+You will receive a notification when it is your turn again."
+        android:layout_marginTop="30dp"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="
+"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        android:layout_below="@+id/t1"/>
 
 </RelativeLayout>

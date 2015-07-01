@@ -17,6 +17,15 @@ The player with the most points at the end of the game wins!"
         android:layout_marginTop="30dp"
         android:padding="10dp"/>
 
+<ImageView
+    android:id="@+id/im1"
+    android:layout_width="120dp"
+    android:layout_height="200dp"
+    android:src="@drawable/nearby_players"
+    android:layout_below="@+id/t1"
+    android:layout_marginTop="10dp"
+    android:padding="10dp"/>
+
     <TextView
         android:id="@+id/t2"
         android:layout_width="wrap_content"
@@ -28,7 +37,8 @@ To play against nearby players,
 select New Game and press the Nearby players button.
 This will generate all active players in your area.
 Note: Your opponent must also have Nearby players selected on his device."
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/im1"
         android:layout_below="@+id/t1"
         android:padding="10dp"/>
 

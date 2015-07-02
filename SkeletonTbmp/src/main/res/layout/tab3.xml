@@ -10,49 +10,52 @@
         android:layout_gravity="center"
         android:layout_marginBottom="50dp">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:layout_below="@+id/t2">
-
-    <ImageView
-        android:id="@+id/im5"
-        android:layout_width="120dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:src="@drawable/opponent_word" />
-        <ImageView
-            android:id="@+id/im3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/steal_word"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"/>
-
-        <ImageView
-            android:id="@+id/im4"
-            android:layout_width="120dp"
-            android:layout_height="140dp"
-            android:src="@drawable/share_achievement"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-           />
-</LinearLayout>
         <TextView
             android:id="@+id/t2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:padding="10dp"
-            android:text="To take your opponents word: 1. Click on one of his words
-2. That word will now appear under the main set of tiles in blue
-3. Create a new and longer word that uses all the letters of your opponent's word
-4. Your new word cannot have the same root as the original word (no plurals, prefixes, suffixes...).
-You may also improve your own word this way" />
+            android:text="To take your opponent's word: \n1. Click on one of his words
+\n2. That word will now appear under the main set of tiles with blue letters
+\n3. Make a new and longer word that uses every blue letter
+\n4. Your new word cannot have the same root as the original word (no plurals, prefixes, suffixes...).
+\n5. Your opponent loses points for every word taken -
+\nFor example: If 'ice' is taken with 'spice'.
+You gain 500 points and your oponent loses 300.
+\nYou may also improve your own word this way" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_below="@+id/t2">
+
+            <ImageView
+                android:id="@+id/im5"
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:src="@drawable/opponent_word" />
+            <ImageView
+                android:id="@+id/im3"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/steal_word"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"/>
+
+            <ImageView
+                android:id="@+id/im4"
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:src="@drawable/share_achievement"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                />
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginBottom="50dp">
 
     <TextView
         android:id="@+id/t1"
@@ -13,9 +17,10 @@
         android:padding="10dp"
         android:text="The tiles counter is always displayed near the top of the screen.
 Every time you make a word, the counter decreases.
-For example, if you make a three letter word, three will be decreased from the counter...,
+For example, if you make a three letter word, three will be decreased from the counter.
 If the tiles counter goes down to zero on your turn, that is your final turn.
 Your opponent will then have one last turn to make or take a word.
 Whoever has the most points at the end is the winner." />
 
 </RelativeLayout>
+    </ScrollView>

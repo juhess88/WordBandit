@@ -4,15 +4,17 @@
     android:layout_height="match_parent">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginBottom="50dp">
 
     <TextView
         android:id="@+id/t1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Word Thieves is a unique multiplayer word game.
-Make words from available tiles on the screen
-and take words from your opponents too.
+Make words from tiles on the screen
+and take words from your opponent too.
 The player with the most points at the end of the game wins!"
         android:layout_marginTop="30dp"
         android:padding="10dp"/>
@@ -30,29 +32,27 @@ The player with the most points at the end of the game wins!"
         android:id="@+id/t2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Compete against your friends and nearby players.
-To play against a friend, select New Game and a list of your
-Google+ friends will appear for you to play against.
-To play against nearby players,
-select New Game and press the Nearby players button.
+        android:text="To start a new game, click the New Game button on the main menu screen..
+A list of your Google+ friends will appear for you to play against.
+To play against nearby players, press the Nearby players button.
 This will generate all active players in your area.
-Note: Your opponent must also have Nearby players selected on his device."
+Note: Your opponent must also have Nearby players turned on from his device."
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/im1"
         android:layout_below="@+id/t1"
         android:padding="10dp"/>
 
 
-    <TextView
-        android:id="@+id/t3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the first beta release
-- available exclusively to Android users. Let us know what you think.
-Ask us questions and provide feedback on our facebook and twitter pages. "
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/t2"
-        android:padding="10dp"/>
+    <!--<TextView-->
+        <!--android:id="@+id/t3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="This is the first beta release-->
+<!-- - available exclusively to Android users. Let us know what you think.-->
+<!--Ask us questions and provide feedback on our facebook and twitter pages. "-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_below="@+id/t2"-->
+        <!--android:padding="10dp"/>-->
 
 
 </RelativeLayout>

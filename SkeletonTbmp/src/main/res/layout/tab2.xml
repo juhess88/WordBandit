@@ -1,16 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You Are In Tab 2"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="10dp"
+            android:text="Tap on the letters to make a word.
+Each letter is worth 100 points.
+Press enter or swipe across the screen to submit your word.
+Your words are placed under your name.
+You can only make one word per turn.
+You will receive a notification when it is your turn again." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/t2"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/im1"
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:src="@drawable/make_word" />
+
+            <ImageView
+                android:id="@+id/im5"
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:src="@drawable/shuffle_pass" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/t1"
+            android:padding="10dp"
+            android:text="You can also pass or shuffle on your turn.
+Using these actions will end your turn.
+The pass and shuffle buttons are located in the three-dotted menu icon
+" />
+    </RelativeLayout>
+</ScrollView>

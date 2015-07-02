@@ -16,7 +16,7 @@ public class HowToPlayActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[] = {"Intro", "Words", "Play", "Turn", "End"};
+    CharSequence Titles[] = {"Game", "Make", "Take", "Share", "Win"};
     int Numboftabs = 5;
 
     @Override

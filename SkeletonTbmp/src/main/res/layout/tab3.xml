@@ -1,51 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp">
 
-        <ImageView
-            android:id="@+id/im1"
-            android:layout_width="120dp"
-            android:layout_height="140dp"
-            android:src="@drawable/make_word"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_below="@+id/t2">
 
-
-        <ImageView
-            android:id="@+id/im2"
-            android:layout_width="120dp"
-            android:layout_height="140dp"
-            android:src="@drawable/opponent_word"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:layout_below="@id/im1"/>
-
-        <TextView
-            android:id="@+id/t1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:padding="10dp"
-            android:text="Tap on the letters to make a word.
-Each letter is worth 100 points.
-Press enter or swipe across the screen to submit your word.
-Your words are placed under your name.
-Your opponent's words are placed under his name.
-You can only make one word per turn.
-You will receive a notification when it is your turn again."
-            android:layout_toRightOf="@+id/im1"/>
-
+    <ImageView
+        android:id="@+id/im5"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:src="@drawable/opponent_word" />
         <ImageView
             android:id="@+id/im3"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/steal_word"
-            android:layout_below="@+id/im2"
             android:layout_marginTop="10dp"
             android:padding="10dp"/>
 
@@ -56,15 +39,13 @@ You will receive a notification when it is your turn again."
             android:src="@drawable/share_achievement"
             android:layout_marginTop="10dp"
             android:padding="10dp"
-            android:layout_below="@id/im3"/>
-
+           />
+</LinearLayout>
         <TextView
             android:id="@+id/t2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/t1"
             android:layout_marginTop="30dp"
-            android:layout_toRightOf="@+id/im3"
             android:padding="10dp"
             android:text="To take your opponents word: 1. Click on one of his words
 2. That word will now appear under the main set of tiles in blue
@@ -72,30 +53,6 @@ You will receive a notification when it is your turn again."
 4. Your new word cannot have the same root as the original word (no plurals, prefixes, suffixes...).
 You may also improve your own word this way" />
 
-        <ImageView
-            android:id="@+id/im5"
-            android:layout_width="120dp"
-            android:layout_height="140dp"
-            android:src="@drawable/share_achievement"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:layout_below="@id/im4"/>
-
-        <TextView
-            android:id="@+id/t3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/t2"
-            android:layout_marginTop="30dp"
-            android:padding="10dp"
-            android:layout_toRightOf="@id/im5"
-            android:text="Share your achievements!
-At the end of your turn you can share a word you made
-to Facebook, Instagram, Twitter... --- taunt your friends
-During your turn you have the option to pass or shuffle.
-Using these actions will end your turn.
-Click on the three-dotted menu icon at the top-right corner to use those options.
-" />
 
     </RelativeLayout>
 </ScrollView>

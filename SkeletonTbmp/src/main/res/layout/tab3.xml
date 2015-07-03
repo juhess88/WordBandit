@@ -16,12 +16,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:padding="10dp"
-            android:text="To take your opponent's word: \n1. Click on one of his words
+            android:text="Take your opponent's word: \n1. Click on one of his words
 \n2. That word will now appear under the main set of tiles with blue letters
 \n3. Make a new and longer word that uses every blue letter
 \n4. Your new word cannot have the same root as the original word (no plurals, prefixes, suffixes...).
 \n5. Your opponent loses points for every word taken -
-\nFor example: If 'ice' is taken with 'spice'.
+\nFor example: You take 'ice' is with 'spice'.
 You gain 500 points and your oponent loses 300.
 \nYou may also improve your own word this way" />
 

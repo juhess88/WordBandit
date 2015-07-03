@@ -24,11 +24,11 @@
         android:id="@+id/t2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To start a new game, click the New Game button on the main menu screen.
-A list of your Google+ friends will appear for you to play against.
-To play against nearby players, press the Nearby players button.
-This will generate all active players in your area.
-Note: Your opponent must also have Nearby players turned on from his device. Click Saved Games to view and enter all games in progress."
+        android:text="Start a new game: \nClick the New Game button on the main menu screen.
+\n1. A list of your Google+ friends will appear for you to play against.
+\n2. Press the Nearby players button to play active players in your area.
+\nNote: Your opponent must also have Nearby players turned on from his device.
+\nClick Saved Games to view and enter all games in progress."
         android:layout_marginTop="10dp"
         android:padding="10dp"/>
 

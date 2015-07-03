@@ -17,12 +17,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:padding="10dp"
-            android:text="Tap on the letters to make a word.
-Each letter is worth 100 points.
-Press enter or swipe across the screen to submit your word.
-Your words are placed under your name.
-You can only make one word per turn.
-You will receive a notification when it is your turn again." />
+            android:text="Make a word: \nTap on the tiles to form a word.
+\nEach letter is worth 100 points.
+\nPress enter or swipe across the screen to submit your word.
+\nYour words are placed under your name.
+\nYou can only make one word per turn.
+\nYou will receive a notification when it is your turn again." />
 
         <LinearLayout
             android:layout_width="match_parent"

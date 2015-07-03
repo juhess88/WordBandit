@@ -597,6 +597,13 @@ public class SkeletonActivity extends ActionBarActivity
         mAlertDialog.show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("Test", "testing for rematch");
+    }
+
+
 
     // Switch to gameplay view.
     public void setGameplayUI() {
@@ -1193,16 +1200,7 @@ public class SkeletonActivity extends ActionBarActivity
 
     // If you choose to rematch, then call it and wait for a response.
     public void rematch() {
-        showSpinner();
-        Games.TurnBasedMultiplayer.rematch(mGoogleApiClient, mMatch.getMatchId()).setResultCallback(
-                new ResultCallback<TurnBasedMultiplayer.InitiateMatchResult>() {
-                    @Override
-                    public void onResult(TurnBasedMultiplayer.InitiateMatchResult result) {
-                        processResult(result);
-                    }
-                });
-        mMatch = null;
-        isDoingTurn = false;
+        Toast.makeText(getApplicationContext(), "New feature coming soon", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -1409,6 +1407,7 @@ public class SkeletonActivity extends ActionBarActivity
         //***********ADD THIS WHEN READY**************
         if (match.canRematch()) {
 //            askForRematch();
+            return;
         }
 
         isDoingTurn = (match.getTurnStatus() == TurnBasedMatch.MATCH_TURN_STATUS_MY_TURN);

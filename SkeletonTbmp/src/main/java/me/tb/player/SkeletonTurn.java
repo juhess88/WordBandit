@@ -62,6 +62,9 @@ public class SkeletonTurn {
 
     public Boolean hadFirstTurn;
 
+    //keeps track if second player does rematch
+    public Boolean secondPlayerRematch;
+
     //updates the counter for random letters being put in the buttons
     public int my_list_counterST;
 
@@ -129,6 +132,7 @@ public class SkeletonTurn {
             retVal.put("viewEndOfGame", viewEndOfGame);
             retVal.put("viewEndOfGame2", viewEndOfGame2);
             retVal.put("messageCombo", messageCombo);
+            retVal.put("secondPlayerRematch", secondPlayerRematch);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -260,6 +264,10 @@ public class SkeletonTurn {
 
             if (obj.has("secondPlayerFinalTurn")) {
                 retVal.secondPlayerFinalTurn = obj.getBoolean("secondPlayerFinalTurn");
+            }
+
+            if (obj.has("secondPlayerRematch")) {
+                retVal.secondPlayerRematch = obj.getBoolean("secondPlayerRematch");
             }
 
             if (obj.has("viewEndOfGame")) {

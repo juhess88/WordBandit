@@ -604,7 +604,6 @@ public class SkeletonActivity extends ActionBarActivity
     }
 
 
-
     // Switch to gameplay view.
     public void setGameplayUI() {
 
@@ -627,10 +626,7 @@ public class SkeletonActivity extends ActionBarActivity
 
         shareMessageCombo = mTurnData.messageCombo;
 
-        //Create the next round when player one has turn
-        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
-            mTurnData.roundCounter++;
-        }
+
         // Create the next turn
         mTurnData.turnCounter += 1;
 
@@ -648,37 +644,66 @@ public class SkeletonActivity extends ActionBarActivity
         }
 
         //if the first player went delete the list of words and letter and load them with our saved data...
-        if (mTurnData.hadFirstTurn)
-            bl.list_of_letters.clear();
+        if (mTurnData.hadFirstTurn != null) {
+            if (mTurnData.hadFirstTurn) {
+                bl.list_of_letters.clear();
+            }
+        }
         for (int i = 0; i < mTurnData.list_of_lettersST.size(); i++) {
             bl.list_of_letters.add(i, mTurnData.list_of_lettersST.get(i));
         }
 
-        if (mTurnData.list_of_lettersST != null && mTurnData.turnCounter>1) {
+        if (mTurnData.list_of_lettersST != null && mTurnData.turnCounter > 1) {
             et.setTextTiles("Tiles: " + mTurnData.list_of_lettersST.size());
         }
 
         //if the first player went delete the list of words and letter and load them with our saved data...
-        if (mTurnData.hadFirstTurn)
-            bl.make_words_with_letters.clear();
+        if (mTurnData.hadFirstTurn != null) {
+            if (mTurnData.hadFirstTurn) {
+                bl.make_words_with_letters.clear();
+            }
+        }
         for (int i = 0; i < mTurnData.make_words_with_letterST.size(); i++) {
             bl.make_words_with_letters.add(i, mTurnData.make_words_with_letterST.get(i));
         }
 
+        if (mTurnData.playername1 == null) {
+            fullName1 = mMatch.getParticipants().get(0).getDisplayName().split("\\s+");
+            mTurnData.playername1=fullName1[0];
+
+            //keeps track of the player
+            mTurnData.myParticipantIdST = mMatch.getParticipants().get(0).getParticipantId();
+        }
         gp1.getFirstName(mTurnData.playername1);
         fullName1 = mTurnData.playername1.split("\\s+");
-        fullName2 = mTurnData.playername2.split("\\s+");
+
 
         if (mTurnData.playerprofile1 != null) {
             gp1.getStringProf(mTurnData.playerprofile1);
         } else {
             gp1.setNullProfilePic();
         }
+
+        if(mTurnData.playerpoints1 == null){
+            mTurnData.playerpoints1 = "Score: 0";
+        }
         gp1.setScore(mTurnData.playerpoints1);
 
+        if (mTurnData.playername2 == null) {
+            fullName2 = mMatch.getParticipants().get(1).getDisplayName().split("\\s+");
+            mTurnData.playername2=fullName2[0];
+        }
         gp2.getFirstName(mTurnData.playername2);
+        fullName2 = mTurnData.playername2.split("\\s+");
 
+        if (mTurnData.playerprofile1 == null) {
+            mTurnData.playerprofile1 = mMatch.getParticipants().get(0).getIconImageUrl();
+        }
         playerPhotoUrl1 = mTurnData.playerprofile1;
+
+        if (mTurnData.playerprofile2 == null) {
+            mTurnData.playerprofile2 = mMatch.getParticipants().get(1).getIconImageUrl();
+        }
         playerPhotoUrl2 = mTurnData.playerprofile2;
 
         if (mTurnData.playerprofile2 != null) {
@@ -686,9 +711,47 @@ public class SkeletonActivity extends ActionBarActivity
         } else {
             gp2.setNullProfilePic();
         }
+
+        if(mTurnData.playerpoints2 == null){
+            mTurnData.playerpoints2 = "Score: 0";
+            mTurnData.my_list_counterST = bl.my_list_counter;
+            mTurnData.secondPlayerFinalTurn = false;
+            mTurnData.secondPlayerRematch = false;
+        }
         gp2.setScore(mTurnData.playerpoints2);
 
         bl.my_list_counter = mTurnData.my_list_counterST;
+
+        if(mTurnData.secondPlayerRematch){
+            mTurnData.myParticipantIdST = getNextParticipantId();
+        }
+        //Create the next round when player one has turn
+        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
+            mTurnData.roundCounter++;
+        }
+
+        if(mTurnData.roundCounter == 0){ //then second player initiated rematch
+            mTurnData.secondPlayerRematch = true;
+            mTurnData.myParticipantIdST = "p_1";
+            mTurnData.roundCounter++;
+//            gp1.getFirstName(mTurnData.playername2);
+//            gp1.setScore(mTurnData.playerpoints2);
+//            gp2.getFirstName(mTurnData.playername1);
+//            gp2.setScore(mTurnData.playerpoints1);
+//
+//            if (mTurnData.playerprofile2 != null) {
+//                gp1.getStringProf(mTurnData.playerprofile2);
+//            } else {
+//                gp1.setNullProfilePic();
+//            }
+//
+//            if (mTurnData.playerprofile1 != null) {
+//                gp2.getStringProf(mTurnData.playerprofile1);
+//            } else {
+//                gp2.setNullProfilePic();
+//            }
+
+        }
 
         if (!myTurn) {
             for (int i = 0; i < bl.button_list.size(); i++) {
@@ -951,14 +1014,16 @@ public class SkeletonActivity extends ActionBarActivity
     @Override
     public boolean lastTurnSecondPlayer() {
         //check if second player had final turn
-        if (mTurnData.secondPlayerFinalTurn == true) {
-            return true;
-            //if first player had last turn then next player will have one more turn
-        } else {
-            if (lastTurnFirstPlayer()) {
-                mTurnData.secondPlayerFinalTurn = true;
+            if (mTurnData.secondPlayerFinalTurn) {
+                return true;
+                //if first player had last turn then next player will have one more turn
+
+            } else {
+                if (lastTurnFirstPlayer()) {
+                    mTurnData.secondPlayerFinalTurn = true;
+                }
             }
-        }
+
         return false;
     }
 
@@ -1127,6 +1192,8 @@ public class SkeletonActivity extends ActionBarActivity
         mTurnData.viewEndOfGame = false;
 
         mTurnData.viewEndOfGame2 = false;
+
+        mTurnData.secondPlayerRematch = false;
 
         mTurnData.my_list_counterST = bl.my_list_counter;
 

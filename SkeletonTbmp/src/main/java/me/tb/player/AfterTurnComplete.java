@@ -117,6 +117,18 @@ public class AfterTurnComplete extends ActionBarActivity {
         n2 = (TextView) findViewById(R.id.gName_2);
         s2 = (TextView) findViewById(R.id.gScore_2);
 
+        String nextPlayer = intent.getStringExtra("nextPlayerTurn");
+        if(nextPlayer!=null){
+            if(nextPlayer.equals("p_2")){
+                n1.setTextColor(getResources().getColor(R.color.primaryColor));
+                s1.setTextColor(getResources().getColor(R.color.primaryColor));
+            } else {
+                n2.setTextColor(getResources().getColor(R.color.primaryColor));
+                s2.setTextColor(getResources().getColor(R.color.primaryColor));
+
+            }
+        }
+
         img = (ImageView) findViewById(R.id.gProfPic_1);
         img2 = (ImageView) findViewById(R.id.gProfPic_2);
         String name1 = intent.getStringExtra("name1");

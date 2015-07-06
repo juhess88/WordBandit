@@ -41,7 +41,7 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
     Button b0, b1, b2, b3, b4, b5, b6, b7, b8;
 
     //random letter up to 109
-    int my_list_counter = 12; // CHANGE BACK TO 109
+    int my_list_counter = 109; // CHANGE BACK TO 109
 
     //randomly selects letters to go in the squares
     Random rand = new Random();
@@ -101,38 +101,39 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
 
         * */
 
-        letters = new String[]{
-                "a", "b", "c", "r", "s", "t", "i", "o", "e", "e", "o", "b"
-        };
-
+        //For practicing end of game features...
 //        letters = new String[]{
-//                //109 total
-//                "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", //13
-//                "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", // 11
-//                "i", "i", "i", "i", "i", "i", "i", "i", //8
-//                "o", "o", "o", "o", "o", "o", //6
-//                "t", "t", "t", "t", "t", //5
-//                "r", "r", "r", "r", "r", //5
-//                "n", "n", "n", "n", //4
-//                "d", "d", "d", "d", "d", //5
-//                "s", "s", "s", "s", "s", //5
-//                "u", "u", "u", "u", "u", //5
-//                "l", "l", "l", "l", //4
-//                "g", "g", "g", "g", //4
-//                "b", "b", "b", //3
-//                "c", "c", "c", //3
-//                "f", "f", "f", //3
-//                "h", "h", //2
-//                "m", "m", "m", //3
-//                "p", "p", "p", //3
-//                "v", "v", //2
-//                "w", "w", //2
-//                "y", "y", "y", //3
-//                "j", "j", //2
-//                "k", "k", //2
-//                "q", "q", //2
-//                "x", "x", //2
-//                "z", "z"}; //2
+//                "a", "b", "c", "r", "s", "t", "i", "o", "e", "e", "o", "b"
+//        };
+
+        letters = new String[]{
+                //109 total
+                "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", //13
+                "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", // 11
+                "i", "i", "i", "i", "i", "i", "i", "i", //8
+                "o", "o", "o", "o", "o", "o", //6
+                "t", "t", "t", "t", "t", //5
+                "r", "r", "r", "r", "r", //5
+                "n", "n", "n", "n", //4
+                "d", "d", "d", "d", "d", //5
+                "s", "s", "s", "s", "s", //5
+                "u", "u", "u", "u", "u", //5
+                "l", "l", "l", "l", //4
+                "g", "g", "g", "g", //4
+                "b", "b", "b", //3
+                "c", "c", "c", //3
+                "f", "f", "f", //3
+                "h", "h", //2
+                "m", "m", "m", //3
+                "p", "p", "p", //3
+                "v", "v", //2
+                "w", "w", //2
+                "y", "y", "y", //3
+                "j", "j", //2
+                "k", "k", //2
+                "q", "q", //2
+                "x", "x", //2
+                "z", "z"}; //2
 
         Log.d("Total Tiles: ", "" + letters.length);
         list_of_letters.addAll(Arrays.asList(letters));

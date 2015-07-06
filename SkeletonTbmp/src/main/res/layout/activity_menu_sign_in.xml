@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="60dp"
-            android:text="Word Thieves is a multiplayer word game."
+            android:text="Word Thief is a multiplayer word game."
             android:textStyle="bold" />
 
         <TextView
@@ -134,6 +134,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Compete against friends and nearby players."
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Internet connection required."
             android:textStyle="bold" />
     </LinearLayout>
 

@@ -142,6 +142,7 @@ public class SkeletonActivity extends ActionBarActivity
     Boolean enableFling = true;
 
     Boolean secondPlayerEndedGame = false;
+    Boolean secondPlayerRematch = false;
 
     Boolean viewEndOfGame = false;
     Boolean viewEndOfGame2 = false;
@@ -435,6 +436,11 @@ public class SkeletonActivity extends ActionBarActivity
                     ParticipantResult.MATCH_RESULT_TIE, 1);
         }
 
+        gp1.setCurrentPlayerBlack();
+        gp2.setCurrentPlayerBlack();
+        lv1.setMyTurn(false);
+        lv2.setMyTurn(false);
+
         Games.TurnBasedMultiplayer.finishMatch(mGoogleApiClient, mMatch.getMatchId()
                 , mMatch.getData(), creatorResult, opponentResult)
                 .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
@@ -449,6 +455,8 @@ public class SkeletonActivity extends ActionBarActivity
         for (int i = 0; i < bl.button_list.size(); i++) {
             bl.button_list.get(i).setClickable(false);
         }
+        lv1.setMyTurn(false);
+        lv2.setMyTurn(false);
         setViewVisibility();
 
     }
@@ -551,6 +559,10 @@ public class SkeletonActivity extends ActionBarActivity
             intent.putExtra("pic2", playerPhotoUrl2);
             intent.putExtra("tiles", Integer.toString(bl.getList_of_letters().size()));
             intent.putExtra("share", shareMessageCombo);
+            if(secondPlayerRematch){
+                myParticipantId = getNextParticipantId();
+            }
+            intent.putExtra("nextPlayerTurn", myParticipantId);
             startActivity(intent);
             SkeletonActivity.this.finish();
         }
@@ -730,6 +742,7 @@ public class SkeletonActivity extends ActionBarActivity
         if (mTurnData.secondPlayerRematch != null) {
             if (mTurnData.secondPlayerRematch) {
                 mTurnData.myParticipantIdST = getNextParticipantId();
+                secondPlayerRematch = true;
             }
         }
         //Create the next round when player one has turn
@@ -741,23 +754,17 @@ public class SkeletonActivity extends ActionBarActivity
             mTurnData.secondPlayerRematch = true;
             mTurnData.myParticipantIdST = "p_1";
             mTurnData.roundCounter++;
-//            gp1.getFirstName(mTurnData.playername2);
-//            gp1.setScore(mTurnData.playerpoints2);
-//            gp2.getFirstName(mTurnData.playername1);
-//            gp2.setScore(mTurnData.playerpoints1);
-//
-//            if (mTurnData.playerprofile2 != null) {
-//                gp1.getStringProf(mTurnData.playerprofile2);
-//            } else {
-//                gp1.setNullProfilePic();
-//            }
-//
-//            if (mTurnData.playerprofile1 != null) {
-//                gp2.getStringProf(mTurnData.playerprofile1);
-//            } else {
-//                gp2.setNullProfilePic();
-//            }
+            secondPlayerRematch = true;
+        }
 
+        if (mTurnData.myParticipantIdST != null) {
+            if (!viewEndOfGame && !viewEndOfGame2 && !secondPlayerEndedGame) {
+                if (mTurnData.myParticipantIdST.equals("p_1")) {
+                    gp1.setCurrentPlayerGreen();
+                } else {
+                    gp2.setCurrentPlayerGreen();
+                }
+            }
         }
 
         if (!myTurn) {
@@ -854,7 +861,7 @@ public class SkeletonActivity extends ActionBarActivity
 
     }
 
-    public void setCurrentPlayerGreen(TextView name, TextView score){
+    public void setCurrentPlayerGreen(TextView name, TextView score) {
 
         name.setTextColor(getResources().getColor(R.color.green));
         score.setTextColor(getResources().getColor(R.color.green));
@@ -1238,6 +1245,7 @@ public class SkeletonActivity extends ActionBarActivity
         playername1 = participants.get(0).getDisplayName();
         fullName1 = playername1.split("\\s+");
         gp1.getFirstName(fullName1[0]);
+        gp1.setCurrentPlayerGreen();
 
         if (participants.size() > 1) {
             playerPhotoUrl2 = participants.get(1).getIconImageUrl();
@@ -1378,15 +1386,13 @@ public class SkeletonActivity extends ActionBarActivity
                 return;
             case TurnBasedMatch.MATCH_STATUS_COMPLETE:
                 if (turnStatus == TurnBasedMatch.MATCH_TURN_STATUS_COMPLETE) {
-//                    showWarning(
-//                            "Game Over!",
-//                            "Check the final results");
                     myTurn = false;
                     viewEndOfGame = true;
                     viewEndOfGame2 = true;
                     lv1.setMyTurn(false);
                     lv2.setMyTurn(false);
-//                    manager.beginTransaction().show(sf).commit();
+                    gp1.setCurrentPlayerBlack();
+                    gp2.setCurrentPlayerBlack();
                     mTurnData = SkeletonTurn.unpersist(mMatch.getData());
                     setGameplayUI();
                     int x = 0;
@@ -1400,6 +1406,10 @@ public class SkeletonActivity extends ActionBarActivity
                 EditText e = (EditText) findViewById(R.id.edittextfrag);
                 e.setHint("Game Over");
                 mTurnData.messageCombo = "Thank you for playing!";
+                gp1.setCurrentPlayerBlack();
+                gp2.setCurrentPlayerBlack();
+                lv1.setMyTurn(false);
+                lv2.setMyTurn(false);
                 showWarning("Game over", "Final Score\n\n" + mTurnData.playername1 + " - " + mTurnData.playerpoints1 +
                         "\n" + mTurnData.playername2 + " - " + mTurnData.playerpoints2);
                 Games.TurnBasedMultiplayer.finishMatch(mGoogleApiClient, mMatch.getMatchId());

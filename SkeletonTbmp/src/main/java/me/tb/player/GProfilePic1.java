@@ -55,6 +55,25 @@ public class GProfilePic1 extends Fragment{
 
     }
 
+    public TextView getTxt() {
+        return txt;
+    }
+
+    public TextView getScore() {
+        return score;
+    }
+
+    public void setCurrentPlayerGreen(){
+
+        txt.setTextColor(getResources().getColor(R.color.primaryColor));
+        score.setTextColor(getResources().getColor(R.color.primaryColor));
+    }
+
+    public void setCurrentPlayerBlack(){
+
+        txt.setTextColor(getResources().getColor(R.color.black));
+        score.setTextColor(getResources().getColor(R.color.black));
+    }
 
     public void getName(String data){
         txt.setText(data);

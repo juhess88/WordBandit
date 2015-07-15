@@ -64,7 +64,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="Welcome "
+                android:text="Welcome, "
                 android:textSize="20dp" />
 
             <TextView
@@ -125,8 +125,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:text="Word Thief is a multiplayer word game."
+            android:layout_marginTop="45dp"
+            android:text="Word Bandit is a multiplayer word game."
             android:textStyle="bold" />
 
         <TextView
@@ -141,7 +141,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Internet connection required."
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="We automatically generate friends that are in your Google+ circles. So if you want to play a friend add him to your circles."
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"/>
+
+
+
     </LinearLayout>
 
     <RelativeLayout

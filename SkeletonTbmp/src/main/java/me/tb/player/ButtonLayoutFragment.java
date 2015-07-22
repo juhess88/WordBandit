@@ -172,7 +172,7 @@ public class ButtonLayoutFragment extends Fragment implements View.OnClickListen
 
                         if (D) {
                             if (fling > velocityThresh && distance > distanceThresh) {
-                                comm.fling();
+                                comm.fling(true);
                             }
                         }
                         return true;

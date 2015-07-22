@@ -46,11 +46,27 @@ public class EditTextFragment extends Fragment {
         tb_enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comm5.fling();
+                comm5.fling(false);
             }
         });
 
         tb_tiles = (Button) getActivity().findViewById(R.id.toolbar_tiles);
+
+        Button tb_pass = (Button) getActivity().findViewById(R.id.toolbar_pass);
+        tb_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comm5.messageAtPass("Are you sure you want to pass?\n\nThis action will end your turn.");
+            }
+        });
+
+        Button tb_shuffle = (Button) getActivity().findViewById(R.id.toolbar_shuffle);
+        tb_shuffle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comm5.messageAtShuffle("Are you sure you want to shuffle the tiles?\n\nThis action will end your turn.");
+            }
+        });
 
         //this section reads the dictionary file called words and saves it in displayText
         String displayText = "";
@@ -92,7 +108,7 @@ public class EditTextFragment extends Fragment {
                                     + ", vX: " + velocityX + " vY:" + velocityY);
 
                             if (fling > velocityThresh && distance > distanceThresh) {
-                                comm5.fling();
+                                comm5.fling(true);
                             }
                         }
                         return true;

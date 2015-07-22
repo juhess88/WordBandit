@@ -94,7 +94,7 @@ public class ListView2 extends Fragment {
                                     + ", vX: " + velocityX + " vY:" + velocityY);
 
                             if (fling > velocityThresh && distance > distanceThresh) {
-                                comm3.fling();
+                                comm3.fling(true);
                             }
                         }
                         return true;

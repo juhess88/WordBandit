@@ -42,6 +42,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,6 +158,7 @@ public class SkeletonActivity extends ActionBarActivity
 
     private RecyclerView recyclerView;
     private RecyclerShareAdapter recyclerAdapter;
+    private Button buttonMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,7 +217,7 @@ public class SkeletonActivity extends ActionBarActivity
             double distance = Math.sqrt(Math.pow(e2.getX() - e1.getX(), 2) + Math.pow(e2.getY() - e1.getY(), 2));
 
             if (fling > velocityThresh && distance > distanceThresh && enableFling) {
-                fling();
+                fling(true);
             }
 
             return true;
@@ -770,28 +772,32 @@ public class SkeletonActivity extends ActionBarActivity
         if (!myTurn) {
             for (int i = 0; i < bl.button_list.size(); i++) {
                 bl.button_list.get(i).setClickable(false);
-                recyclerView = (RecyclerView) findViewById(R.id.recycleShare);
-                recyclerView.addOnItemTouchListener(
-                        new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                try {
-                                    String type = "image/*";
-                                    String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
-                                    AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, mTurnData.messageCombo);
-
-                                } catch (Exception e) {
-                                    // TODO: handle exception
-                                    e.printStackTrace();
-                                }
-                            }
-                        })
-                );
-                recyclerAdapter = new RecyclerShareAdapter(this, getData());
-                recyclerView.setAdapter(recyclerAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                recyclerView.setVisibility(View.VISIBLE);
             }
+            recyclerView = (RecyclerView) findViewById(R.id.recycleShare);
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            try {
+                                String type = "image/*";
+                                String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+                                AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, mTurnData.messageCombo);
+
+                            } catch (Exception e) {
+                                // TODO: handle exception
+                                e.printStackTrace();
+                            }
+                        }
+                    })
+            );
+            recyclerAdapter = new RecyclerShareAdapter(this, getData());
+            recyclerView.setAdapter(recyclerAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setVisibility(View.VISIBLE);
+            buttonMessage = (Button) findViewById(R.id.button_message);
+            buttonMessage.setText(shareMessageCombo);
+            buttonMessage.setVisibility(View.VISIBLE);
+
         }
 
         if (!secondPlayerEndedGame) {
@@ -867,6 +873,7 @@ public class SkeletonActivity extends ActionBarActivity
         score.setTextColor(getResources().getColor(R.color.green));
     }
 
+    @Override
     public void messageAtShuffle(String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -904,6 +911,7 @@ public class SkeletonActivity extends ActionBarActivity
         mAlertDialog.show();
     }
 
+    @Override
     public void messageAtPass(String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -1740,7 +1748,7 @@ public class SkeletonActivity extends ActionBarActivity
     }
 
     @Override
-    public void fling() {
+    public void fling(boolean isSwipe) {
         String etWord = wordUserCreatedFromEditTextFragment();
         if (myTurn && enableFling) {
             //first checks if trying to steal word
@@ -1753,8 +1761,12 @@ public class SkeletonActivity extends ActionBarActivity
                                 if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                                     if (!isListView1Clicked()) {
                                         shareMessageTitle = "You took " + mTurnData.playername2 + "'s word!";
-                                        shareMessageBody = "Take with '" + etWord + "'?";
-
+                                        if(isSwipe) {
+                                            shareMessageBody = "Take with '" + etWord + "'?";
+                                        } else {
+                                            shareMessageBody = "Take with '" + etWord + "'?" +
+                                                    "\n\nTip: Swipe across the screen to enter your word.";
+                                        }
                                         shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " took '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
@@ -1762,8 +1774,12 @@ public class SkeletonActivity extends ActionBarActivity
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
-                                        shareMessageBody = "Improve  with '" + etWord + "'?";
-                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
+                                        if(isSwipe) {
+                                            shareMessageBody = "Improve with '" + etWord + "'?";
+                                        } else {
+                                            shareMessageBody = "Improve with '" + etWord + "'?" +
+                                                    "\n\nTip: Swipe across the screen to enter your word.";
+                                        }                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " improved '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
@@ -1771,15 +1787,23 @@ public class SkeletonActivity extends ActionBarActivity
                                 } else {
                                     if (isListView1Clicked()) {
                                         shareMessageTitle = "You took " + mTurnData.playername1 + "'s word!";
-                                        shareMessageBody = "Take with '" + etWord + "'?";
-                                        shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
+                                        if(isSwipe) {
+                                            shareMessageBody = "Take with '" + etWord + "'?";
+                                        } else {
+                                            shareMessageBody = "Take with '" + etWord + "'?" +
+                                                    "\n\nTip: Swipe across the screen to enter your word.";
+                                        }                                        shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername2 + " took '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
-                                        shareMessageBody = "Improve with '" + etWord + "'?";
-                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
+                                        if(isSwipe) {
+                                            shareMessageBody = "Improve with '" + etWord + "'?";
+                                        } else {
+                                            shareMessageBody = "Improve with '" + etWord + "'?" +
+                                                    "\n\nTip: Swipe across the screen to enter your word.";
+                                        }                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername2 + " improved '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
@@ -1791,21 +1815,18 @@ public class SkeletonActivity extends ActionBarActivity
                                 Toast.makeText(this, "You cannot take " + wordUserIsTryingToSteal() + " with " + et.getTextFromEditText() +
                                         "\nSame root", Toast.LENGTH_SHORT).show();
                                 returnButtonsToUnclickedState();
-//                                showOriginalGameScreen();
                                 clearTextFromEditTextFragment();
                                 db.clearTheNewClickedButtons();
                             }
                         } else {
                             Toast.makeText(this, et.getTextFromEditText() + " is not a word", Toast.LENGTH_SHORT).show();
                             returnButtonsToUnclickedState();
-//                            showOriginalGameScreen();
                             clearTextFromEditTextFragment();
                             db.clearTheNewClickedButtons();
                         }
                     } else {
                         Toast.makeText(this, "You can only take " + wordUserIsTryingToSteal() + " with a longer word", Toast.LENGTH_SHORT).show();
                         returnButtonsToUnclickedState();
-//                        showOriginalGameScreen();
                         clearTextFromEditTextFragment();
                         db.clearTheNewClickedButtons();
                     }
@@ -1813,7 +1834,6 @@ public class SkeletonActivity extends ActionBarActivity
                     if (!et.getTextFromEditText().equals(""))
                         Toast.makeText(this, "All blue letters must be selected", Toast.LENGTH_SHORT).show();
                     returnButtonsToUnclickedState();
-//                    showOriginalGameScreen();
                     clearTextFromEditTextFragment();
                     db.clearTheNewClickedButtons();
                 }
@@ -1822,8 +1842,12 @@ public class SkeletonActivity extends ActionBarActivity
                 if (!wordUserCreatedFromEditTextFragment().equals("")) {
 
                     shareMessageTitle = "You made a word!";
-                    shareMessageBody = "Make the word '" + etWord + "'?";
-                    shareMessageCombo = " My word is '" + etWord + "'";
+                    if(isSwipe) {
+                        shareMessageBody = "Make the word '" + etWord + "'?";
+                    } else {
+                        shareMessageBody = "Make the word '" + etWord + "'?" +
+                                "\n\nTip: Swipe across the screen to enter your word.";
+                    }                    shareMessageCombo = " My word is '" + etWord + "'";
                     if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " made the word '" + etWord + "'";
                     } else {
@@ -1836,13 +1860,9 @@ public class SkeletonActivity extends ActionBarActivity
                         Toast.makeText(this, et.getTextFromEditText() + " is not a word", Toast.LENGTH_SHORT).show();
                     returnButtonsToUnclickedState();
                     clearTextFromEditTextFragment();
-//                    showOriginalGameScreen();
                 }
             }
         }
-//        else {
-//            Toast.makeText(this, "Not your turn", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     @Override

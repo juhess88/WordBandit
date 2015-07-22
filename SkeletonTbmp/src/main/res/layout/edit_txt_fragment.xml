@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/edittextfrag"
-        android:layout_width="250dp"
+        android:layout_width="252dp"
         android:layout_height="@dimen/size"
         android:background="#42A5F5"
         android:editable="false"
@@ -22,25 +22,38 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/primaryColor">
 
         <Button
             android:id="@+id/toolbar_tiles"
-            android:layout_width="125dp"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/etToolbar"
-            android:background="@color/primaryColor"
+            android:background="@drawable/button_toolbar"
             android:text="Tiles: 100"
             android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/toolbar_enter"
-            android:layout_width="125dp"
+            android:id="@+id/toolbar_pass"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/etToolbar"
-            android:background="@color/primaryColor"
+            android:background="@drawable/button_toolbar"
+            android:text="Pass"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/toolbar_shuffle"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_toolbar"
+            android:text="Shuffle"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/toolbar_enter"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_toolbar"
             android:text="Enter"
             android:textColor="@color/white"/>
 

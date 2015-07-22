@@ -76,7 +76,7 @@ public interface CommunicatorGame {
     public void removeButtonTextIfClickedAndIsWord();
 
     //fling gesture detected
-    public void fling();
+    public void fling(boolean isSwipe);
 
     //turn completed
     public void turnComplete();
@@ -108,4 +108,8 @@ public interface CommunicatorGame {
     public void addCV();
 
     public int getTilesRemaining();
+
+    public void messageAtShuffle(String message);
+
+    public void messageAtPass(String message);
 }

@@ -354,7 +354,15 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(getCircleBitmap(Bitmap.createScaledBitmap(result, 200, 200, false)));
+            try{
+                bmImage.setImageBitmap(getCircleBitmap(Bitmap.createScaledBitmap(result, 200, 200, false)));
+            } catch (Exception e){
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+                mSignInClicked = false;
+                findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.secret_layout).setVisibility(View.GONE);
+            }
         }
     }
 

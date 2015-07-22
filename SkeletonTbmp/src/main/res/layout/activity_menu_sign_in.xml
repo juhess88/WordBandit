@@ -140,22 +140,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Internet connection required."
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="We automatically generate friends that are in your Google+ circles. So if you want to play a friend add him to your circles."
+            android:text="We automatically generate friends that are in your Google+ circles. So add friends to your circles to be able to play against them."
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"/>
-
-
-
     </LinearLayout>
 
     <RelativeLayout

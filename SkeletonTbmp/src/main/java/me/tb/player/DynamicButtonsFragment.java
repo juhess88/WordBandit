@@ -80,7 +80,7 @@ public class DynamicButtonsFragment extends Fragment implements View.OnClickList
                         float fling = (Math.abs(velocityX) + Math.abs(velocityY)) / 2;
                         if (D) {
                             Log.d(TAG, "DynamicButtonsFragment - onFling: " + fling + ", " + velocityX + " " + velocityY);
-                            comm4.fling();
+                            comm4.fling(true);
                         }
                         return true;
                     }

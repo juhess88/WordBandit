@@ -24,6 +24,14 @@
             android:layout_marginTop="12dp"
             android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
+        <Button
+            android:id="@+id/button_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="testing"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
+
         <!-- I made the fragment countdown visibility gone in this xml
         and also in its own xml-->
 

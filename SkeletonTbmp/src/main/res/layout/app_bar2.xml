@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/after_turn_edittext"
-            android:layout_width="250dp"
+            android:layout_width="252dp"
             android:layout_height="@dimen/size"
             android:layout_gravity="center_horizontal"
             android:background="#42A5F5"
@@ -30,24 +30,38 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/primaryColor"
+            >
 
             <Button
                 android:id="@+id/toolbar_tiles2"
-                android:layout_width="125dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/etToolbar"
                 android:background="@color/primaryColor"
                 android:text="Tiles: 100"
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/toolbar_enter2"
-                android:layout_width="125dp"
+                android:id="@+id/toolbar_pass"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/etToolbar"
+                android:background="@color/primaryColor"
+                android:text="Pass"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/toolbar_shuffle"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                android:text="Shuffle"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/toolbar_enter2"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
                 android:background="@color/primaryColor"
                 android:text="Enter"
                 android:textColor="@color/white"/>

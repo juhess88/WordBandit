@@ -59,6 +59,7 @@ public class AfterTurnComplete extends ActionBarActivity {
 
     private RecyclerView recyclerView;
     private RecyclerShareAdapter recyclerAdapter;
+    private Button buttonMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +176,8 @@ public class AfterTurnComplete extends ActionBarActivity {
             adapter2.insert(list2.get(i), 0);
         }
 
+        buttonMessage = (Button) findViewById(R.id.button_message2);
+        buttonMessage.setText(SkeletonActivity.shareMessageCombo);
         recyclerView = (RecyclerView) findViewById(R.id.recycleShare2);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {

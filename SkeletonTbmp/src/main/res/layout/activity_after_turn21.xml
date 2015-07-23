@@ -18,20 +18,26 @@
         android:paddingLeft="16dp"
         >
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleShare2"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            ></android.support.v7.widget.RecyclerView>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/recycleShare2"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--></android.support.v7.widget.RecyclerView>-->
+
 
         <Button
             android:id="@+id/button_message2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="testing"
-            android:layout_gravity="center_horizontal"/>
-
+            android:layout_gravity="center_horizontal"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/shareicon"
+            android:textColor="@color/black"
+            android:background="@drawable/button_menu"
+            />
             <LinearLayout
                 android:id="@+id/ll_screen_bttns"
                 android:layout_width="match_parent"

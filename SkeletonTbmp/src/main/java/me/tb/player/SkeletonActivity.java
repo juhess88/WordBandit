@@ -17,8 +17,13 @@
 package me.tb.player;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,14 +32,14 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -64,6 +69,7 @@ import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer;
 import com.google.android.gms.plus.Plus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,8 +162,8 @@ public class SkeletonActivity extends ActionBarActivity
 
     private Toolbar toolbar;
 
-    private RecyclerView recyclerView;
-    private RecyclerShareAdapter recyclerAdapter;
+    //    private RecyclerView recyclerView;
+//    private RecyclerShareAdapter recyclerAdapter;
     private Button buttonMessage;
 
     @Override
@@ -186,16 +192,16 @@ public class SkeletonActivity extends ActionBarActivity
         gestureScanner = new GestureDetector(this, new MyGestureListener());
     }
 
-    public static List<RecyclerShareModel> getData() {
-        List<RecyclerShareModel> data = new ArrayList<>();
-        int icon = R.drawable.shareicon;
-        String title = shareMessageCombo;
-        RecyclerShareModel current = new RecyclerShareModel();
-        current.iconId = icon;
-        current.title = title;
-        data.add(current);
-        return data;
-    }
+//    public static List<RecyclerShareModel> getData() {
+//        List<RecyclerShareModel> data = new ArrayList<>();
+//        int icon = R.drawable.shareicon;
+//        String title = shareMessageCombo;
+//        RecyclerShareModel current = new RecyclerShareModel();
+//        current.iconId = icon;
+//        current.title = title;
+//        data.add(current);
+//        return data;
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -561,7 +567,7 @@ public class SkeletonActivity extends ActionBarActivity
             intent.putExtra("pic2", playerPhotoUrl2);
             intent.putExtra("tiles", Integer.toString(bl.getList_of_letters().size()));
             intent.putExtra("share", shareMessageCombo);
-            if(secondPlayerRematch){
+            if (secondPlayerRematch) {
                 myParticipantId = getNextParticipantId();
             }
             intent.putExtra("nextPlayerTurn", myParticipantId);
@@ -653,6 +659,7 @@ public class SkeletonActivity extends ActionBarActivity
 
         for (int i = 0; i < mTurnData.data1.size(); i++) {
             lv1.adapter1.add(mTurnData.data1.get(i));
+//            Log.d("words", mTurnData.data1.get(i));
         }
         for (int i = 0; i < mTurnData.data2.size(); i++) {
             lv2.adapter2.add(mTurnData.data2.get(i));
@@ -773,30 +780,45 @@ public class SkeletonActivity extends ActionBarActivity
             for (int i = 0; i < bl.button_list.size(); i++) {
                 bl.button_list.get(i).setClickable(false);
             }
-            recyclerView = (RecyclerView) findViewById(R.id.recycleShare);
-            recyclerView.addOnItemTouchListener(
-                    new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            try {
-                                String type = "image/*";
-                                String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
-                                AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, mTurnData.messageCombo);
-
-                            } catch (Exception e) {
-                                // TODO: handle exception
-                                e.printStackTrace();
-                            }
-                        }
-                    })
-            );
-            recyclerAdapter = new RecyclerShareAdapter(this, getData());
-            recyclerView.setAdapter(recyclerAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setVisibility(View.VISIBLE);
+//            recyclerView = (RecyclerView) findViewById(R.id.recycleShare);
+//            recyclerView.addOnItemTouchListener(
+//                    new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(View view, int position) {
+//                            try {
+//                                String type = "image/*";
+//                                String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+//                                AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, mTurnData.messageCombo);
+//
+//                            } catch (Exception e) {
+//                                // TODO: handle exception
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    })
+//            );
+//            recyclerAdapter = new RecyclerShareAdapter(this, getData());
+//            recyclerView.setAdapter(recyclerAdapter);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//            recyclerView.setVisibility(View.VISIBLE);
             buttonMessage = (Button) findViewById(R.id.button_message);
             buttonMessage.setText(shareMessageCombo);
             buttonMessage.setVisibility(View.VISIBLE);
+            buttonMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String type = "image/*";
+                        String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+//                        AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
+//                        onShareClick();
+                        initShareIntent("facebook.katana");
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                        e.printStackTrace();
+                    }
+                }
+            });
 
         }
 
@@ -818,27 +840,91 @@ public class SkeletonActivity extends ActionBarActivity
                     messageAtStartOfTurn("Game over", "Final Score\n\n" + mTurnData.playername1 + " - " + mTurnData.playerpoints1 +
                             "\n" + mTurnData.playername2 + " - " + mTurnData.playerpoints2);
                 } else {
-                    if (mTurnData.turnCounter == 1) {
-                        messageAtStartOfTurn("Round " + mTurnData.roundCounter, "Good Luck!");
+                    if ((mTurnData.turnCounter == 1 || mTurnData.turnCounter == 2) && myTurn) {
+                        messageAtStartOfTurn("Round " + mTurnData.roundCounter, "Tap on the tiles to make a word.\nTap on a word to try and take it.\nSwipe to enter.\nGood Luck!");
                     } else {
                         if (mTurnData.list_of_lettersST.size() == 0) {
                             messageAtStartOfTurn("Round " + mTurnData.roundCounter, "Warning: Final Turn!\n\n" + mTurnData.shareNextTurnMessage);
                         } else {
-                            if (mTurnData.list_of_lettersST.size() < 10) {
+                            if (mTurnData.list_of_lettersST.size() < 10 && myTurn) {
                                 messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage +
                                         "\n\nWarning: Tile counter at " + mTurnData.list_of_lettersST.size() +
                                         "\nGame ends when it reaches 0");
                             } else {
-
-                                Log.d("", "the message is " + mTurnData.shareNextTurnMessage);
-                                messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage);
-
+                                if (myTurn) {
+                                    messageAtStartOfTurn("Round " + mTurnData.roundCounter, mTurnData.shareNextTurnMessage);
+                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    private void initShareIntent(String type) {
+        boolean found = false;
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
+        if (!resInfo.isEmpty()) {
+            for (ResolveInfo info : resInfo) {
+                Log.d("package name", info.activityInfo.packageName.toLowerCase());
+                if (info.activityInfo.packageName.toLowerCase().contains(type) ||
+                        info.activityInfo.name.toLowerCase().contains(type)) {
+                    share.putExtra(Intent.EXTRA_SUBJECT, "subject");
+                    share.putExtra(Intent.EXTRA_TEXT, "your text");
+                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/game_icon1.png"))); // Optional, just if you wanna share an image.
+                    share.setPackage(info.activityInfo.packageName);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                return;
+
+            startActivity(Intent.createChooser(share, "Select"));
+        }
+    }
+
+    public void onShareClick() {
+        Resources resources = getResources();
+
+        Intent emailIntent = new Intent();
+        emailIntent.setAction(Intent.ACTION_SEND);
+
+        PackageManager pm = getPackageManager();
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+
+
+        Intent openInChooser = Intent.createChooser(emailIntent, resources.getString(R.string.share_chooser_text));
+
+        List<ResolveInfo> resInfo = pm.queryIntentActivities(sendIntent, 0);
+        List<LabeledIntent> intentList = new ArrayList<LabeledIntent>();
+        for (int i = 0; i < resInfo.size(); i++) {
+            // Extract the label, append it, and repackage it in a LabeledIntent
+            ResolveInfo ri = resInfo.get(i);
+            String packageName = ri.activityInfo.packageName;
+            if (packageName.contains("twitter") || packageName.contains("facebook")) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                if (packageName.contains("twitter")) {
+                    intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.share_twitter));
+                }
+                intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
+            }
+        }
+
+        // convert intentList to array
+        LabeledIntent[] extraIntents = intentList.toArray(new LabeledIntent[intentList.size()]);
+
+        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
+        startActivity(openInChooser);
     }
 
     public void messageAtEndOfGame(String title, String message) {
@@ -1761,7 +1847,7 @@ public class SkeletonActivity extends ActionBarActivity
                                 if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                                     if (!isListView1Clicked()) {
                                         shareMessageTitle = "You took " + mTurnData.playername2 + "'s word!";
-                                        if(isSwipe) {
+                                        if (isSwipe) {
                                             shareMessageBody = "Take with '" + etWord + "'?";
                                         } else {
                                             shareMessageBody = "Take with '" + etWord + "'?" +
@@ -1774,12 +1860,13 @@ public class SkeletonActivity extends ActionBarActivity
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
-                                        if(isSwipe) {
+                                        if (isSwipe) {
                                             shareMessageBody = "Improve with '" + etWord + "'?";
                                         } else {
                                             shareMessageBody = "Improve with '" + etWord + "'?" +
                                                     "\n\nTip: Swipe across the screen to enter your word.";
-                                        }                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
+                                        }
+                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " improved '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
@@ -1787,23 +1874,25 @@ public class SkeletonActivity extends ActionBarActivity
                                 } else {
                                     if (isListView1Clicked()) {
                                         shareMessageTitle = "You took " + mTurnData.playername1 + "'s word!";
-                                        if(isSwipe) {
+                                        if (isSwipe) {
                                             shareMessageBody = "Take with '" + etWord + "'?";
                                         } else {
                                             shareMessageBody = "Take with '" + etWord + "'?" +
                                                     "\n\nTip: Swipe across the screen to enter your word.";
-                                        }                                        shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
+                                        }
+                                        shareMessageCombo = " I took '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername2 + " took '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
                                     } else {
                                         shareMessageTitle = "You improved your word!";
-                                        if(isSwipe) {
+                                        if (isSwipe) {
                                             shareMessageBody = "Improve with '" + etWord + "'?";
                                         } else {
                                             shareMessageBody = "Improve with '" + etWord + "'?" +
                                                     "\n\nTip: Swipe across the screen to enter your word.";
-                                        }                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
+                                        }
+                                        shareMessageCombo = " I improved '" + wordUserIsTryingToSteal() +
                                                 "' with '" + etWord + "'";
                                         mTurnData.shareNextTurnMessage = mTurnData.playername2 + " improved '" + wordUserIsTryingToSteal() + "' with '" + etWord + "'";
                                         messageAtEndOfStolenTurn(shareMessageBody);
@@ -1842,12 +1931,13 @@ public class SkeletonActivity extends ActionBarActivity
                 if (!wordUserCreatedFromEditTextFragment().equals("")) {
 
                     shareMessageTitle = "You made a word!";
-                    if(isSwipe) {
+                    if (isSwipe) {
                         shareMessageBody = "Make the word '" + etWord + "'?";
                     } else {
                         shareMessageBody = "Make the word '" + etWord + "'?" +
                                 "\n\nTip: Swipe across the screen to enter your word.";
-                    }                    shareMessageCombo = " My word is '" + etWord + "'";
+                    }
+                    shareMessageCombo = " My word is '" + etWord + "'";
                     if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
                         mTurnData.shareNextTurnMessage = mTurnData.playername1 + " made the word '" + etWord + "'";
                     } else {

@@ -1,7 +1,12 @@
 package me.tb.player;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,9 +22,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,8 +61,8 @@ public class AfterTurnComplete extends ActionBarActivity {
 
     Bitmap mIcon11 = null;
 
-    private RecyclerView recyclerView;
-    private RecyclerShareAdapter recyclerAdapter;
+    //    private RecyclerView recyclerView;
+//    private RecyclerShareAdapter recyclerAdapter;
     private Button buttonMessage;
 
     @Override
@@ -119,8 +123,8 @@ public class AfterTurnComplete extends ActionBarActivity {
         s2 = (TextView) findViewById(R.id.gScore_2);
 
         String nextPlayer = intent.getStringExtra("nextPlayerTurn");
-        if(nextPlayer!=null){
-            if(nextPlayer.equals("p_2")){
+        if (nextPlayer != null) {
+            if (nextPlayer.equals("p_2")) {
                 n1.setTextColor(getResources().getColor(R.color.primaryColor));
                 s1.setTextColor(getResources().getColor(R.color.primaryColor));
             } else {
@@ -162,7 +166,7 @@ public class AfterTurnComplete extends ActionBarActivity {
             e.setHint("Final Turn Complete");
         }
 
-        tb_tiles2 = (Button)findViewById(R.id.toolbar_tiles2);
+        tb_tiles2 = (Button) findViewById(R.id.toolbar_tiles2);
         tb_tiles2.setText("Tiles: " + tiles);
 
         ArrayList<String> list1 = intent.getStringArrayListExtra("list1");
@@ -178,27 +182,44 @@ public class AfterTurnComplete extends ActionBarActivity {
 
         buttonMessage = (Button) findViewById(R.id.button_message2);
         buttonMessage.setText(SkeletonActivity.shareMessageCombo);
-        recyclerView = (RecyclerView) findViewById(R.id.recycleShare2);
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+        buttonMessage.setOnClickListener(
+                new View.OnClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
+                    public void onClick(View view) {
                         try {
                             String type = "image/*";
                             String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
-                            createInstagramIntent(AfterTurnComplete.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
-
+//                            createInstagramIntent(AfterTurnComplete.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
+//                            onShareClick();
+                            initShareIntent("facebook.katana");
                         } catch (Exception e) {
                             // TODO: handle exception
                             e.printStackTrace();
                         }
                     }
-                })
+                }
         );
-
-        recyclerAdapter = new RecyclerShareAdapter(this, getData());
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView = (RecyclerView) findViewById(R.id.recycleShare2);
+//        recyclerView.addOnItemTouchListener(
+//                new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        try {
+//                            String type = "image/*";
+//                            String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+//                            createInstagramIntent(AfterTurnComplete.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
+//
+//                        } catch (Exception e) {
+//                            // TODO: handle exception
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                })
+//        );
+//
+//        recyclerAdapter = new RecyclerShareAdapter(this, getData());
+//        recyclerView.setAdapter(recyclerAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public static List<RecyclerShareModel> getData() {
@@ -212,6 +233,89 @@ public class AfterTurnComplete extends ActionBarActivity {
         data.add(current);
 
         return data;
+    }
+
+    private void initShareIntent(String type) {
+        boolean found = false;
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
+        if (!resInfo.isEmpty()) {
+            for (ResolveInfo info : resInfo) {
+                Log.d("package name", info.activityInfo.packageName.toLowerCase());
+                if (info.activityInfo.packageName.toLowerCase().contains(type) ||
+                        info.activityInfo.name.toLowerCase().contains(type)) {
+                    share.putExtra(Intent.EXTRA_SUBJECT, "subject");
+                    share.putExtra(Intent.EXTRA_TEXT, "your text");
+                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/game_icon1.png"))); // Optional, just if you wanna share an image.
+                    share.setPackage(info.activityInfo.packageName);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                return;
+
+            startActivity(Intent.createChooser(share, "Select"));
+        }
+    }
+
+    public void onShareClick() {
+        Resources resources = getResources();
+
+        Intent emailIntent = new Intent();
+        emailIntent.setAction(Intent.ACTION_SEND);
+        // Native email client doesn't currently support HTML, but it doesn't hurt to try in case they fix it
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(resources.getString(R.string.share_email_native)));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_email_subject));
+        emailIntent.setType("message/rfc822");
+
+        PackageManager pm = getPackageManager();
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+
+
+        Intent openInChooser = Intent.createChooser(emailIntent, resources.getString(R.string.share_chooser_text));
+
+        List<ResolveInfo> resInfo = pm.queryIntentActivities(sendIntent, 0);
+        List<LabeledIntent> intentList = new ArrayList<LabeledIntent>();
+        for (int i = 0; i < resInfo.size(); i++) {
+            // Extract the label, append it, and repackage it in a LabeledIntent
+            ResolveInfo ri = resInfo.get(i);
+            String packageName = ri.activityInfo.packageName;
+            if (packageName.contains("android.email")) {
+                emailIntent.setPackage(packageName);
+            } else if (packageName.contains("twitter") || packageName.contains("facebook") || packageName.contains("mms") || packageName.contains("android.gm")) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                if (packageName.contains("twitter")) {
+                    intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.share_twitter));
+                } else if (packageName.contains("facebook")) {
+                    // Warning: Facebook IGNORES our text. They say "These fields are intended for users to express themselves. Pre-filling these fields erodes the authenticity of the user voice."
+                    // One workaround is to use the Facebook SDK to post, but that doesn't allow the user to choose how they want to share. We can also make a custom landing page, and the link
+                    // will show the <meta content ="..."> text from that page with our link in Facebook.
+                    intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.share_facebook));
+                } else if (packageName.contains("mms")) {
+                    intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.share_sms));
+                } else if (packageName.contains("android.gm")) { // If Gmail shows up twice, try removing this else-if clause and the reference to "android.gm" above
+                    intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(resources.getString(R.string.share_email_gmail)));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_email_subject));
+                    intent.setType("message/rfc822");
+                }
+
+                intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
+            }
+        }
+
+        // convert intentList to array
+        LabeledIntent[] extraIntents = intentList.toArray(new LabeledIntent[intentList.size()]);
+
+        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
+        startActivity(openInChooser);
     }
 
     //This controls all the sharing platform intents

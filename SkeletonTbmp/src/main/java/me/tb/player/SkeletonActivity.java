@@ -362,12 +362,12 @@ public class SkeletonActivity extends ActionBarActivity
                 returnButtonsToUnclickedState();
                 clearTextFromEditTextFragment();
                 return true;
-            case R.id.shuffle:
-                messageAtShuffle("Are you sure you want to shuffle the tiles?\n\nThis action will end your turn.");
-                return true;
-            case R.id.pass:
-                messageAtPass("Are you sure you want to pass?\n\nThis action will end your turn.");
-                return true;
+//            case R.id.shuffle:
+//                messageAtShuffle("Are you sure you want to shuffle the tiles?\n\nThis action will end your turn.");
+//                return true;
+//            case R.id.pass:
+//                messageAtPass("Are you sure you want to pass?\n\nThis action will end your turn.");
+//                return true;
             case R.id.exit:
                 exitGameQuestion("Are you sure you want to exit?");
                 return true;
@@ -384,8 +384,8 @@ public class SkeletonActivity extends ActionBarActivity
         super.onPrepareOptionsMenu(menu);
 
 //        MenuItem tile_item = menu.findItem(R.id.tile_count);
-        MenuItem shuffle = menu.findItem(R.id.shuffle);
-        MenuItem pass = menu.findItem(R.id.pass);
+//        MenuItem shuffle = menu.findItem(R.id.shuffle);
+//        MenuItem pass = menu.findItem(R.id.pass);
         MenuItem exit = menu.findItem(R.id.exit);
 //        MenuItem enter = menu.findItem(R.id.enter);
         MenuItem clear = menu.findItem(R.id.clear);
@@ -397,15 +397,15 @@ public class SkeletonActivity extends ActionBarActivity
 //        }
         if (!myTurn) {
 //            tile_item.setVisible(true);
-            shuffle.setVisible(false);
-            pass.setVisible(false);
+//            shuffle.setVisible(false);
+//            pass.setVisible(false);
             exit.setVisible(false);
 //            enter.setVisible(false);
             clear.setVisible(false);
         } else {
 //            tile_item.setVisible(true);
-            shuffle.setVisible(true);
-            pass.setVisible(true);
+//            shuffle.setVisible(true);
+//            pass.setVisible(true);
             exit.setVisible(true);
 //            enter.setVisible(true);
             clear.setVisible(true);

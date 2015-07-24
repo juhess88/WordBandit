@@ -15,18 +15,18 @@
         />
 
 
-    <item
-        android:id="@+id/shuffle"
-        android:orderInCategory="300"
-        android:title="Shuffle"
-        android:icon="@drawable/shuffle"
-        />
+    <!--<item-->
+        <!--android:id="@+id/shuffle"-->
+        <!--android:orderInCategory="300"-->
+        <!--android:title="Shuffle"-->
+        <!--android:icon="@drawable/shuffle"-->
+        <!--/>-->
 
-    <item
-        android:id="@+id/pass"
-        android:orderInCategory="400"
-        android:title="Pass"
-        />
+    <!--<item-->
+        <!--android:id="@+id/pass"-->
+        <!--android:orderInCategory="400"-->
+        <!--android:title="Pass"-->
+        <!--/>-->
 
     <!--<item-->
         <!--android:id="@+id/tile_count"-->

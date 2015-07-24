@@ -46,7 +46,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginTop="40dp"
             android:orientation="horizontal">
 
@@ -125,26 +125,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="45dp"
-            android:text="Word Bandit is a multiplayer word game."
+            android:layout_marginTop="30dp"
+            android:text="Click the 'New Game' button and:"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Compete against friends and nearby players."
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="We automatically generate friends that are in your Google+ circles. So add friends to your circles to be able to play against them."
+            android:text="1. Play against friends in your Google+ circles.\n2. Use the search icon to search for any player.\n3. Turn on 'Nearby Players' to play someone nearby."
             android:textStyle="bold"
             android:layout_marginTop="5dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"/>
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"/>
     </LinearLayout>
 
     <RelativeLayout

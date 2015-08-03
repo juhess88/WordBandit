@@ -190,8 +190,8 @@ public class AfterTurnComplete extends ActionBarActivity {
                             String type = "image/*";
                             String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
 //                            createInstagramIntent(AfterTurnComplete.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
-//                            onShareClick();
-                            initShareIntent("facebook.katana");
+                            onShareClick();
+//                            initShareIntent("facebook.katana");
                         } catch (Exception e) {
                             // TODO: handle exception
                             e.printStackTrace();

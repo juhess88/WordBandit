@@ -18,6 +18,7 @@ package me.tb.player;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.LabeledIntent;
@@ -811,8 +812,8 @@ public class SkeletonActivity extends ActionBarActivity
                         String type = "image/*";
                         String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
 //                        AfterTurnComplete.createInstagramIntent(SkeletonActivity.this, type, mediaPath, SkeletonActivity.shareMessageCombo);
-//                        onShareClick();
-                        initShareIntent("facebook.katana");
+                        onShareClick();
+//                        initShareIntent("facebook.katana");
                     } catch (Exception e) {
                         // TODO: handle exception
                         e.printStackTrace();
@@ -891,14 +892,25 @@ public class SkeletonActivity extends ActionBarActivity
 
     public void onShareClick() {
         Resources resources = getResources();
+        String type = "image/*";
+        String mediaPath = Environment.getExternalStorageDirectory() + "/game_icon1.png";
+
+        // Create the URI from the media
+        File media = new File(mediaPath);
+        Uri uri = Uri.fromFile(media);
 
         Intent emailIntent = new Intent();
         emailIntent.setAction(Intent.ACTION_SEND);
+        // Native email client doesn't currently support HTML, but it doesn't hurt to try in case they fix it
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Download in Google Play Store\nhttps://play.google.com/store/apps/details?id=me.tb.player");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Play Word Bandit - Multiplayer");
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        emailIntent.setType(type);
 
         PackageManager pm = getPackageManager();
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.setType("text/plain");
-
+        sendIntent.setType(type);
 
         Intent openInChooser = Intent.createChooser(emailIntent, resources.getString(R.string.share_chooser_text));
 
@@ -908,13 +920,19 @@ public class SkeletonActivity extends ActionBarActivity
             // Extract the label, append it, and repackage it in a LabeledIntent
             ResolveInfo ri = resInfo.get(i);
             String packageName = ri.activityInfo.packageName;
-            if (packageName.contains("twitter") || packageName.contains("facebook")) {
+            if (packageName.contains("com.google.android.gm")) {
+                emailIntent.setPackage(packageName);
+            } else if (packageName.contains("twitter") || packageName.contains("facebook.katana") || packageName.contains("com.instagram.android")) {
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
                 intent.setAction(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                if (packageName.contains("twitter")) {
-                    intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.share_twitter));
+                intent.setType(type);
+                // Add the URI and the caption to the Intent.
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                if (packageName.contains("twitter") || packageName.contains("instagram")) {
+                    intent.putExtra(Intent.EXTRA_TEXT, shareMessageCombo+"\nDownload now https://play.google.com/store/apps/details?id=me.tb.player");
                 }
                 intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
             }
@@ -925,6 +943,29 @@ public class SkeletonActivity extends ActionBarActivity
 
         openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
         startActivity(openInChooser);
+    }
+
+    //This controls all the sharing platform intents
+    public static void createInstagramIntent(Context context, String type, String mediaPath, String caption) {
+
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent(Intent.ACTION_SEND);
+
+        // Set the MIME type
+        share.setType(type);
+
+        // Create the URI from the media
+        File media = new File(mediaPath);
+        Uri uri = Uri.fromFile(media);
+
+        // Add the URI and the caption to the Intent.
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.putExtra(Intent.EXTRA_TEXT, caption);
+        share.putExtra(Intent.EXTRA_SUBJECT, "Check this out");
+        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        // Broadcast the Intent.
+        context.startActivity(Intent.createChooser(share, "Share to"));
     }
 
     public void messageAtEndOfGame(String title, String message) {
@@ -961,77 +1002,84 @@ public class SkeletonActivity extends ActionBarActivity
 
     @Override
     public void messageAtShuffle(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        if (myTurn) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        // set title
-        alertDialogBuilder.setMessage(message);
+            // set title
+            alertDialogBuilder.setMessage(message);
 
-        // set dialog message
-        alertDialogBuilder.setCancelable(false).setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        bl.shuffle();
-                        isViewingBoardAfterTurn = true;
-                        returnButtonsToUnclickedState();
-                        clearTextFromEditTextFragment();
-                        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
-                            shareMessageCombo = mTurnData.playername1 + " decided to shuffle";
-                        } else {
-                            shareMessageCombo = mTurnData.playername2 + " decided to shuffle";
+            // set dialog message
+            alertDialogBuilder.setCancelable(false).setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            bl.shuffle();
+                            isViewingBoardAfterTurn = true;
+                            returnButtonsToUnclickedState();
+                            clearTextFromEditTextFragment();
+                            if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
+                                shareMessageCombo = mTurnData.playername1 + " decided to shuffle";
+                            } else {
+                                shareMessageCombo = mTurnData.playername2 + " decided to shuffle";
+                            }
+                            turnComplete();
                         }
-                        turnComplete();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                returnButtonsToUnclickedState();
-                clearTextFromEditTextFragment();
-            }
-        });
-        // create alert dialog
-        mAlertDialog = alertDialogBuilder.create();
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    returnButtonsToUnclickedState();
+                    clearTextFromEditTextFragment();
+                }
+            });
+            // create alert dialog
+            mAlertDialog = alertDialogBuilder.create();
 
-        // show it
-        mAlertDialog.show();
+            // show it
+            mAlertDialog.show();
+        }
+
     }
 
     @Override
     public void messageAtPass(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        if (myTurn) {
 
-        // set title
-        alertDialogBuilder.setMessage(message);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        // set dialog message
-        alertDialogBuilder.setCancelable(false).setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        isViewingBoardAfterTurn = true;
-                        returnButtonsToUnclickedState();
-                        clearTextFromEditTextFragment();
-                        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
-                            shareMessageCombo = mTurnData.playername1 + " decided to pass";
-                        } else {
-                            shareMessageCombo = mTurnData.playername2 + " decided to pass";
+            // set title
+            alertDialogBuilder.setMessage(message);
+
+            // set dialog message
+            alertDialogBuilder.setCancelable(false).setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            isViewingBoardAfterTurn = true;
+                            returnButtonsToUnclickedState();
+                            clearTextFromEditTextFragment();
+                            if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
+                                shareMessageCombo = mTurnData.playername1 + " decided to pass";
+                            } else {
+                                shareMessageCombo = mTurnData.playername2 + " decided to pass";
+                            }
+                            turnComplete();
                         }
-                        turnComplete();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                returnButtonsToUnclickedState();
-                clearTextFromEditTextFragment();
-            }
-        });
-        // create alert dialog
-        mAlertDialog = alertDialogBuilder.create();
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    returnButtonsToUnclickedState();
+                    clearTextFromEditTextFragment();
+                }
+            });
+            // create alert dialog
+            mAlertDialog = alertDialogBuilder.create();
 
-        // show it
-        mAlertDialog.show();
+            // show it
+            mAlertDialog.show();
+
+        }
     }
 
     public void messageAtEndOfTurn(String message) {

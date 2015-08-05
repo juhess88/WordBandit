@@ -94,14 +94,22 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/button_menu"
             android:text="@string/check_games" />
-
+        <Button
+            android:id="@+id/findButton"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_menu"
+            android:text="How To Find Players\n(3 simple ways)" />
         <Button
             android:id="@+id/rulesButton"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/button_menu"
-            android:text="How To Play" />
+            android:text="Rules" />
+
+
 
         <Button
             android:id="@+id/quickMatchButon"
@@ -126,18 +134,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:text="Click the 'New Game' button and:"
+            android:text="Word Bandit is a multiplayer word game"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="1. Play against friends in your Google+ circles.\n2. Use the search icon to search for any player.\n3. Turn on 'Nearby Players' to play someone nearby."
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="Follow us on Facebook and Twitter at Word Bandit"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:paddingRight="15dp"/>-->
     </LinearLayout>
 
     <RelativeLayout

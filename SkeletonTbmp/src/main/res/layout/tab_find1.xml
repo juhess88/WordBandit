@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp">
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go into New Game: \nTap the search icon in the black toolbar.
+\nSearch for your friend.\nTap on your friend's profile and select play.
+\nTip: Adding a profile picture to your Google account will make it easier for friends to find you."
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_below="@+id/t2">
+
+        <ImageView
+            android:id="@+id/im1"
+            android:layout_width="100dp"
+            android:layout_height="180dp"
+            android:src="@drawable/rsz_findplayer0"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+        <ImageView
+            android:id="@+id/im2"
+            android:layout_width="100dp"
+            android:layout_height="180dp"
+            android:src="@drawable/rsz_findplayer1"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+        <ImageView
+            android:id="@+id/im3"
+            android:layout_width="100dp"
+            android:layout_height="180dp"
+            android:src="@drawable/rsz_findplayer2"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

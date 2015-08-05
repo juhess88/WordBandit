@@ -8,26 +8,16 @@
     android:layout_gravity="center"
     android:layout_marginBottom="50dp">
 
-    <!--<TextView-->
-        <!--android:id="@+id/t1"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Word Thieves is a unique multiplayer word game.-->
-<!--Make words from tiles on the screen-->
-<!--and take words from your opponent too.-->
-<!--The player with the most points at the end of the game wins!"-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:padding="10dp"/>-->
-
-
     <TextView
         android:id="@+id/t2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start a new game: \nClick the New Game button on the main menu screen.
-\n1. A list of your Google+ friends will appear for you to play against.
-\n2. Press the Nearby players button to play active players in your area.
-\nNote: Your opponent must also have Nearby players turned on from his device.
+        android:text="Start a new game by:
+\n1. Using the search icon to find and play any player.
+\n2. Playing against any friend in your Google+ circles.
+\n3. Playing nearby players
+\n(More details can be found in the How To Find Players button)
+
 \nClick Saved Games to view and enter all games in progress."
         android:layout_marginTop="10dp"
         android:padding="10dp"/>
@@ -43,7 +33,7 @@
         android:id="@+id/im1"
         android:layout_width="100dp"
         android:layout_height="180dp"
-        android:src="@drawable/menu_screen"
+        android:src="@drawable/rsz_findplayer0"
         android:layout_marginTop="10dp"
         android:padding="10dp"/>
 
@@ -51,7 +41,7 @@
         android:id="@+id/im2"
         android:layout_width="100dp"
         android:layout_height="180dp"
-        android:src="@drawable/nearby_players"
+        android:src="@drawable/rsz_findplayer1"
         android:layout_marginTop="10dp"
         android:padding="10dp"/>
 
@@ -63,17 +53,6 @@
         android:layout_marginTop="10dp"
         android:padding="10dp"/>
     </LinearLayout>
-    <!--<TextView-->
-        <!--android:id="@+id/t3"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="This is the first beta release-->
-<!-- - available exclusively to Android users. Let us know what you think.-->
-<!--Ask us questions and provide feedback on our facebook and twitter pages. "-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:layout_below="@+id/t2"-->
-        <!--android:padding="10dp"/>-->
-
 
 </RelativeLayout>
     </ScrollView>

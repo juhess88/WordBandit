@@ -84,6 +84,7 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
         findViewById(R.id.startMatchButton).setOnClickListener(this);
         findViewById(R.id.checkGamesButton).setOnClickListener(this);
         findViewById(R.id.rulesButton).setOnClickListener(this);
+        findViewById(R.id.findButton).setOnClickListener(this);
 
         img = (ImageView) findViewById(R.id.gImage);
 
@@ -163,6 +164,10 @@ public class SignInActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.rulesButton:
                 Intent intent3 = new Intent(SignInActivity.this, HowToPlayActivity.class);
                 startActivity(intent3);
+                break;
+            case R.id.findButton:
+                Intent intent4 = new Intent(SignInActivity.this, HowToFindPlayersActivity.class);
+                startActivity(intent4);
         }
     }
 

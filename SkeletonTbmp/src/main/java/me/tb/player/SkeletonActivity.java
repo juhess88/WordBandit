@@ -1363,6 +1363,7 @@ public class SkeletonActivity extends ActionBarActivity
         mTurnData = new SkeletonTurn();
 
         findViewById(R.id.gameplay_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_options).setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         isViewingBoardAfterTurn = false;
 
@@ -1530,6 +1531,7 @@ public class SkeletonActivity extends ActionBarActivity
     public void updateMatch(TurnBasedMatch match) {
 
         findViewById(R.id.gameplay_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_options).setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         isViewingBoardAfterTurn = false;
 

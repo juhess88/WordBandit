@@ -60,6 +60,12 @@
         </activity>
 
         <activity
+            android:name=".DBTestActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".SplashScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">

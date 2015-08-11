@@ -7,10 +7,58 @@
         layout="@layout/app_bar" />
 
     <LinearLayout
+        android:id="@+id/toolbar_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/primaryColor"
+        android:layout_below="@+id/app_bar"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/toolbar_tiles"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_toolbar"
+            android:text="Tiles: 100"
+            android:textColor="@color/white"
+            android:paddingLeft="5dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/toolbar_pass"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_toolbar"
+            android:text="Pass"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/toolbar_shuffle"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_toolbar"
+            android:text="Shuffle"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/toolbar_enter"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_toolbar"
+            android:text="Enter"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/gameplay_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_bar"
+        android:layout_below="@id/toolbar_options"
         android:orientation="vertical"
         android:visibility="gone">
 

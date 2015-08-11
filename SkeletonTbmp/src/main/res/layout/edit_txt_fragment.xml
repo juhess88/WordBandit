@@ -19,43 +19,5 @@
         android:textColorHint="#ffffff"
         android:textSize="20sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/primaryColor">
 
-        <Button
-            android:id="@+id/toolbar_tiles"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_toolbar"
-            android:text="Tiles: 100"
-            android:textColor="@color/white"/>
-
-        <Button
-            android:id="@+id/toolbar_pass"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_toolbar"
-            android:text="Pass"
-            android:textColor="@color/white"/>
-
-        <Button
-            android:id="@+id/toolbar_shuffle"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_toolbar"
-            android:text="Shuffle"
-            android:textColor="@color/white"/>
-
-        <Button
-            android:id="@+id/toolbar_enter"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_toolbar"
-            android:text="Enter"
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
 </LinearLayout>

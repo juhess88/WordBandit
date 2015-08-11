@@ -40,7 +40,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -167,6 +166,8 @@ public class SkeletonActivity extends ActionBarActivity
 //    private RecyclerShareAdapter recyclerAdapter;
     private Button buttonMessage;
 
+    Button tb_tiles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,6 +192,24 @@ public class SkeletonActivity extends ActionBarActivity
         rules = new RulesForStealingWords();
 
         gestureScanner = new GestureDetector(this, new MyGestureListener());
+
+        tb_tiles = (Button) findViewById(R.id.toolbar_tiles);
+
+        Button tb_pass = (Button) findViewById(R.id.toolbar_pass);
+        tb_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                messageAtPass("Are you sure you want to pass?\n\nThis action will end your turn.");
+            }
+        });
+
+        Button tb_shuffle = (Button) findViewById(R.id.toolbar_shuffle);
+        tb_shuffle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                messageAtShuffle("Are you sure you want to shuffle the tiles?\n\nThis action will end your turn.");
+            }
+        });
     }
 
 //    public static List<RecyclerShareModel> getData() {
@@ -203,6 +222,10 @@ public class SkeletonActivity extends ActionBarActivity
 //        data.add(current);
 //        return data;
 //    }
+
+    public void setTextTiles(String data) {
+        tb_tiles.setText(data);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -681,7 +704,7 @@ public class SkeletonActivity extends ActionBarActivity
         }
 
         if (mTurnData.list_of_lettersST != null && mTurnData.turnCounter > 1) {
-            et.setTextTiles("Tiles: " + mTurnData.list_of_lettersST.size());
+            setTextTiles("Tiles: " + mTurnData.list_of_lettersST.size());
         }
 
         //if the first player went delete the list of words and letter and load them with our saved data...
@@ -932,7 +955,7 @@ public class SkeletonActivity extends ActionBarActivity
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 if (packageName.contains("twitter") || packageName.contains("instagram")) {
-                    intent.putExtra(Intent.EXTRA_TEXT, shareMessageCombo+"\nDownload now https://play.google.com/store/apps/details?id=me.tb.player");
+                    intent.putExtra(Intent.EXTRA_TEXT, shareMessageCombo + "\nDownload now https://play.google.com/store/apps/details?id=me.tb.player");
                 }
                 intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
             }

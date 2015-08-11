@@ -28,8 +28,6 @@ public class EditTextFragment extends Fragment {
     private EditText editText;
     private String[] words;
 
-    Button tb_tiles;
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,24 +45,6 @@ public class EditTextFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 comm5.fling(false);
-            }
-        });
-
-        tb_tiles = (Button) getActivity().findViewById(R.id.toolbar_tiles);
-
-        Button tb_pass = (Button) getActivity().findViewById(R.id.toolbar_pass);
-        tb_pass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                comm5.messageAtPass("Are you sure you want to pass?\n\nThis action will end your turn.");
-            }
-        });
-
-        Button tb_shuffle = (Button) getActivity().findViewById(R.id.toolbar_shuffle);
-        tb_shuffle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                comm5.messageAtShuffle("Are you sure you want to shuffle the tiles?\n\nThis action will end your turn.");
             }
         });
 
@@ -123,10 +103,6 @@ public class EditTextFragment extends Fragment {
             }
         });
 
-    }
-
-    public void setTextTiles(String data){
-        tb_tiles.setText(data);
     }
 
     public void changeEditText(String data) {

@@ -168,6 +168,8 @@ public class SkeletonActivity extends ActionBarActivity
 
     Button tb_tiles;
 
+    DBAdapter dbAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +184,8 @@ public class SkeletonActivity extends ActionBarActivity
                 .build();
 
         initFragments();
+
+        dbAdapter = new DBAdapter(this);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -1117,6 +1121,12 @@ public class SkeletonActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         isViewingBoardAfterTurn = true;
+                        long flag = dbAdapter.insertData(mTurnData.playername1, wordUserCreatedFromEditTextFragment());
+                        if (flag < 0) {
+                            Toast.makeText(getApplicationContext(), "Database failure - there was a problem", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Information in database", Toast.LENGTH_SHORT).show();
+                        }
                         wordAddedToListViewOfCurrentPlayer(wordUserCreatedFromEditTextFragment());
                         removeButtonTextIfClickedAndIsWord();
                         fillEmptyTilesWithNewLetters();
@@ -1154,6 +1164,12 @@ public class SkeletonActivity extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id) {
                         isViewingBoardAfterTurn = true;
 
+                        long flag = dbAdapter.insertData(mTurnData.playername1, wordUserCreatedFromEditTextFragment());
+                        if (flag < 0) {
+                            Toast.makeText(getApplicationContext(), "Database failure - there was a problem", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Successfully inserted in database", Toast.LENGTH_SHORT).show();
+                        }
                         //updates the listview and adds the word to the corresponding player
                         wordAddedToListViewOfCurrentPlayer(wordUserCreatedFromEditTextFragment());
                         //checks which list view clicked

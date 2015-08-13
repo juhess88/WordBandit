@@ -9,14 +9,14 @@ import android.support.v7.app.ActionBarActivity;
  */
 public class DBTestActivity extends ActionBarActivity {
 
-    DBHelper dbHelper;
+    DBAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        dbHelper = new DBHelper(this);
-        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbAdapter = new DBAdapter(this);
+//        SQLiteDatabase sqLiteDatabase = dbAdapter.getWritableDatabase();
     }
 }

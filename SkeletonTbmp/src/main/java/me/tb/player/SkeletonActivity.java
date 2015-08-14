@@ -1121,7 +1121,12 @@ public class SkeletonActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         isViewingBoardAfterTurn = true;
-                        long flag = dbAdapter.insertData(mTurnData.playername1, wordUserCreatedFromEditTextFragment());
+                        long flag = 0;
+                        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
+                            flag = dbAdapter.insertData(mTurnData.playername1, wordUserCreatedFromEditTextFragment());
+                        } else {
+                            flag = dbAdapter.insertData(mTurnData.playername2, wordUserCreatedFromEditTextFragment());
+                        }
                         if (flag < 0) {
                             Toast.makeText(getApplicationContext(), "Database failure - there was a problem", Toast.LENGTH_SHORT).show();
                         } else {
@@ -1163,9 +1168,12 @@ public class SkeletonActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         isViewingBoardAfterTurn = true;
-
-                        long flag = dbAdapter.insertData(mTurnData.playername1, wordUserCreatedFromEditTextFragment());
-                        if (flag < 0) {
+                        long flag = 0;
+                        if (mTurnData.myParticipantIdST != null && mTurnData.myParticipantIdST.equals("p_1")) {
+                            flag = dbAdapter.insertData(mTurnData.playername1, wordUserCreatedFromEditTextFragment());
+                        } else {
+                            flag = dbAdapter.insertData(mTurnData.playername2, wordUserCreatedFromEditTextFragment());
+                        }                        if (flag < 0) {
                             Toast.makeText(getApplicationContext(), "Database failure - there was a problem", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Successfully inserted in database", Toast.LENGTH_SHORT).show();

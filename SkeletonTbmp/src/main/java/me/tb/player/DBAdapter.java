@@ -2,6 +2,7 @@ package me.tb.player;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,6 +24,21 @@ public class DBAdapter {
         contentValues.put(dbHelper.WORD, word);
         long id = sqLiteDatabase.insert(dbHelper.TABLE_NAME, null, contentValues);
         return id;
+    }
+
+    public String getAllData(){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+        String[] columns = {DBHelper.UID, DBHelper.NAME, DBHelper.WORD};
+        Cursor cursor = sqLiteDatabase.query(DBHelper.TABLE_NAME, columns, null, null, null, null, null);
+        StringBuffer buffer = new StringBuffer();
+        while(cursor.moveToNext()){
+            int index1 = cursor.getColumnIndex(DBHelper.UID);
+            int cid = cursor.getInt(index1);
+            String name = cursor.getString(1);
+            String word = cursor.getString(2);
+            buffer.append(cid + " " + name +" " + word+"\n");
+        }
+        return buffer.toString();
     }
 
     static class DBHelper extends SQLiteOpenHelper {

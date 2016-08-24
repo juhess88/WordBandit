@@ -11,6 +11,11 @@ import android.view.View;
 
 
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+    }
+
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {

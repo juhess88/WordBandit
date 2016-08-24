@@ -2,3 +2,7 @@
 .idea/
 *.iml
 local.properties
+
+build/intermediates/dex-cache/cache.xml
+
+build/intermediates/dex-cache/cache.xml

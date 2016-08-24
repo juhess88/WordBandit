@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    enforceUniquePackageName=false
-
-    compileSdkVersion 22
-    buildToolsVersion '22'
-
+    enforceUniquePackageName = false
+    compileSdkVersion 24
+    buildToolsVersion '24.0.1'
     defaultConfig {
+        applicationId "me.tb.player"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 24
         versionCode 10
         versionName "1.9"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,16 +18,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    productFlavors {
+    }
+
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
 }
 
 dependencies {
     compile project(':libraries:BaseGameUtils')
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.google.android.gms:play-services:+'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.google.android.gms:play-services:9.4.0'
     compile 'com.google.code.gson:gson:2.3'
-    compile 'com.android.support:cardview-v7:21.0.+'
-    compile 'com.android.support:recyclerview-v7:22.0.+'
+    compile 'com.android.support:cardview-v7:24.0.+'
+    compile 'com.android.support:recyclerview-v7:24.0.+'
     compile 'com.jakewharton:butterknife:6.1.0'
 }
 

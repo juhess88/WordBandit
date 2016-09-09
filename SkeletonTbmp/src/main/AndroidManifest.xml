@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.tb.player">
+    package="me.jhessstudios.wordbandit">
 
 
     <uses-permission
@@ -25,48 +25,48 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="me.tb.player.SkeletonActivity"
+            android:name="me.jhessstudios.wordbandit.SkeletonActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".CheckLastTurnStatus"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
-            android:name=".AfterTurnComplete"
+            android:name="me.jhessstudios.wordbandit.CheckLastTurnStatus"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name=".SignInActivity"
+            android:name="me.jhessstudios.wordbandit.AfterTurnComplete"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name=".HowToPlayActivity"
+            android:name="me.jhessstudios.wordbandit.SignInActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name=".HowToFindPlayersActivity"
+            android:name="me.jhessstudios.wordbandit.HowToPlayActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name=".DBTestActivity"
+            android:name="me.jhessstudios.wordbandit.HowToFindPlayersActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name=".SplashScreenActivity"
+            android:name="me.jhessstudios.wordbandit.DBTestActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name="me.jhessstudios.wordbandit.SplashScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

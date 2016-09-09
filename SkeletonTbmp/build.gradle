@@ -5,7 +5,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion '24.0.1'
     defaultConfig {
-        applicationId "me.tb.player"
+        applicationId "me.jhessstudios.wordbandit"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 10
